@@ -1,1256 +1,1592 @@
 <!DOCTYPE html>
-<html lang="vi" class="dark">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ôn Thi Giữa Kì 2 Tiếng Anh 12 - Global Success</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Ôn Tập Tiếng Anh 12 - Global Success Giữa Kỳ 2</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        darkBg: '#090d16',
-                        cardBg: '#111827',
-                        cardBorder: '#1f293d',
-                        neonPurple: '#8b5cf6',
-                        neonCyan: '#06b6d4',
-                        neonPink: '#ec4899',
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            background-color: #0b0f19;
+            color: #e2e8f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
         .glass-panel {
-            background: rgba(17, 24, 39, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .glow-effect {
-            box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.25);
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.25s ease;
         }
-        .glow-cyan {
-            box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+        .glass-card:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
         }
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #0f172a;
+            background: rgba(15, 23, 42, 0.6);
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
             background: #334155;
             border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #8b5cf6;
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-        }
-        .accordion-content.active {
-            max-height: 1000px;
-            transition: max-height 0.5s ease-in, padding 0.3s ease-in;
+            background: #475569;
         }
     </style>
 </head>
-<body class="bg-darkBg text-slate-100 min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
+<body class="min-h-screen flex flex-col custom-scrollbar">
 
-    <!-- Background Ambient Glows -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div class="absolute -top-40 -left-40 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl"></div>
-        <div class="absolute top-1/3 -right-40 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl"></div>
-        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl"></div>
-    </div>
-
-    <!-- Header Navigation -->
-    <header class="relative z-10 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col lg:flex-row justify-between items-center gap-3">
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-cyan-500 flex items-center justify-center text-white font-bold text-xl glow-effect">
-                    <i class="fa-solid fa-graduation-cap"></i>
+                <div class="bg-gradient-to-tr from-blue-600 to-indigo-500 p-2.5 rounded-xl shadow-lg shadow-blue-500/20">
+                    <i class="fa-solid fa-graduation-cap text-white text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-base sm:text-lg bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">English 12 - Global Success</h1>
-                    <p class="text-xs text-purple-400 font-medium">Ôn Thi Giữa Kỳ 2 • Phrasal Verbs & Relative Clauses</p>
+                    <h1 class="font-bold text-lg text-white leading-tight">English 12 - Global Success</h1>
+                    <p class="text-xs text-blue-400 font-medium">Ôn Tập Giữa Học Kỳ 2 • Đầy Đủ & Chi Tiết</p>
                 </div>
             </div>
 
-            <!-- Tab Navigation Buttons -->
-            <div class="flex flex-wrap justify-center bg-slate-900/90 p-1.5 rounded-xl border border-slate-800 gap-1 text-xs sm:text-sm">
-                <button onclick="switchTab('quiz')" id="tab-btn-quiz" class="px-3.5 py-2 rounded-lg font-medium transition-all duration-300 bg-purple-600 text-white shadow-lg shadow-purple-600/30">
-                    <i class="fa-solid fa-pen-to-square mr-1.5"></i>📋 Đề Cương Ôn
+            <!-- Navigation Tabs -->
+            <nav class="flex items-center gap-1 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800 text-xs sm:text-sm font-medium">
+                <button onclick="switchTab('outline')" id="tab-btn-outline" class="tab-btn px-3 py-2 rounded-lg text-slate-300 hover:text-white transition flex items-center gap-2 active-tab">
+                    <i class="fa-solid fa-list-check text-blue-400"></i> Đề Cương
                 </button>
-                <button onclick="switchTab('distinguish')" id="tab-btn-distinguish" class="px-3.5 py-2 rounded-lg font-medium transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800/60">
-                    <i class="fa-solid fa-layer-group mr-1.5"></i>💡 Phân Biệt Cụm Từ
+                <button onclick="switchTab('extra')" id="tab-btn-extra" class="tab-btn px-3 py-2 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-2">
+                    <i class="fa-solid fa-circle-plus text-indigo-400"></i> Bài Tập Mở Rộng
                 </button>
-                <button onclick="switchTab('wrong')" id="tab-btn-wrong" class="px-3.5 py-2 rounded-lg font-medium transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800/60 relative">
-                    <i class="fa-solid fa-triangle-exclamation mr-1.5"></i>❌ Câu Sai <span id="wrong-badge" class="ml-1 px-1.5 py-0.2 bg-rose-500 text-white text-[10px] rounded-full hidden">0</span>
+                <button onclick="switchTab('distinguish')" id="tab-btn-distinguish" class="tab-btn px-3 py-2 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group text-emerald-400"></i> Phân Biệt & Matching
                 </button>
-            </div>
+                <button onclick="switchTab('review')" id="tab-btn-review" class="tab-btn px-3 py-2 rounded-lg text-slate-400 hover:text-white transition flex items-center gap-2 relative">
+                    <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Câu Sai 
+                    <span id="wrong-count-badge" class="hidden bg-rose-500 text-white text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
+                </button>
+            </nav>
         </div>
     </header>
 
-    <!-- Main Content Area -->
-    <main class="relative z-10 max-w-4xl mx-auto px-4 py-6 w-full flex-grow">
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-        <!-- SECTION 1: QUIZ -->
-        <div id="section-quiz" class="space-y-6">
-            
-            <!-- Filter & Shuffle Bar -->
-            <div class="glass-panel p-3.5 rounded-2xl flex flex-wrap justify-between items-center gap-3">
-                <div class="flex flex-wrap items-center gap-2">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Chế độ:</span>
-                    <select id="category-filter" onchange="changeCategoryFilter()" class="bg-slate-900 border border-slate-700 text-cyan-300 text-xs sm:text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-purple-500">
-                        <option value="ALL">⭐ Tất cả câu hỏi (Đề cương + Bổ sung)</option>
-                        <option value="MUC1">🎯 MỤC 1: Đề Cương Trên Lớp (24 Câu)</option>
-                        <option value="MUC2">📚 MỤC 2: Trắc Nghiệm Mở Rộng</option>
-                    </select>
-                    <button onclick="shuffleCurrentQuiz()" class="text-xs text-purple-300 bg-purple-900/40 hover:bg-purple-800/60 border border-purple-500/40 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-shuffle"></i> <span>Đảo Thứ Tự Câu</span>
-                    </button>
+        <!-- TAB 1: ĐỀ CƯƠNG TRÊN LỚP -->
+        <section id="tab-outline" class="tab-content space-y-6">
+            <div class="glass-panel p-6 rounded-2xl flex flex-wrap justify-between items-center gap-4">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-blue-400"></i> Bài Tập Đề Cương Lớp 12
+                    </h2>
+                    <p class="text-sm text-slate-400 mt-1">20 câu trắc nghiệm Phrasal Verbs + 4 câu ghép mệnh đề quan hệ với <code class="text-amber-300 font-mono bg-slate-800 px-1.5 py-0.5 rounded">, which</code></p>
                 </div>
-
-                <div class="flex items-center space-x-4">
-                    <div class="text-xs sm:text-sm text-slate-300">
-                        <span>Điểm: </span><strong id="score-val" class="text-amber-400 font-bold text-base">0</strong>
-                    </div>
-                    <button onclick="resetQuiz()" class="text-xs text-slate-400 hover:text-white bg-slate-800/80 hover:bg-slate-700 px-3 py-1.5 rounded-lg transition border border-slate-700">
-                        <i class="fa-solid fa-rotate-right mr-1"></i>Làm lại
+                <div class="flex items-center gap-3">
+                    <button onclick="shuffleOutlineQuestions()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl border border-slate-700 flex items-center gap-2 transition">
+                        <i class="fa-solid fa-shuffle text-blue-400"></i> Xáo Trộn Câu Hỏi
+                    </button>
+                    <button onclick="resetOutlineQuiz()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-blue-600/30 flex items-center gap-2 transition">
+                        <i class="fa-solid fa-rotate-right"></i> Làm Lai Từ Đầu
                     </button>
                 </div>
             </div>
 
-            <!-- Progress Bar & Question Counter -->
-            <div class="space-y-2">
-                <div class="flex justify-between items-center text-xs text-slate-400">
-                    <span id="current-category-badge" class="font-semibold text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded border border-purple-500/20">MỤC 1: Đề cương trên lớp</span>
-                    <span>Câu hỏi <strong id="current-q-num" class="text-white">1</strong> / <span id="total-q-num">24</span></span>
-                </div>
-                <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
-                    <div id="progress-bar" class="bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400 h-full w-0 transition-all duration-300"></div>
-                </div>
-            </div>
+            <div id="outline-quiz-container" class="space-y-6"></div>
+        </section>
 
-            <!-- Quiz Card Container -->
-            <div id="quiz-card" class="glass-panel p-5 sm:p-7 rounded-2xl relative transition-all duration-300 glow-effect">
-                <div id="question-container" class="space-y-5">
-                    <!-- Dynamic Question Inserted Here via JS -->
+        <!-- TAB 2: BÀI TẬP MỞ RỘNG -->
+        <section id="tab-extra" class="tab-content space-y-6 hidden">
+            <div class="glass-panel p-6 rounded-2xl flex flex-wrap justify-between items-center gap-4 border-l-4 border-l-indigo-500">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-indigo-400"></i> Bài Tập Trắc Nghiệm Mở Rộng
+                    </h2>
+                    <p class="text-sm text-slate-400 mt-1">20+ câu hỏi luyện tập chuyên sâu các cụm từ dễ nhầm & mệnh đề quan hệ cả câu</p>
                 </div>
-            </div>
-
-            <!-- Navigation Controls -->
-            <div class="flex justify-between items-center pt-1">
-                <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:bg-slate-800 transition disabled:opacity-40 disabled:cursor-not-allowed text-xs sm:text-sm">
-                    <i class="fa-solid fa-arrow-left mr-2"></i>Câu trước
-                </button>
-                <button id="next-btn" onclick="nextQuestion()" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-medium hover:opacity-90 transition shadow-lg shadow-purple-600/20 text-xs sm:text-sm">
-                    Câu tiếp theo <i class="fa-solid fa-arrow-right ml-2"></i>
+                <button onclick="resetExtraQuiz()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition">
+                    <i class="fa-solid fa-rotate-right"></i> Làm Lại Mở Rộng
                 </button>
             </div>
-        </div>
 
-        <!-- SECTION 2: ACCORDION PHRASAL VERBS & MATCHING GAME -->
-        <div id="section-distinguish" class="hidden space-y-6">
-            
-            <!-- MINIGAME MATCH THE WORD -->
-            <div class="glass-panel p-5 sm:p-6 rounded-2xl border border-cyan-500/30 glow-cyan">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800 pb-3 mb-4 gap-2">
+            <div id="extra-quiz-container" class="space-y-6"></div>
+        </section>
+
+        <!-- TAB 3: PHÂN BIỆT & MATCHING TÙY CHỌN -->
+        <section id="tab-distinguish" class="tab-content space-y-6 hidden">
+            <!-- Header Controls -->
+            <div class="glass-panel p-6 rounded-2xl">
+                <div class="flex flex-wrap justify-between items-center gap-4 mb-4">
                     <div>
-                        <h2 class="text-lg font-bold text-cyan-300 flex items-center">
-                            <i class="fa-solid fa-gamepad mr-2 text-cyan-400"></i>Minigame: Match The Word (Ghép Cụm Động Từ Với Nghĩa)
+                        <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-layer-group text-emerald-400"></i> Tra Cứu & Ghép Từ Theo Nhóm Tùy Chọn
                         </h2>
-                        <p class="text-xs text-slate-400">Chọn 1 cụm động từ bên trái và nối với nghĩa tiếng Việt tương ứng bên phải.</p>
+                        <p class="text-sm text-slate-400 mt-1">Tra cứu đầy đủ các nét nghĩa hoặc tích chọn nhiều nhóm để tạo bài luyện tập Matching riêng!</p>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs text-amber-400 font-bold bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">Điểm: <span id="game-score">0</span>/10</span>
-                        <button onclick="initMatchGame()" class="text-xs bg-cyan-600 hover:bg-cyan-500 text-white px-3 py-1.5 rounded-lg transition">
-                            <i class="fa-solid fa-arrows-rotate mr-1"></i>Trận mới
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button onclick="selectAllGroups(true)" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 rounded-lg border border-slate-700">Chọn Tất Cả</button>
+                        <button onclick="selectAllGroups(false)" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 rounded-lg border border-slate-700">Bỏ Chọn Tất Cả</button>
+                        <button onclick="startCustomMatching()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-emerald-600/30 flex items-center gap-2">
+                            <i class="fa-solid fa-gamepad"></i> Ôn Tập Các Nhóm Đã Chọn
                         </button>
                     </div>
                 </div>
 
-                <div id="matching-game-board" class="grid grid-cols-2 gap-3 sm:gap-4">
-                    <!-- Dynamic Cards JS -->
-                </div>
+                <!-- Group Selector Chips -->
+                <div id="group-chips-container" class="flex flex-wrap gap-2 pt-2 border-t border-slate-800"></div>
             </div>
 
-            <!-- 20+ ACCORDION GROUPS -->
-            <div class="glass-panel p-5 sm:p-6 rounded-2xl">
-                <div class="border-b border-slate-800 pb-3 mb-5">
-                    <h2 class="text-xl font-bold text-purple-300 flex items-center">
-                        <i class="fa-solid fa-list-check mr-2 text-purple-400"></i>Tra Cứu 20+ Nhóm Động Từ Dễ Nhầm Lẫn
-                    </h2>
-                    <p class="text-xs text-slate-400 mt-0.5">Nhấp vào từng nhóm động từ để mở rộng danh sách cụm từ chi tiết, phiên âm và ví dụ minh họa.</p>
+            <!-- Matching Minigame Modal / Area -->
+            <div id="matching-game-area" class="hidden glass-panel p-6 rounded-2xl border-2 border-emerald-500/50 bg-slate-900/90 relative">
+                <button onclick="closeMatchingGame()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 px-2.5 py-1 rounded-md border border-emerald-800/50">Minigame Matching</span>
+                    <h3 class="text-lg font-bold text-white mt-1" id="matching-title">Luyện Tập Ghép Từ</h3>
+                    <p class="text-xs text-slate-400">Chọn 1 thẻ Cụm Từ bên trái và 1 thẻ Nghĩa Tiếng Việt tương ứng bên phải để nối.</p>
                 </div>
 
-                <div id="accordion-container" class="space-y-3">
-                    <!-- Dynamic Accordions JS -->
+                <!-- Game Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
+                    <!-- Left: Verbs -->
+                    <div class="space-y-3" id="match-phrases-col"></div>
+                    <!-- Right: Meanings -->
+                    <div class="space-y-3" id="match-meanings-col"></div>
                 </div>
-            </div>
-        </div>
 
-        <!-- SECTION 3: REVIEW WRONG ANSWERS -->
-        <div id="section-wrong" class="hidden space-y-6">
-            <div class="glass-panel p-6 rounded-2xl glow-effect">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
-                    <div>
-                        <h2 class="text-xl font-bold text-rose-400 flex items-center">
-                            <i class="fa-solid fa-triangle-exclamation mr-2"></i>Danh Sách Câu Làm Sai
-                        </h2>
-                        <p class="text-xs text-slate-400 mt-1">Các câu hỏi bạn trả lời chưa chính xác trong lượt làm gần nhất sẽ tự động được ghi nhớ ở đây.</p>
-                    </div>
-                    <button id="retry-wrong-btn" onclick="retryWrongAnswers()" class="hidden px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs rounded-xl shadow-lg transition">
-                        <i class="fa-solid fa-rotate-right mr-1.5"></i>Làm Lại Riêng Các Câu Sai
+                <div class="flex justify-between items-center text-xs text-slate-400 pt-3 border-t border-slate-800">
+                    <div>Đã hoàn thành: <span id="match-score" class="text-emerald-400 font-bold text-sm">0</span> / <span id="match-total">0</span></div>
+                    <button onclick="startCustomMatching()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg">
+                        <i class="fa-solid fa-arrows-rotate mr-1"></i> Làm Lại Lượt Này
                     </button>
                 </div>
-
-                <div id="wrong-list-detailed" class="space-y-4">
-                    <!-- Filled by JS -->
-                </div>
-            </div>
-        </div>
-
-        <!-- RESULTS SCREEN -->
-        <div id="section-result" class="hidden glass-panel p-6 sm:p-8 rounded-2xl space-y-6 glow-cyan">
-            <div class="text-center space-y-3">
-                <div class="w-16 h-16 bg-gradient-to-tr from-amber-500 to-yellow-400 rounded-2xl mx-auto flex items-center justify-center text-white text-3xl shadow-xl shadow-yellow-500/20">
-                    <i class="fa-solid fa-trophy"></i>
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">Kết Quả Bài Kiểm Tra</h2>
-                <div class="inline-block bg-slate-900/90 border border-slate-800 px-6 py-3 rounded-2xl">
-                    <div class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Điểm số đạt được</div>
-                    <div class="text-3xl font-black mt-1 text-cyan-400"><span id="final-score">0</span> / <span id="final-total">24</span></div>
-                    <div id="result-remark" class="text-xs font-medium mt-1 text-purple-300">Hoàn thành bài ôn tập!</div>
-                </div>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-4 pt-4">
-                <button onclick="resetQuiz()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-semibold hover:opacity-90 transition shadow-lg text-sm">
-                    <i class="fa-solid fa-rotate-right mr-2"></i>Làm Lại Lần Nữa
-                </button>
-                <button onclick="switchTab('wrong')" class="px-6 py-3 rounded-xl bg-slate-900 border border-slate-800 text-rose-300 hover:text-white hover:bg-slate-800 transition text-sm">
-                    <i class="fa-solid fa-triangle-exclamation mr-2"></i>Xem Lại Câu Sai
+            <!-- Accordion List of Phrasal Verbs -->
+            <div id="phrasal-groups-accordion" class="space-y-4"></div>
+        </section>
+
+        <!-- TAB 4: DANH SÁCH CÂU SAI & LÀM LẠI -->
+        <section id="tab-review" class="tab-content space-y-6 hidden">
+            <div class="glass-panel p-6 rounded-2xl flex flex-wrap justify-between items-center gap-4 border-l-4 border-l-amber-500">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-400"></i> Danh Sách Câu Làm Chưa Đúng
+                    </h2>
+                    <p class="text-sm text-slate-400 mt-1">Nơi tổng hợp các câu bạn chọn sai để tiện ôn tập và rèn luyện lại cho đến khi thành thạo!</p>
+                </div>
+                <button onclick="clearWrongList()" class="px-3 py-1.5 bg-slate-800 hover:bg-rose-950 text-rose-300 hover:text-rose-200 text-xs font-semibold rounded-xl border border-slate-700 transition">
+                    <i class="fa-solid fa-trash-can mr-1"></i> Xóa Danh Sách Sai
                 </button>
             </div>
-        </div>
+
+            <div id="review-questions-container" class="space-y-6"></div>
+        </section>
 
     </main>
 
     <!-- Footer -->
-    <footer class="relative z-10 border-t border-slate-800/80 bg-slate-950/70 py-4 text-center text-xs text-slate-500">
-        <p>Ứng dụng ôn thi Tiếng Anh 12 (Global Success) • Phrasal Verbs & Relative Clauses 🎯</p>
+    <footer class="glass-panel mt-auto border-t border-slate-800 py-4 text-center text-xs text-slate-500">
+        <p>Hệ Thống Ôn Tập Tiếng Anh 12 Global Success • Thiết kế hỗ trợ học sinh học tập hiệu quả</p>
     </footer>
 
     <!-- JavaScript Application Logic -->
     <script>
-        // MASTER 20+ PHRASAL VERB ACCORDION DATA
-        const phrasalVerbGroups = [
-            {
-                name: "BREAK",
-                color: "emerald",
-                items: [
-                    { verb: "Break in", mean: "Đột nhập vào nhà / Cắt ngang cuộc trò chuyện", ex: "Someone tried to break in while we were sleeping." },
-                    { verb: "Break into", mean: "Đột nhập trái phép vào địa điểm cụ thể", ex: "Thieves broke into the bank last night." },
-                    { verb: "Break up", mean: "Chia tay mối quan hệ / Giải tán buổi học, lớp học", ex: "They broke up after three years of dating." },
-                    { verb: "Break off", mean: "Chấm dứt đột ngột một hợp đồng, đàm phán", ex: "The two countries broke off diplomatic relations." },
-                    { verb: "Break down", mean: "Hỏng hóc (xe cộ, máy móc) / Suy sụp tinh thần", ex: "My car broke down on the highway." },
-                    { verb: "Break away", mean: "Trốn thoát khỏi ai/cái gì, ly khai", ex: "The prisoner broke away from the guards." },
-                    { verb: "Break out", mean: "Bùng phát (dịch bệnh, chiến tranh, hỏa hoạn)", ex: "A violent fire broke out in the factory." }
-                ]
-            },
-            {
-                name: "BRING",
-                color: "cyan",
-                items: [
-                    { verb: "Bring about", mean: "Mang lại, gây ra (= result in, cause)", ex: "The new laws brought about major changes." },
-                    { verb: "Bring down", mean: "Hạ gục, hạ thấp giá cả / Hạ cánh", ex: "The scandal brought down the government." },
-                    { verb: "Bring out", mean: "Xuất bản, tung ra thị trường sản phẩm mới", ex: "The band is bringing out a new album." },
-                    { verb: "Bring up", mean: "Nuôi dưỡng (con cái) / Đề cập đến một chủ đề", ex: "She was brought up by her grandparents." },
-                    { verb: "Bring off", mean: "Thành công trong việc khó khăn, ẵm giải", ex: "He brought off a remarkable victory." },
-                    { verb: "Bring back", mean: "Gợi nhớ lại kỷ niệm / Mang trở lại", ex: "This song brings back happy memories." },
-                    { verb: "Bring in", mean: "Thu hút lợi nhuận / Ban hành luật mới", ex: "The company brought in record profits." }
-                ]
-            },
-            {
-                name: "LOOK",
-                color: "purple",
-                items: [
-                    { verb: "Look up", mean: "Tra cứu (từ điển, số điện thoại, thông tin)", ex: "Look up the new words in a dictionary." },
-                    { verb: "Look out", mean: "Coi chừng, cẩn thận (= watch out)", ex: "Look out! There is a car coming!" },
-                    { verb: "Look after", mean: "Chăm sóc, trông nom (= take care of)", ex: "Can you look after my cat while I am away?" },
-                    { verb: "Look for", mean: "Tìm kiếm (vật/người bị thất lạc)", ex: "I am looking for my misplaced keys." },
-                    { verb: "Look into", mean: "Điều tra, nghiên cứu kỹ lưỡng (= investigate)", ex: "The police are looking into the accident." },
-                    { verb: "Look through", mean: "Đọc lướt qua sách, tài liệu", ex: "She looked through the report before the meeting." },
-                    { verb: "Look down on", mean: "Coi thường, khinh miệt ai đó", ex: "You shouldn't look down on poor people." },
-                    { verb: "Look up to", mean: "Kính trọng, tôn trọng ai đó", ex: "He has always looked up to his eldest brother." },
-                    { verb: "Look back on", mean: "Hồi tưởng, nhớ lại quá khứ", ex: "When looking back on my youth, I smile." },
-                    { verb: "Look in on", mean: "Ghé thăm ngắn ai đó (đặc biệt là người ốm)", ex: "I'll look in on grandmother on my way home." }
-                ]
-            },
-            {
-                name: "TURN",
-                color: "pink",
-                items: [
-                    { verb: "Turn down", mean: "Từ chối lời mời, công việc / Vặn nhỏ âm lượng", ex: "He turned down the job offer due to low pay." },
-                    { verb: "Turn up", mean: "Xuất hiện, đến bất ngờ / Vặn to âm lượng", ex: "Guess who turned up at the party last night?" },
-                    { verb: "Turn on / Turn off", mean: "Bật / Tắt công tắc thiết bị điện", ex: "Please turn off the lights when you leave." },
-                    { verb: "Turn into", mean: "Biến thành, chuyển hóa thành cái gì", ex: "The caterpillar turned into a beautiful butterfly." },
-                    { verb: "Turn out", mean: "Hóa ra là, thành ra kết quả như thế nào", ex: "The event turned out to be a great success." },
-                    { verb: "Turn in", mean: "Đi ngủ / Giao nộp bài tập, tội phạm", ex: "I'm exhausted, I think I'll turn in early tonight." },
-                    { verb: "Turn away", mean: "Từ chối cho ai vào, đuổi ra", ex: "Hundreds of fans were turned away from the stadium." }
-                ]
-            },
-            {
-                name: "GIVE",
-                color: "amber",
-                items: [
-                    { verb: "Give up", mean: "Từ bỏ thói quen, bỏ cuộc (= abandon)", ex: "Never give up on your dreams." },
-                    { verb: "Give in", mean: "Nhượng bộ, đầu hàng trước áp lực", ex: "He finally gave in to his children's requests." },
-                    { verb: "Give out", mean: "Phân phát tài liệu / Kiệt sức, cạn kiệt", ex: "His patience was beginning to give out." },
-                    { verb: "Give away", mean: "Tặng miễn phí / Tiết lộ bí mật vô ý", ex: "Don't give away the ending of the movie." },
-                    { verb: "Give off", mean: "Tỏa ra, phát ra (mùi hương, nhiệt, khí)", ex: "The flowers give off a sweet fragrance." },
-                    { verb: "Give back", mean: "Trả lại đồ vật cho người sở hữu", ex: "Remember to give back the borrowed book." }
-                ]
-            },
-            {
-                name: "TAKE",
-                color: "indigo",
-                items: [
-                    { verb: "Take up", mean: "Bắt đầu môn thể thao, sở thích mới / Chiếm diện tích", ex: "She decided to take up yoga to reduce stress." },
-                    { verb: "Take off", mean: "Cất cánh (máy bay) / Cởi (quần áo) / Thành công nhanh", ex: "The plane took off smoothly at 8 AM." },
-                    { verb: "Take after", mean: "Giống ai đó về ngoại hình hoặc tính cách", ex: "He takes after his father in many ways." },
-                    { verb: "Take in", mean: "Hiểu thông tin / Lừa gạt ai đó / Cho ở nhờ", ex: "Don't be taken in by his sweet promises." },
-                    { verb: "Take on", mean: "Tuyển dụng nhân viên / Đảm nhận công việc", ex: "The firm is taking on new engineers." },
-                    { verb: "Take over", mean: "Tiếp quản, giành quyền kiểm soát", ex: "The giant company took over a small rival." },
-                    { verb: "Take to", mean: "Bắt đầu yêu thích cái gì/ai đó", ex: "I took to snowboarding almost immediately." }
-                ]
-            },
-            {
-                name: "CALL",
-                color: "rose",
-                items: [
-                    { verb: "Call off", mean: "Hủy bỏ hoàn toàn (= cancel)", ex: "They called off the match because of rain." },
-                    { verb: "Call for", mean: "Yêu cầu, đòi hỏi / Đón ai đó", ex: "This delicate situation calls for immediate action." },
-                    { verb: "Call up", mean: "Gọi điện thoại / Gọi đi lính / Gợi lại kỷ niệm", ex: "He was called up to serve in the army." },
-                    { verb: "Call on", mean: "Ghé thăm ai đó / Yêu cầu ai phát biểu", ex: "I will call on my grandparents this Sunday." },
-                    { verb: "Call at", mean: "Ghé thăm địa điểm nào đó trong thời gian ngắn", ex: "The train calls at several small stations." },
-                    { verb: "Call in", mean: "Mời chuyên gia đến tư vấn / Ghé thăm ngắn", ex: "We needed to call in a technician to fix it." }
-                ]
-            },
-            {
-                name: "PUT",
-                color: "orange",
-                items: [
-                    { verb: "Put off", mean: "Trì hoãn thời gian (= delay, postpone)", ex: "Never put off until tomorrow what you can do today." },
-                    { verb: "Put up", mean: "Dựng lên, xây dựng / Cho ở nhờ / Tăng giá", ex: "We put up a tent in the forest." },
-                    { verb: "Put up with", mean: "Chịu đựng ai/cái gì (= tolerate)", ex: "I cannot put up with his rude behavior anymore." },
-                    { verb: "Put out", mean: "Dập tắt (lửa, thuốc lá)", ex: "Firefighters put out the blaze in two hours." },
-                    { verb: "Put down", mean: "Đặt xuống / Hạ bệ ai / Ghi chép", ex: "Put down your pens when the time is up." },
-                    { verb: "Put on", mean: "Mặc quần áo / Tăng cân / Biểu diễn", ex: "Put on a warm coat; it's freezing outside." },
-                    { verb: "Put through", mean: "Nối máy điện thoại cho ai đó", ex: "Hold on, I'll put you through to the manager." }
-                ]
-            },
-            {
-                name: "GO",
-                color: "emerald",
-                items: [
-                    { verb: "Go off", mean: "Nổ (bom), reo (chuông) / Thiu thối (thức ăn)", ex: "The alarm went off at 6 AM sharp." },
-                    { verb: "Go through", mean: "Trải qua khó khăn / Kiểm tra kỹ lưỡng", ex: "She is going through a tough period." },
-                    { verb: "Go over", mean: "Xem xét, kiểm tra kỹ lưỡng lại bài", ex: "Go over your test paper before submitting." },
-                    { verb: "Go in for", mean: "Tham gia cuộc thi / Yêu thích môn gì", ex: "Are you going in for the photography contest?" },
-                    { verb: "Go out", mean: "Đi ra ngoài chơi / Tắt (đèn, lửa)", ex: "The lights suddenly went out during the storm." },
-                    { verb: "Go down with", mean: "Mắc bệnh, nhiễm bệnh nhẹ", ex: "Half the class went down with the flu." },
-                    { verb: "Go without", mean: "Chịu đựng thiếu thốn cái gì", ex: "We had to go without electricity for three days." }
-                ]
-            },
-            {
-                name: "GET",
-                color: "teal",
-                items: [
-                    { verb: "Get over", mean: "Vượt qua (cú sốc, bệnh tật, khó khăn)", ex: "It took him weeks to get over the severe cold." },
-                    { verb: "Get through", mean: "Liên lạc qua điện thoại / Hoàn thành công việc", ex: "I couldn't get through to her mobile phone." },
-                    { verb: "Get along with", mean: "Hòa hợp, có mối quan hệ tốt với ai", ex: "Do you get along with your new roommates?" },
-                    { verb: "Get away with", mean: "Thoát tội, không bị trừng phạt", ex: "He thought he could get away with cheating." },
-                    { verb: "Get down to", mean: "Bắt đầu làm việc gì một cách nghiêm túc", ex: "Let's get down to business right away." },
-                    { verb: "Get on one's nerves", mean: "Làm ai đó phát điên, chọc tức ai", ex: "His constant whistling really gets on my nerves." }
-                ]
-            },
-            {
-                name: "CUT",
-                color: "red",
-                items: [
-                    { verb: "Cut down on", mean: "Cắt giảm số lượng (chi tiêu, ăn uống)", ex: "You should cut down on sugar for better health." },
-                    { verb: "Cut off", mean: "Cách ly, cô lập / Ngắt kết nối điện nước thoại", ex: "Our phone line was cut off yesterday." },
-                    { verb: "Cut in", mean: "Nói chen ngang cuộc trò chuyện / Cúp đầu xe", ex: "It's rude to cut in when others are speaking." },
-                    { verb: "Cut up", mean: "Chia nhỏ, cắt vụn ra", ex: "Cut up the vegetables into tiny pieces." },
-                    { verb: "Cut out", mean: "Cắt rời ra / Loại bỏ hẳn thói quen", ex: "I have cut out fast food completely." }
-                ]
-            },
-            {
-                name: "COME",
-                color: "sky",
-                items: [
-                    { verb: "Come across", mean: "Tình cờ gặp ai / Tình cờ thấy cái gì", ex: "I came across an old photo in the drawer." },
-                    { verb: "Come up with", mean: "Nảy ra ý tưởng, giải pháp mới", ex: "She came up with a brilliant marketing strategy." },
-                    { verb: "Come round", mean: "Hồi tỉnh sau khi ngất / Ghé thăm nhà", ex: "He came round a few minutes after fainting." },
-                    { verb: "Come down to", mean: "Chung quy lại là do nguyên nhân gì", ex: "It all comes down to a lack of preparation." },
-                    { verb: "Come off", mean: "Thành công theo kế hoạch / Bong tróc ra", ex: "The grand plan didn't come off as expected." },
-                    { verb: "Come into", mean: "Thừa kế tài sản gia đình", ex: "She came into a fortune after her uncle died." }
-                ]
-            },
-            {
-                name: "CARRY",
-                color: "violet",
-                items: [
-                    { verb: "Carry out", mean: "Tiến hành, thực hiện (thí nghiệm, kế hoạch)", ex: "Scientists carry out tests in laboratories." },
-                    { verb: "Carry on", mean: "Tiếp tục công việc đang làm (= continue)", ex: "Carry on working while I am away." },
-                    { verb: "Carry away", mean: "Mang đi / Bị cuốn theo cảm xúc", ex: "Don't get carried away by early success." },
-                    { verb: "Carry off", mean: "Đạt giải thưởng, thành công vang dội", ex: "She carried off first prize in the competition." }
-                ]
-            },
-            {
-                name: "HOLD",
-                color: "amber",
-                items: [
-                    { verb: "Hold up", mean: "Cản trở giao thông / Cướp có vũ khí", ex: "Traffic was held up by a major accident." },
-                    { verb: "Hold back", mean: "Kiềm chế cảm xúc, ngăn cản sự tiến triển", ex: "He couldn't hold back his tears of joy." },
-                    { verb: "Hold on", mean: "Giữ máy điện thoại chờ một chút", ex: "Hold on a minute while I grab my pen." }
-                ]
-            },
-            {
-                name: "KEEP",
-                color: "lime",
-                items: [
-                    { verb: "Keep up with", mean: "Bắt kịp, theo kịp tiến độ/người khác", ex: "Walk faster! I can't keep up with you." },
-                    { verb: "Keep away from", mean: "Tránh xa khỏi khu vực nguy hiểm", ex: "Keep away from the edge of the cliff." },
-                    { verb: "Keep on", mean: "Cứ tiếp tục làm gì đó (= continue + V-ing)", ex: "He kept on talking despite the noise." },
-                    { verb: "Keep out of", mean: "Ngăn cản không cho vào đâu", ex: "Private property: Keep out of this area." }
-                ]
-            },
-            {
-                name: "RUN",
-                color: "blue",
-                items: [
-                    { verb: "Run out of", mean: "Cạn kiệt, hết sạch (tiền, củi, thời gian)", ex: "We have run out of printer paper." },
-                    { verb: "Run into", mean: "Tình cờ gặp ai / Tông vào cái gì", ex: "I ran into my old teacher at the supermarket." },
-                    { verb: "Run over", mean: "Cán qua, đè lên bằng xe cộ", ex: "The driver accidentally ran over a dog." },
-                    { verb: "Run away from", mean: "Chạy trốn khỏi nguy hiểm", ex: "Never run away from your problems." }
-                ]
-            },
-            {
-                name: "DIE",
-                color: "slate",
-                items: [
-                    { verb: "Die out", mean: "Tuyệt chủng (động vật) / Biến mất hoàn toàn", ex: "Many rare species are dying out rapidly." },
-                    { verb: "Die down", mean: "Dịu đi, giảm dần độ mạnh (mưa, tiếng ồn)", ex: "The storm finally began to die down." },
-                    { verb: "Die away", mean: "Tắt dần, mờ nhạt dần (âm thanh)", ex: "The applause slowly died away." },
-                    { verb: "Die for", mean: "Cực kỳ thèm thuồng, khao khát cái gì", ex: "I am dying for a cold glass of lemonade." },
-                    { verb: "Die of", mean: "Chết vì nguyên nhân bệnh tật cụ thể", ex: "Millions used to die of malaria." }
-                ]
-            },
-            {
-                name: "FALL",
-                color: "orange",
-                items: [
-                    { verb: "Fall behind", mean: "Tụt lại phía sau, chậm tiến độ", ex: "He fell behind in his studies due to illness." },
-                    { verb: "Fall back on", mean: "Trông cậy, dựa vào kế hoạch dự phòng", ex: "Always have savings to fall back on." },
-                    { verb: "Fall through", mean: "Thất bại, hỏng kế hoạch không thành", ex: "Our holiday plans fell through at the last minute." },
-                    { verb: "Fall out", mean: "Cãi nhau rạn nứt tình cảm với ai", ex: "They fell out over money matters." }
-                ]
-            },
-            {
-                name: "PASS",
-                color: "purple",
-                items: [
-                    { verb: "Pass away", mean: "Qua đời, qua đời êm ái (= die)", ex: "His grandfather passed away peacefully." },
-                    { verb: "Pass out", mean: "Bị ngất xỉu tạm thời (= faint)", ex: "She passed out from extreme heat." },
-                    { verb: "Pass down", mean: "Truyền lại cho thế hệ sau (= hand down)", ex: "This craft has been passed down for ages." },
-                    { verb: "Pass by", mean: "Đi ngang qua địa điểm nào đó", ex: "I passed by your house yesterday." }
-                ]
-            },
-            {
-                name: "STAND",
-                color: "teal",
-                items: [
-                    { verb: "Stand for", mean: "Viết tắt của chữ gì / Đại diện cho", ex: "What does the acronym WHO stand for?" },
-                    { verb: "Stand out", mean: "Nổi bật, xuất sắc vượt trội", ex: "Her bright red hair made her stand out." },
-                    { verb: "Stand by", mean: "Ủng hộ, ở bên cạnh ai trong khó khăn", ex: "I will stand by you no matter what." },
-                    { verb: "Stand in for", mean: "Làm thay, thế chỗ cho đồng nghiệp", ex: "Could you stand in for me at the meeting?" }
-                ]
-            }
-        ];
+        /* ==========================================================================
+           1. DATA STRUCTURES & DATABASE (Phrasal Verbs, Outline, Extra Questions)
+           ========================================================================== */
 
-        // MASTER QUIZ QUESTIONS
-        const masterQuizQuestions = [
-            // MỤC 1: ĐỀ CƯƠNG TRÊN LỚP
+        const PHRASAL_VERB_GROUPS = [
             {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
-                question: "1. The government has decided to ________ the old factory to build a new shopping mall.",
-                type: "mcq",
-                options: ["A. put up", "B. turn down", "C. pull down", "D. break into"],
-                correct: 2,
-                translation: "Chính phủ đã quyết định phá hủy tòa nhà máy cũ để xây dựng một trung tâm thương mại mới.",
-                explanations: {
-                    0: "A. put up: dựng lên, tăng giá",
-                    1: "B. turn down: từ chối lời đề nghị, vặn nhỏ âm lượng",
-                    2: "C. pull down: kéo đổ, phá sập công trình tòa nhà (= knock down) ➔ ĐÁP ÁN ĐÚNG",
-                    3: "D. break into: đột nhập trái phép vào đâu đó"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
-                question: "2. We had to ________ the outdoor concert because of the heavy rain.",
-                type: "mcq",
-                options: ["A. call off", "B. put off", "C. set off", "D. turn off"],
-                correct: 0,
-                translation: "Chúng tôi phải hủy bỏ buổi hòa nhạc ngoài trời vì mưa lớn.",
-                explanations: {
-                    0: "A. call off: hủy bỏ hoàn toàn (= cancel) ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. put off: hoãn lại thời gian khác (= delay/postpone)",
-                    2: "C. set off: khởi hành, lên đường",
-                    3: "D. turn off: tắt thiết bị"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
-                question: "3. The teacher told the students to ________ their homework before leaving.",
-                type: "mcq",
-                options: ["A. hand out", "B. hand in", "C. hand over", "D. hand down"],
-                correct: 1,
-                translation: "Giáo viên bảo học sinh nộp bài tập về nhà trước khi ra về.",
-                explanations: {
-                    0: "A. hand out: phát tài liệu, phân phát",
-                    1: "B. hand in: giao nộp bài tập/báo cáo ➔ ĐÁP ÁN ĐÚNG",
-                    2: "C. hand over: bàn giao quyền lực, trao trả",
-                    3: "D. hand down: truyền lại cho thế hệ sau"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
-                question: "4. They had a big argument last week, but they have finally ________ and are friends again.",
-                type: "mcq",
-                options: ["A. made up", "B. broken up", "C. put up", "D. turned up"],
-                correct: 0,
-                translation: "Tuần trước họ đã cãi nhau một trận lớn, nhưng cuối cùng họ đã làm hòa và trở lại làm bạn.",
-                explanations: {
-                    0: "A. make up: làm hòa / trang điểm / bịa chuyện ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. break up: chia tay, giải tán",
-                    2: "C. put up: dựng lên, chịu đựng",
-                    3: "D. turn up: xuất hiện, vặn to"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
-                question: "5. The fire alarm went ________ in the middle of the night, forcing everyone to evacuate the building.",
-                type: "mcq",
-                options: ["A. off", "B. out", "C. on", "D. down"],
-                correct: 0,
-                translation: "Chuông báo cháy reo/nổ chuông vào giữa đêm, buộc mọi người phải sơ tán khỏi tòa nhà.",
-                explanations: {
-                    0: "A. go off: reo (chuông), nổ (bom), thiu thối (thức ăn) ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. go out: đi ra ngoài chơi, tắt (đèn/lửa)",
-                    2: "C. go on: tiếp tục",
-                    3: "D. go down: giảm xuống"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
-                question: "6. Can you please ________ the volume? This song is my favorite!",
-                type: "mcq",
-                options: ["A. turn down", "B. turn up", "C. turn on", "D. turn off"],
-                correct: 1,
-                translation: "Bạn có thể vặn to âm lượng lên được không? Đây là bài hát yêu thích của tôi!",
-                explanations: {
-                    0: "A. turn down: vặn nhỏ lại / từ chối",
-                    1: "B. turn up: vặn to âm lượng lên / xuất hiện ➔ ĐÁP ÁN ĐÚNG",
-                    2: "C. turn on: bật thiết bị lên",
-                    3: "D. turn off: tắt thiết bị đi"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
-                question: "7. She has decided to ________ yoga to improve her physical health and reduce stress.",
-                type: "mcq",
-                options: ["A. take up", "B. take on", "C. take over", "D. take in"],
-                correct: 0,
-                translation: "Cô ấy đã quyết định tập luyện môn yoga để cải thiện sức khỏe thể chất và giảm căng thẳng.",
-                explanations: {
-                    0: "A. take up: bắt đầu một thói quen/sở thích/môn thể thao mới ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. take on: tuyển dụng, đảm nhận công việc",
-                    2: "C. take over: tiếp quản, giành quyền kiểm soát",
-                    3: "D. take in: hiểu, lừa gạt"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
-                question: "8. You need to ________ the application form completely before submitting it to the HR department.",
-                type: "mcq",
-                options: ["A. fill in", "B. fill up", "C. write down", "D. sign up"],
-                correct: 0,
-                translation: "Bạn cần điền đầy đủ vào mẫu đơn xin việc trước khi nộp cho bộ phận nhân sự.",
-                explanations: {
-                    0: "A. fill in: điền vào đơn/mẫu thông tin (= fill out) ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. fill up: đổ đầy (xăng, bình nước)",
-                    2: "C. write down: ghi chép lại",
-                    3: "D. sign up: đăng ký tham gia"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
-                question: "9. I'm sorry I'm late; my car ________ on the way to the office.",
-                type: "mcq",
-                options: ["A. broke up", "B. broke out", "C. broke down", "D. broke in"],
-                correct: 2,
-                translation: "Tôi xin lỗi vì đến muộn; xe ô tô của tôi bị hỏng trên đường đến văn phòng.",
-                explanations: {
-                    0: "A. break up: chia tay, giải tán",
-                    1: "B. break out: bùng phát (dịch bệnh, chiến tranh)",
-                    2: "C. break down: bị hỏng hóc (xe cộ, máy móc) ➔ ĐÁP ÁN ĐÚNG",
-                    3: "D. break in: đột nhập, cắt ngang câu chuyện"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
-                question: "10. Thieves managed to ________ the museum and steal several valuable paintings.",
-                type: "mcq",
-                options: ["A. break up", "B. break out", "C. break down", "D. break into"],
-                correct: 3,
-                translation: "Bọn trộm đã đột nhập được vào bảo tàng và đánh cắp nhiều bức tranh quý giá.",
-                explanations: {
-                    0: "A. break up: chia tay",
-                    1: "B. break out: bùng nổ, bùng phát",
-                    2: "C. break down: hỏng hóc",
-                    3: "D. break into: đột nhập trái phép vào đâu ➔ ĐÁP ÁN ĐÚNG"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 26 - Hình 1)",
-                question: "11. He ________ an excuse for being late, but nobody believed him.",
-                type: "mcq",
-                options: ["A. took up", "B. kept up", "C. caught up", "D. made up"],
-                correct: 3,
-                translation: "Anh ấy đã bịa ra lý do đi muộn, nhưng không ai tin anh ấy cả.",
-                explanations: {
-                    0: "A. take up: bắt đầu môn thể thao/sở thích",
-                    1: "B. keep up: duy trì",
-                    2: "C. catch up: bắt kịp",
-                    3: "D. make up: bịa chuyện, bịa lý do ➔ ĐÁP ÁN ĐÚNG"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 26 - Hình 1)",
-                question: "12. They are going to ________ an experiment to test the effectiveness of the new drug.",
-                type: "mcq",
-                options: ["A. carry out", "B. carry on", "C. carry away", "D. carry through"],
-                correct: 0,
-                translation: "Họ dự định sẽ tiến hành một thí nghiệm để kiểm tra hiệu quả của loại thuốc mới.",
-                explanations: {
-                    0: "A. carry out: tiến hành, thực hiện (thí nghiệm) ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. carry on: tiếp tục làm gì",
-                    2: "C. carry away: mang đi, cuốn theo",
-                    3: "D. carry through: hoàn thành tốt"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 26 - Hình 1)",
-                question: "13. She ________ her mother; they both have the same beautiful smile and eyes.",
-                type: "mcq",
-                options: ["A. takes off", "B. takes after", "C. takes up", "D. takes on"],
-                correct: 1,
-                translation: "Cô ấy giống hệt mẹ cô ấy; cả hai đều có nụ cười và đôi mắt đẹp giống nhau.",
-                explanations: {
-                    0: "A. take off: cất cánh (máy bay), cởi (quần áo)",
-                    1: "B. take after: giống ai đó (về ngoại hình/tính cách) ➔ ĐÁP ÁN ĐÚNG",
-                    2: "C. take up: bắt đầu tập môn gì",
-                    3: "D. take on: tuyển thêm người, đảm nhận"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 26 - Hình 1)",
-                question: "14. The police are ________ the cause of the accident that happened last night.",
-                type: "mcq",
-                options: ["A. looking into", "B. looking for", "C. looking after", "D. looking through"],
-                correct: 0,
-                translation: "Cảnh sát đang điều tra nguyên nhân của vụ tai nạn xảy ra tối qua.",
-                explanations: {
-                    0: "A. look into: điều tra, nghiên cứu, xem xét ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. look for: tìm kiếm (vật/người bị mất)",
-                    2: "C. look after: chăm sóc, trông nom",
-                    3: "D. look through: đọc lướt qua"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 26 - Hình 1)",
-                question: "15. He refused to ________ to their demands, even though they threatened him.",
-                type: "mcq",
-                options: ["A. give up", "B. give in", "C. give out", "D. give away"],
-                correct: 1,
-                translation: "Anh ấy từ chối nhượng bộ trước các yêu cầu của họ, mặc dù họ đã đe dọa anh ấy.",
-                explanations: {
-                    0: "A. give up: từ bỏ hoàn toàn thói quen/việc làm",
-                    1: "B. give in (to sth): nhượng bộ, chịu thua ➔ ĐÁP ÁN ĐÚNG",
-                    2: "C. give out: phân phát / cạn kiệt",
-                    3: "D. give away: tặng miễn phí / tiết lộ"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 26 - Hình 1)",
-                question: "16. The festival was ________ until next month due to financial problems.",
-                type: "mcq",
-                options: ["A. put out", "B. put on", "C. put off", "D. put down"],
-                correct: 2,
-                translation: "Lễ hội đã bị trì hoãn cho đến tháng sau do các vấn đề về tài chính.",
-                explanations: {
-                    0: "A. put out: dập tắt (lửa/thuốc lá)",
-                    1: "B. put on: mặc (quần áo), tăng (cân)",
-                    2: "C. put off: trì hoãn (= delay) ➔ ĐÁP ÁN ĐÚNG",
-                    3: "D. put down: hạ xuống, ghi chép"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 26 - Hình 1)",
-                question: "17. He ________ the job offer because the salary was too low.",
-                type: "mcq",
-                options: ["A. turned down", "B. turned up", "C. turned on", "D. turned off"],
-                correct: 0,
-                translation: "Anh ấy đã từ chối lời đề nghị công việc vì mức lương quá thấp.",
-                explanations: {
-                    0: "A. turn down: từ chối (lời mời/công việc) (= refuse) ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. turn up: xuất hiện, vặn to",
-                    2: "C. turn on: bật thiết bị",
-                    3: "D. turn off: tắt thiết bị"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 26 - Hình 1)",
-                question: "18. Guess who ________ at the party last night? Your ex-boyfriend!",
-                type: "mcq",
-                options: ["A. turned into", "B. turned up", "C. turned out", "D. turned back"],
-                correct: 1,
-                translation: "Đoán xem ai đã xuất hiện ở bữa tiệc tối qua nào? Bạn trai cũ của bạn đấy!",
-                explanations: {
-                    0: "A. turn into: biến thành",
-                    1: "B. turn up: xuất hiện, đến (bất ngờ) ➔ ĐÁP ÁN ĐÚNG",
-                    2: "C. turn out: hóa ra là",
-                    3: "D. turn back: quay trở lại"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 26 - Hình 1)",
-                question: "19. She ________ the book to find the information she needed for her essay.",
-                type: "mcq",
-                options: ["A. looked through", "B. looked up", "C. looked for", "D. looked after"],
-                correct: 0,
-                translation: "Cô ấy xem qua cuốn sách để tìm thông tin cần thiết cho bài luận.",
-                explanations: {
-                    0: "A. look through: đọc lướt qua, xem qua tài liệu/sách ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. look up: tra cứu (từ trong từ điển/sĐT)",
-                    2: "C. look for: tìm kiếm vật mất",
-                    3: "D. look after: chăm sóc"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 26 - Hình 1)",
-                question: "20. It took her a long time to ________ the shock of losing her job.",
-                type: "mcq",
-                options: ["A. get through", "B. get by", "C. get over", "D. get on"],
-                correct: 2,
-                translation: "Cô ấy mất một thời gian dài để vượt qua cú sốc mất việc.",
-                explanations: {
-                    0: "A. get through: liên lạc qua điện thoại / hoàn thành",
-                    1: "B. get by: xoay xở sống qua ngày",
-                    2: "C. get over: vượt qua (cú sốc, nỗi đau, bệnh tật) ➔ ĐÁP ÁN ĐÚNG",
-                    3: "D. get on: lên xe, tiến bộ"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TỰ LUẬN (Trang 26 - Hình 1)",
-                question: "21. Combine: 'Many people still throw trash on the street. This makes the city look dirty.'",
-                type: "mcq",
-                options: [
-                    "A. Many people still throw trash on the street, which makes the city look dirty.",
-                    "B. Many people still throw trash on the street which makes the city look dirty.",
-                    "C. Many people still throw trash on the street, that makes the city look dirty.",
-                    "D. Many people still throw trash on the street, what makes the city look dirty."
-                ],
-                correct: 0,
-                translation: "Nhiều người vẫn vứt rác ra đường, điều này làm cho thành phố trông bẩn thỉu.",
-                explanations: {
-                    0: "A. Dùng ', which' thay thế cho toàn bộ sự việc ở mệnh đề trước. BẮT BUỘC có dấu phẩy (,) ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. Sai vì thiếu dấu phẩy (,)",
-                    2: "C. Sai vì 'that' không đứng sau dấu phẩy",
-                    3: "D. Sai vì không dùng 'what' làm đại từ quan hệ nối câu"
-                }
-            },
-            {
-                section: "MỤC 1: ĐỀ CƯƠNG TỰ LUẬN (Trang 26 - Hình 1)",
-                question: "22. Combine: 'We turned off all the lights before leaving. This helped save a lot of electricity.'",
-                type: "mcq",
-                options: [
-                    "A. We turned off all the lights before leaving, which helped save a lot of electricity.",
-                    "B. We turned off all the lights before leaving which helped save a lot of electricity.",
-                    "C. We turned off all the lights before leaving, that helped save a lot of electricity.",
-                    "D. We turned off all the lights before leaving, what helped save a lot of electricity."
-                ],
-                correct: 0,
-                translation: "Chúng tôi đã tắt tất cả đèn trước khi rời đi, điều này đã giúp tiết kiệm rất nhiều điện.",
-                explanations: {
-                    0: "A. ', which' thay thế cho hành động tắt hết đèn trước khi đi. Bắt buộc có dấu phẩy ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. Sai vì thiếu dấu phẩy trước which",
-                    2: "C. Sai vì đại từ 'that' không đứng sau dấu phẩy",
-                    3: "D. Sai vì 'what' không dùng làm mệnh đề quan hệ nối 2 câu"
-                }
-            },
-            // MỤC 2: BÀI TẬP BỔ SUNG
-            {
-                section: "MỤC 2: BÀI TẬP BỔ SUNG CHỌN LỌC",
-                question: "23. Sam tried calling his mobile phone but she couldn't ________.",
-                type: "mcq",
-                options: ["A. get through", "B. get round", "C. get over", "D. get back"],
-                correct: 0,
-                translation: "Sam đã thử gọi vào điện thoại di động của anh ấy nhưng cô ấy không thể kết nối được.",
-                explanations: {
-                    0: "A. get through: liên lạc, nối máy điện thoại thành công ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. get round: thuyết phục ai đó",
-                    2: "C. get over: vượt qua bệnh tật/cú sốc",
-                    3: "D. get back: quay trở về"
-                }
-            },
-            {
-                section: "MỤC 2: BÀI TẬP BỔ SUNG CHỌN LỌC",
-                question: "24. Every day, my father usually reads the papers to ________ what's happening in the outside world.",
-                type: "mcq",
-                options: ["A. keep in with", "B. keep up at", "C. keep up with", "D. keep away from"],
-                correct: 2,
-                translation: "Mỗi ngày, bố tôi thường đọc báo để theo kịp những gì đang xảy ra ở thế giới bên ngoài.",
-                explanations: {
-                    0: "A. keep in with: duy trì mối quan hệ tốt với ai",
-                    1: "B. keep up at: không có cụm từ này",
-                    2: "C. keep up with: bắt kịp, theo kịp tin tức/xu hướng ➔ ĐÁP ÁN ĐÚNG",
-                    3: "D. keep away from: tránh xa khỏi cái gì"
-                }
-            }
-        ];
-
-        let filteredQuestions = [...masterQuizQuestions];
-        let currentQuestionIdx = 0;
-        let score = 0;
-        let userAnswers = [];
-        let answeredCurrent = [];
-        let wrongAnswersList = [];
-
-        function initQuizState() {
-            userAnswers = new Array(filteredQuestions.length).fill(null);
-            answeredCurrent = new Array(filteredQuestions.length).fill(false);
-            currentQuestionIdx = 0;
-            score = 0;
-            document.getElementById('score-val').innerText = 0;
-        }
-
-        function shuffleCurrentQuiz() {
-            filteredQuestions.sort(() => Math.random() - 0.5);
-            initQuizState();
-            loadQuestion();
-        }
-
-        function changeCategoryFilter() {
-            const filterVal = document.getElementById('category-filter').value;
-            if (filterVal === 'ALL') {
-                filteredQuestions = [...masterQuizQuestions];
-            } else if (filterVal === 'MUC1') {
-                filteredQuestions = masterQuizQuestions.filter(q => q.section.includes("MỤC 1"));
-            } else if (filterVal === 'MUC2') {
-                filteredQuestions = masterQuizQuestions.filter(q => q.section.includes("MỤC 2"));
-            }
-            initQuizState();
-            loadQuestion();
-        }
-
-        function switchTab(tab) {
-            document.getElementById('section-quiz').classList.add('hidden');
-            document.getElementById('section-distinguish').classList.add('hidden');
-            document.getElementById('section-wrong').classList.add('hidden');
-            document.getElementById('section-result').classList.add('hidden');
-
-            const btnQuiz = document.getElementById('tab-btn-quiz');
-            const btnDist = document.getElementById('tab-btn-distinguish');
-            const btnWrong = document.getElementById('tab-btn-wrong');
-
-            const inactiveStyle = "px-3.5 py-2 rounded-lg font-medium transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800/60";
-            const activeStyle = "px-3.5 py-2 rounded-lg font-medium transition-all duration-300 bg-purple-600 text-white shadow-lg shadow-purple-600/30";
-
-            btnQuiz.className = inactiveStyle;
-            btnDist.className = inactiveStyle;
-            btnWrong.className = inactiveStyle;
-
-            if (tab === 'quiz') {
-                document.getElementById('section-quiz').classList.remove('hidden');
-                btnQuiz.className = activeStyle;
-            } else if (tab === 'distinguish') {
-                document.getElementById('section-distinguish').classList.remove('hidden');
-                btnDist.className = activeStyle;
-                renderAccordions();
-                initMatchGame();
-            } else if (tab === 'wrong') {
-                document.getElementById('section-wrong').classList.remove('hidden');
-                btnWrong.className = activeStyle;
-                renderWrongAnswersDetailed();
-            }
-        }
-
-        function loadQuestion() {
-            if (filteredQuestions.length === 0) return;
-
-            const q = filteredQuestions[currentQuestionIdx];
-            document.getElementById('current-q-num').innerText = currentQuestionIdx + 1;
-            document.getElementById('total-q-num').innerText = filteredQuestions.length;
-            document.getElementById('current-category-badge').innerText = q.section;
-
-            const progress = ((currentQuestionIdx + 1) / filteredQuestions.length) * 100;
-            document.getElementById('progress-bar').style.width = `${progress}%`;
-
-            let html = `
-                <div class="space-y-4">
-                    <h3 class="text-base sm:text-lg font-semibold text-white leading-relaxed">${q.question}</h3>
-                    <div class="grid gap-2.5 pt-1">
-            `;
-
-            q.options.forEach((opt, idx) => {
-                let btnStyle = "bg-slate-900/90 border-slate-800 text-slate-200 hover:border-purple-500/50 hover:bg-slate-800";
-                let iconHtml = "";
-
-                if (answeredCurrent[currentQuestionIdx]) {
-                    if (idx === q.correct) {
-                        btnStyle = "bg-emerald-950/70 border-emerald-500 text-emerald-200 shadow-md shadow-emerald-900/20";
-                        iconHtml = '<i class="fa-solid fa-circle-check text-emerald-400 ml-auto text-base"></i>';
-                    } else if (userAnswers[currentQuestionIdx] === idx) {
-                        btnStyle = "bg-rose-950/70 border-rose-500 text-rose-200 shadow-md shadow-rose-900/20";
-                        iconHtml = '<i class="fa-solid fa-circle-xmark text-rose-400 ml-auto text-base"></i>';
-                    } else {
-                        btnStyle = "bg-slate-900/30 border-slate-800/40 text-slate-500 opacity-50";
+                group: "BREAK",
+                verbs: [
+                    {
+                        phrase: "Break down",
+                        meaning: "1. Hỏng hóc (máy móc, xe cộ); 2. Suy nhược, ngất xỉu (sức khỏe/tinh thần); 3. Thất bại (cuộc đàm phán)",
+                        examples: ["The car broke down on the highway.", "Her health broke down under pressure."]
+                    },
+                    {
+                        phrase: "Break in / Break into",
+                        meaning: "1. Đột nhập trái phép (vào nhà); 2. Ngắt lời, cắt ngang cuộc trò chuyện",
+                        examples: ["Thieves broke into the museum.", "Don't break in while I am speaking."]
+                    },
+                    {
+                        phrase: "Break up",
+                        meaning: "1. Chia tay, chấm dứt mối quan hệ; 2. Giải tán (buổi lễ, đám đông)",
+                        examples: ["They decided to break up after 3 years.", "The party broke up at midnight."]
+                    },
+                    {
+                        phrase: "Break off",
+                        meaning: "1. Đột ngột ngừng nói; 2. Hủy bỏ, tan vỡ (đàm phán, hôn ước)",
+                        examples: ["She broke off in the middle of a sentence.", "They broke off their engagement."]
+                    },
+                    {
+                        phrase: "Break away",
+                        meaning: "1. Trốn thoát khỏi sự kiềm chế; 2. Tách ra khỏi một tập thể/tổ chức",
+                        examples: ["The prisoner broke away from the guards."]
+                    },
+                    {
+                        phrase: "Break out",
+                        meaning: "1. Bùng phát (dịch bệnh, chiến tranh, hỏa hoạn); 2. Trốn khỏi tù",
+                        examples: ["War broke out in 1939.", "Two convicts broke out of prison."]
                     }
-                }
+                ]
+            },
+            {
+                group: "BRING",
+                verbs: [
+                    {
+                        phrase: "Bring about",
+                        meaning: "Gây ra, mang lại, dẫn đến (= result in, cause)",
+                        examples: ["Science has brought about many changes in our lives."]
+                    },
+                    {
+                        phrase: "Bring up",
+                        meaning: "1. Nuôi dưỡng, giáo dục (trẻ em); 2. Nêu ra, đề cập một chủ đề",
+                        examples: ["She was brought up by her grandparents.", "Don't bring up that uncomfortable topic again."]
+                    },
+                    {
+                        phrase: "Bring out",
+                        meaning: "1. Xuất bản, phát hành (sách, album, sản phẩm); 2. Làm nổi bật một đặc điểm",
+                        examples: ["The band is bringing out a new album next month."]
+                    },
+                    {
+                        phrase: "Bring down",
+                        meaning: "1. Hạ xuống, hạ cánh (= land); 2. Lật đổ (chính hại); 3. Giảm giá cả",
+                        examples: ["The pilot managed to bring down the plane safely.", "They are trying to bring down prices."]
+                    },
+                    {
+                        phrase: "Bring off",
+                        meaning: "Thành công trong việc gì khó khăn, ẵm giải thưởng",
+                        examples: ["It was a difficult task, but he brought it off."]
+                    }
+                ]
+            },
+            {
+                group: "KEEP",
+                verbs: [
+                    {
+                        phrase: "Keep up with",
+                        meaning: "Theo kịp, bắt kịp ai/cái gì (= catch up with, keep pace with)",
+                        examples: ["Read newspapers daily to keep up with current events."]
+                    },
+                    {
+                        phrase: "Keep on (+ V-ing)",
+                        meaning: "Tiếp tục làm gì đó (= continue)",
+                        examples: ["He kept on working despite being tired."]
+                    },
+                    {
+                        phrase: "Keep away from / Keep off",
+                        meaning: "Tránh xa, không lại gần cái gì/ai",
+                        examples: ["Keep away from the edge of the cliff!"]
+                    },
+                    {
+                        phrase: "Keep out of",
+                        meaning: "Ngăn không cho vào, ở bên ngoài",
+                        examples: ["Keep out of the construction site."]
+                    },
+                    {
+                        phrase: "Keep at",
+                        meaning: "Kiên trì, tiếp tục miệt mài làm công việc khó khăn",
+                        examples: ["Keep at your studies and you will pass."]
+                    },
+                    {
+                        phrase: "Keep sb up",
+                        meaning: "Giữ ai thức, không cho đi ngủ",
+                        examples: ["Loud music kept me up all night."]
+                    }
+                ]
+            },
+            {
+                group: "LOOK",
+                verbs: [
+                    {
+                        phrase: "Look after",
+                        meaning: "Chăm sóc, trông nom (= take care of)",
+                        examples: ["Who will look after the children while you're away?"]
+                    },
+                    {
+                        phrase: "Look for",
+                        meaning: "Tìm kiếm (vật, người bị mất hoặc cần tìm)",
+                        examples: ["I am looking for my keys."]
+                    },
+                    {
+                        phrase: "Look up",
+                        meaning: "1. Tra cứu (từ điển, thông tin, số điện thoại); 2. Trở nên tốt đẹp hơn",
+                        examples: ["You can look up new words in a dictionary."]
+                    },
+                    {
+                        phrase: "Look into",
+                        meaning: "Điều tra, nghiên cứu, xem xét kĩ lưỡng",
+                        examples: ["The police are looking into the cause of the accident."]
+                    },
+                    {
+                        phrase: "Look forward to (+ V-ing)",
+                        meaning: "Trông chờ, mong mỏi điều gì với sự hân hoan",
+                        examples: ["I look forward to meeting you soon."]
+                    },
+                    {
+                        phrase: "Look down on",
+                        meaning: "Coi thường, khinh rẻ ai",
+                        examples: ["Never look down on poor people."]
+                    },
+                    {
+                        phrase: "Look up to",
+                        meaning: "Tôn trọng, kính trọng, ngưỡng mộ ai",
+                        examples: ["Young athletes look up to world champions."]
+                    },
+                    {
+                        phrase: "Look out / Watch out",
+                        meaning: "Coi chừng, cảnh giác!",
+                        examples: ["Look out! A car is coming!"]
+                    },
+                    {
+                        phrase: "Look through",
+                        meaning: "Đọc lướt qua, xem nhanh tài liệu",
+                        examples: ["She looked through the report before the meeting."]
+                    }
+                ]
+            },
+            {
+                group: "TURN",
+                verbs: [
+                    {
+                        phrase: "Turn down",
+                        meaning: "1. Từ chối (lời mời, đề nghị); 2. Vặn nhỏ (âm lượng, nhiệt độ)",
+                        examples: ["He turned down the job offer.", "Please turn down the TV."]
+                    },
+                    {
+                        phrase: "Turn up",
+                        meaning: "1. Xuất hiện, đến (= arrive, show up); 2. Vặn to (âm lượng)",
+                        examples: ["Guess who turned up at the party last night?", "Turn up the music!"]
+                    },
+                    {
+                        phrase: "Turn out",
+                        meaning: "Hóa ra là, thành ra là, sản xuất ra",
+                        examples: ["The rumor turned out to be true."]
+                    },
+                    {
+                        phrase: "Turn on / Turn off",
+                        meaning: "Bật / Tắt (thiết bị điện, máy móc)",
+                        examples: ["Turn off the lights before going to bed."]
+                    },
+                    {
+                        phrase: "Turn into",
+                        meaning: "Biến thành, chuyển hóa thành",
+                        examples: ["The caterpillar turned into a butterfly."]
+                    }
+                ]
+            },
+            {
+                group: "GIVE",
+                verbs: [
+                    {
+                        phrase: "Give up",
+                        meaning: "Từ bỏ, bỏ cuộc (thói quen, công việc)",
+                        examples: ["He gave up smoking 2 years ago."]
+                    },
+                    {
+                        phrase: "Give in",
+                        meaning: "Đầu hàng, nhượng bộ, chịu thua",
+                        examples: ["After hours of negotiation, they gave in."]
+                    },
+                    {
+                        phrase: "Give away",
+                        meaning: "1. Cho, tặng miễn phí; 2. Tiết lộ bí mật vô ý",
+                        examples: ["Don't give away the ending of the movie."]
+                    },
+                    {
+                        phrase: "Give out",
+                        meaning: "1. Phân phát (= distribute); 2. Cạn kiệt, kiệt sức",
+                        examples: ["His legs gave out at the end of the race."]
+                    },
+                    {
+                        phrase: "Give off",
+                        meaning: "Tỏa ra, phát ra (mùi hương, khí, ánh sáng, nhiệt)",
+                        examples: ["The flowers give off a sweet scent."]
+                    }
+                ]
+            },
+            {
+                group: "TAKE",
+                verbs: [
+                    {
+                        phrase: "Take after",
+                        meaning: "Giống ai đó (về ngoại hình hoặc tính cách)",
+                        examples: ["She takes after her mother with blue eyes."]
+                    },
+                    {
+                        phrase: "Take off",
+                        meaning: "1. Cất cánh (máy bay); 2. Cởi (quần áo, giày); 3. Trở nên thành công nhanh chóng",
+                        examples: ["The plane took off on time.", "Take off your shoes."]
+                    },
+                    {
+                        phrase: "Take up",
+                        meaning: "1. Bắt đầu một sở thích/thói quen mới; 2. Chiếm không gian/thời gian",
+                        examples: ["She decided to take up yoga."]
+                    },
+                    {
+                        phrase: "Take on",
+                        meaning: "1. Tuyển dụng thêm nhân viên; 2. Đảm nhận công việc/trách nhiệm",
+                        examples: ["The company is taking on new workers."]
+                    },
+                    {
+                        phrase: "Take over",
+                        meaning: "Tiếp quản, giành quyền kiểm soát",
+                        examples: ["He took over the family business."]
+                    }
+                ]
+            },
+            {
+                group: "PUT",
+                verbs: [
+                    {
+                        phrase: "Put off",
+                        meaning: "Trì hoãn, dời lại lịch (= delay, postpone)",
+                        examples: ["Never put off until tomorrow what you can do today."]
+                    },
+                    {
+                        phrase: "Put out",
+                        meaning: "Dập tắt (lửa, thuốc lá)",
+                        examples: ["Firefighters put out the fire in two hours."]
+                    },
+                    {
+                        phrase: "Put up with",
+                        meaning: "Chịu đựng ai/cái gì (= tolerate)",
+                        examples: ["I cannot put up with his bad behavior."]
+                    },
+                    {
+                        phrase: "Put up",
+                        meaning: "1. Dựng lên (lều, biển báo); 2. Cho ai ngủ nhờ qua đêm",
+                        examples: ["They put up a tent in the garden."]
+                    },
+                    {
+                        phrase: "Put down",
+                        meaning: "1. Đặt xuống; 2. Hạ bệ, lăng mạ ai",
+                        examples: ["Put down your pens when time is up."]
+                    }
+                ]
+            },
+            {
+                group: "GO",
+                verbs: [
+                    {
+                        phrase: "Go off",
+                        meaning: "1. Nổ (bom), reo (chuông); 2. Ối thiu (thực phẩm); 3. Mất điện",
+                        examples: ["My alarm clock went off at 6 AM.", "The milk has gone off."]
+                    },
+                    {
+                        phrase: "Go through",
+                        meaning: "1. Trải qua (khó khăn, giai đoạn); 2. Kiểm tra kĩ lưỡng",
+                        examples: ["South Africa went through a difficult period."]
+                    },
+                    {
+                        phrase: "Go out",
+                        meaning: "1. Đi ra ngoài, hẹn hò; 2. Tắt (đèn, lửa); 3. Lỗi thời",
+                        examples: ["Let's go out for dinner."]
+                    },
+                    {
+                        phrase: "Go about",
+                        meaning: "Bắt đầu tiến hành, thực hiện công việc thường ngày",
+                        examples: ["People went about their lives as usual."]
+                    },
+                    {
+                        phrase: "Go without",
+                        meaning: "Nhịn, nhẫn chịu mà không có cái gì",
+                        examples: ["How long can a camel go without water?"]
+                    }
+                ]
+            },
+            {
+                group: "GET",
+                verbs: [
+                    {
+                        phrase: "Get through",
+                        meaning: "1. Liên lạc được qua điện thoại; 2. Hoàn thành công việc; 3. Vượt qua kì thi",
+                        examples: ["I couldn't get through to him on his phone."]
+                    },
+                    {
+                        phrase: "Get over",
+                        meaning: "Vượt qua, bình phục (sau cơn ốm, cú sốc, nỗi đau)",
+                        examples: ["It took her a long time to get over the shock."]
+                    },
+                    {
+                        phrase: "Get along / Get on with",
+                        meaning: "Hòa hợp, có mối quan hệ tốt với ai",
+                        examples: ["Do you get along well with your coworkers?"]
+                    },
+                    {
+                        phrase: "Get away with",
+                        meaning: "Thoát tội, không bị trừng phạt dù làm sai",
+                        examples: ["He thought he could get away with cheating."]
+                    },
+                    {
+                        phrase: "Get down to",
+                        meaning: "Bắt đầu nghiêm túc tập trung làm việc gì",
+                        examples: ["Let's get down to business."]
+                    }
+                ]
+            }
+        ];
 
-                html += `
-                    <button onclick="selectOption(${idx})" class="w-full text-left p-3.5 rounded-xl border transition-all duration-200 flex items-center justify-between text-xs sm:text-sm font-medium ${btnStyle}" ${answeredCurrent[currentQuestionIdx] ? 'disabled' : ''}>
-                        <span>${opt}</span>
-                        ${iconHtml}
-                    </button>
-                `;
+        // Outline Questions (Form standard photos)
+        const OUTLINE_QUESTIONS = [
+            {
+                id: "out_1",
+                type: "mcq",
+                question: "1. The government has decided to ________ the old factory to build a new shopping mall.",
+                options: [
+                    { code: "A", text: "put up", meaning: "Dựng lên, xây dựng", sentence: "They are putting up new tents." },
+                    { code: "B", text: "turn down", meaning: "Từ chối đề nghị, vặn nhỏ", sentence: "She turned down his proposal." },
+                    { code: "C", text: "pull down", meaning: "Kéo đổ, phá hủy (tòa nhà, công trình)", sentence: "They pulled down the old building." },
+                    { code: "D", text: "break into", meaning: "Đột nhập trái phép", sentence: "Thieves broke into the bank." }
+                ],
+                correct: "C",
+                explanation: "Căn cứ theo ngữ cảnh: Chính phủ quyết định 'phá dỡ/kéo đổ' (pull down) nhà máy cũ để xây trung tâm thương mại mới."
+            },
+            {
+                id: "out_2",
+                type: "mcq",
+                question: "2. We had to ________ the outdoor concert because of the heavy rain.",
+                options: [
+                    { code: "A", text: "call off", meaning: "Hủy bỏ sự kiện hoàn toàn (= cancel)", sentence: "The meeting was called off due to rain." },
+                    { code: "B", text: "put off", meaning: "Trì hoãn, dời sang lúc khác (= delay)", sentence: "Never put off what you can do today." },
+                    { code: "C", text: "set off", meaning: "Khởi hành, bắt đầu chuyến đi", sentence: "We set off early in the morning." },
+                    { code: "D", text: "turn off", meaning: "Tắt thiết bị điện", sentence: "Please turn off the lights." }
+                ],
+                correct: "A",
+                explanation: "Hành động hủy bỏ hẳn buổi hòa nhạc ngoài trời do mưa lớn chọn 'call off' (= cancel)."
+            },
+            {
+                id: "out_3",
+                type: "mcq",
+                question: "3. The teacher told the students to ________ their homework before leaving.",
+                options: [
+                    { code: "A", text: "hand out", meaning: "Phân phát tài liệu, bài tập", sentence: "The teacher handed out the exam papers." },
+                    { code: "B", text: "hand in", meaning: "Nộp (bài tập, báo cáo)", sentence: "Please hand in your essays by Friday." },
+                    { code: "C", text: "hand over", meaning: "Bàn giao quyền lực, nhượng lại", sentence: "He handed over control of the company." },
+                    { code: "D", text: "hand down", meaning: "Truyền lại cho thế hệ sau", sentence: "Customs handed down through generations." }
+                ],
+                correct: "B",
+                explanation: "Học sinh phải 'nộp' (hand in) bài tập về nhà cho giáo viên trước khi về."
+            },
+            {
+                id: "out_4",
+                type: "mcq",
+                question: "4. They had a big argument last week, but they have finally ________ and are friends again.",
+                options: [
+                    { code: "A", text: "made up", meaning: "Làm hòa, bịa chuyện, trang điểm", sentence: "Kiss and make up after a quarrel." },
+                    { code: "B", text: "broken up", meaning: "Chia tay, giải tán", sentence: "They broke up after a long fight." },
+                    { code: "C", text: "put up", meaning: "Dựng lên, cho ở nhờ", sentence: "They put up a billboard." },
+                    { code: "D", text: "turned up", meaning: "Xuất hiện, vặn to lên", sentence: "He turned up late." }
+                ],
+                correct: "A",
+                explanation: "Tranh cãi tuần trước nhưng cuối cùng đã 'làm hòa' (make up) và làm bạn lại."
+            },
+            {
+                id: "out_5",
+                type: "mcq",
+                question: "5. The fire alarm went ________ in the middle of the night, forcing everyone to evacuate the building.",
+                options: [
+                    { code: "A", text: "off", meaning: "Go off: Reo, nổ, đổ chuông báo động", sentence: "The alarm went off at 5 AM." },
+                    { code: "B", text: "out", meaning: "Go out: Đi ra ngoài, tắt lửa", sentence: "The fire went out." },
+                    { code: "C", text: "on", meaning: "Go on: Tiếp tục làm gì", sentence: "Go on with your work." },
+                    { code: "D", text: "down", meaning: "Go down: Giảm xuống, lặn (mặt trời)", sentence: "Prices are going down." }
+                ],
+                correct: "A",
+                explanation: "Cụm 'The fire alarm went off' nghĩa là chuông báo cháy reo/báo động rền vang."
+            },
+            {
+                id: "out_6",
+                type: "mcq",
+                question: "6. Can you please ________ the volume? This song is my favorite!",
+                options: [
+                    { code: "A", text: "turn down", meaning: "Vặn nhỏ âm lượng, từ chối", sentence: "Turn down the sound please." },
+                    { code: "B", text: "turn up", meaning: "Vặn to âm lượng, xuất hiện", sentence: "Turn up the radio!" },
+                    { code: "C", text: "turn on", meaning: "Bật thiết bị", sentence: "Turn on the lamp." },
+                    { code: "D", text: "turn off", meaning: "Tắt thiết bị", sentence: "Turn off the TV." }
+                ],
+                correct: "B",
+                explanation: "Bài hát yêu thích nên yêu cầu 'vặn to âm lượng' lên -> Turn up."
+            },
+            {
+                id: "out_7",
+                type: "mcq",
+                question: "7. She has decided to ________ yoga to improve her physical health and reduce stress.",
+                options: [
+                    { code: "A", text: "take up", meaning: "Bắt đầu một thói quen/môn học/sở thích", sentence: "I take up playing tennis." },
+                    { code: "B", text: "take on", meaning: "Tuyển dụng, đảm nhận", sentence: "Take on new responsibilities." },
+                    { code: "C", text: "take over", meaning: "Tiếp quản quyền kiểm soát", sentence: "Take over the company." },
+                    { code: "D", text: "take in", meaning: "Hiểu, lừa gạt", sentence: "Don't be taken in by his lies." }
+                ],
+                correct: "A",
+                explanation: "Bắt đầu tập luyện một môn mới như Yoga dùng 'take up'."
+            },
+            {
+                id: "out_8",
+                type: "mcq",
+                question: "8. You need to ________ the application form completely before submitting it to the HR department.",
+                options: [
+                    { code: "A", text: "fill in", meaning: "Điền thông tin vào đơn/mẫu", sentence: "Fill in your full name here." },
+                    { code: "B", text: "fill up", meaning: "Đổ đầy bình, làm đầy", sentence: "Fill up the gas tank." },
+                    { code: "C", text: "write down", meaning: "Ghi chép ra giấy", sentence: "Write down my phone number." },
+                    { code: "D", text: "sign up", meaning: "Đăng ký tham gia", sentence: "Sign up for the course." }
+                ],
+                correct: "A",
+                explanation: "Điền hoàn chỉnh đơn xin việc dùng 'fill in' (hoặc fill out)."
+            },
+            {
+                id: "out_9",
+                type: "mcq",
+                question: "9. I'm sorry I'm late; my car ________ on the way to the office.",
+                options: [
+                    { code: "A", text: "broke up", meaning: "Chia tay, giải tán", sentence: "They broke up last week." },
+                    { code: "B", text: "broke out", meaning: "Bùng phát (dịch bệnh/chiến tranh)", sentence: "Fire broke out suddenly." },
+                    { code: "C", text: "broke down", meaning: "Hỏng hóc (xe cộ, máy móc)", sentence: "The bus broke down." },
+                    { code: "D", text: "broke in", meaning: "Đột nhập, ngắt lời", sentence: "Someone broke in last night." }
+                ],
+                correct: "C",
+                explanation: "Xe hỏng trên đường đến văn phòng chọn 'broke down'."
+            },
+            {
+                id: "out_10",
+                type: "mcq",
+                question: "10. Thieves managed to ________ the museum and steal several valuable paintings.",
+                options: [
+                    { code: "A", text: "break up", meaning: "Chia tay, làm vụn", sentence: "Break up the chocolate." },
+                    { code: "B", text: "break out", meaning: "Bùng nổ, thoát hiểm", sentence: "Break out of jail." },
+                    { code: "C", text: "break down", meaning: "Sụp đổ, hỏng hóc", sentence: "Break down the wall." },
+                    { code: "D", text: "break into", meaning: "Đột nhập vào tòa nhà/bảo tàng", sentence: "Thieves broke into the house." }
+                ],
+                correct: "D",
+                explanation: "Kẻ trộm đột nhập vào bảo tàng dùng 'break into + O'."
+            },
+            {
+                id: "out_11",
+                type: "mcq",
+                question: "11. He ________ an excuse for being late, but nobody believed him.",
+                options: [
+                    { code: "A", text: "took up", meaning: "Bắt đầu sở thích", sentence: "Took up painting." },
+                    { code: "B", text: "kept up", meaning: "Duy trì, giữ vững", sentence: "Kept up the good work." },
+                    { code: "C", text: "caught up", meaning: "Đuổi kịp", sentence: "Caught up with the class." },
+                    { code: "D", text: "made up", meaning: "Bịa đặt câu chuyện/lý do", sentence: "He made up a story." }
+                ],
+                correct: "D",
+                explanation: "Bịa ra một lý do bào chữa (excuse) -> 'made up'."
+            },
+            {
+                id: "out_12",
+                type: "mcq",
+                question: "12. They are going to ________ an experiment to test the effectiveness of the new drug.",
+                options: [
+                    { code: "A", text: "carry out", meaning: "Tiến hành, thực hiện (thí nghiệm, kế hoạch)", sentence: "Carry out an experiment." },
+                    { code: "B", text: "carry on", meaning: "Tiếp tục làm gì", sentence: "Carry on with your lesson." },
+                    { code: "C", text: "carry away", meaning: "Cuốn đi, làm phấn khích quá đỗi", sentence: "Don't get carried away." },
+                    { code: "D", text: "carry through", meaning: "Hoàn thành vượt qua khó khăn", sentence: "Carry through a project." }
+                ],
+                correct: "A",
+                explanation: "Cụm cố định: 'carry out an experiment' = tiến hành cuộc thí nghiệm."
+            },
+            {
+                id: "out_13",
+                type: "mcq",
+                question: "13. She ________ her mother; they both have the same beautiful smile and eyes.",
+                options: [
+                    { code: "A", text: "takes off", meaning: "Cất cánh, cởi đồ", sentence: "The plane takes off." },
+                    { code: "B", text: "takes after", meaning: "Giống người thân (về diện mạo, tính cách)", sentence: "She takes after her mom." },
+                    { code: "C", text: "takes up", meaning: "Bắt đầu học/tập", sentence: "Takes up golf." },
+                    { code: "D", text: "takes on", meaning: "Tuyển thêm người", sentence: "Takes on new staff." }
+                ],
+                correct: "B",
+                explanation: "Giống mẹ từ nụ cười đến ánh mắt -> 'takes after'."
+            },
+            {
+                id: "out_14",
+                type: "mcq",
+                question: "14. The police are ________ the cause of the accident that happened last night.",
+                options: [
+                    { code: "A", text: "looking into", meaning: "Điều tra, nghiên cứu, tìm hiểu", sentence: "Looking into the crime." },
+                    { code: "B", text: "looking for", meaning: "Tìm kiếm thứ bị mất", sentence: "Looking for lost keys." },
+                    { code: "C", text: "looking after", meaning: "Chăm sóc", sentence: "Looking after children." },
+                    { code: "D", text: "looking through", meaning: "Đọc lướt qua", sentence: "Looking through notes." }
+                ],
+                correct: "A",
+                explanation: "Cảnh sát 'điều tra' (looking into) nguyên nhân vụ tai nạn."
+            },
+            {
+                id: "out_15",
+                type: "mcq",
+                question: "15. He refused to ________ to their demands, even though they threatened him.",
+                options: [
+                    { code: "A", text: "give up", meaning: "Từ bỏ hoàn toàn", sentence: "Never give up hope." },
+                    { code: "B", text: "give in", meaning: "Nhượng bộ, chịu thua, nhượng bộ trước yêu cầu", sentence: "Give in to demands." },
+                    { code: "C", text: "give out", meaning: "Phân phát, cạn kiệt", sentence: "Give out leaflets." },
+                    { code: "D", text: "give away", meaning: "Tặng quà, tiết lộ bí mật", sentence: "Give away free tickets." }
+                ],
+                correct: "B",
+                explanation: "Từ chối 'nhượng bộ/chịu thua' trước yêu sách -> 'give in to demands'."
+            },
+            {
+                id: "out_16",
+                type: "mcq",
+                question: "16. The festival was ________ until next month due to financial problems.",
+                options: [
+                    { code: "A", text: "put out", meaning: "Dập tắt lửa", sentence: "Put out the cigarette." },
+                    { code: "B", text: "put on", meaning: "Mặc đồ, tăng cân", sentence: "Put on a coat." },
+                    { code: "C", text: "put off", meaning: "Trì hoãn, dời lịch sang tháng sau", sentence: "Put off the event until next week." },
+                    { code: "D", text: "put down", meaning: "Đặt xuống, viết lại", sentence: "Put down your bag." }
+                ],
+                correct: "C",
+                explanation: "Lễ hội bị 'trì hoãn' (put off) cho tới tháng sau."
+            },
+            {
+                id: "out_17",
+                type: "mcq",
+                question: "17. He ________ the job offer because the salary was too low.",
+                options: [
+                    { code: "A", text: "turned down", meaning: "Từ chối (lời mời công việc/đề nghị)", sentence: "Turned down a offer." },
+                    { code: "B", text: "turned up", meaning: "Đến, xuất hiện", sentence: "Turned up late." },
+                    { code: "C", text: "turned on", meaning: "Bật công tắc", sentence: "Turned on lights." },
+                    { code: "D", text: "turned off", meaning: "Tắt công tắc", sentence: "Turned off TV." }
+                ],
+                correct: "A",
+                explanation: "Anh ấy 'từ chối' (turned down) lời mời công việc do lương thấp."
+            },
+            {
+                id: "out_18",
+                type: "mcq",
+                question: "18. Guess who ________ at the party last night? Your ex-boyfriend!",
+                options: [
+                    { code: "A", text: "turned into", meaning: "Biến thành", sentence: "Turned into ice." },
+                    { code: "B", text: "turned up", meaning: "Xuất hiện, có mặt (= arrive)", sentence: "He turned up unannounced." },
+                    { code: "C", text: "turned out", meaning: "Hóa ra là", sentence: "Turned out fine." },
+                    { code: "D", text: "turned back", meaning: "Quay trở lại", sentence: "Turned back home." }
+                ],
+                correct: "B",
+                explanation: "Đoán xem ai đã 'xuất hiện/đến' (turned up) ở bữa tiệc đêm qua?"
+            },
+            {
+                id: "out_19",
+                type: "mcq",
+                question: "19. She ________ the book to find the information she needed for her essay.",
+                options: [
+                    { code: "A", text: "looked through", meaning: "Đọc lướt qua, giở xem tài liệu", sentence: "Looked through papers." },
+                    { code: "B", text: "looked up", meaning: "Tra cứu từ điển", sentence: "Looked up a word." },
+                    { code: "C", text: "looked for", meaning: "Tìm kiếm vật thất lạc", sentence: "Looked for lost phone." },
+                    { code: "D", text: "looked after", meaning: "Chăm sóc", sentence: "Looked after pet." }
+                ],
+                correct: "A",
+                explanation: "Đọc lướt qua sách tìm ý cho bài luận chọn 'looked through'."
+            },
+            {
+                id: "out_20",
+                type: "mcq",
+                question: "20. It took her a long time to ________ the shock of losing her job.",
+                options: [
+                    { code: "A", text: "get through", meaning: "Liên lạc điện thoại, hoàn thành", sentence: "Get through an exam." },
+                    { code: "B", text: "get by", meaning: "Xoay xở đủ sống", sentence: "Get by on low wage." },
+                    { code: "C", text: "get over", meaning: "Vượt qua nỗi đau, sự sốc (= overcome)", sentence: "Get over a cold." },
+                    { code: "D", text: "get on", meaning: "Lên xe, hòa hợp", sentence: "Get on the bus." }
+                ],
+                correct: "C",
+                explanation: "Vượt qua được cơn sốc mất việc chọn 'get over'."
+            },
+            // Relative Clauses representing whole sentence
+            {
+                id: "out_rel_1",
+                type: "relative",
+                prompt: "21. Many people still throw trash on the street. This makes the city look dirty.",
+                answer: "Many people still throw trash on the street, which makes the city look dirty.",
+                explanation: "Sử dụng ', which' thay thế cho cả mệnh đề đằng trước 'Many people still throw trash on the street' (Việc nhiều người vứt rác làm thành phố bẩn)."
+            },
+            {
+                id: "out_rel_2",
+                type: "relative",
+                prompt: "22. We turned off all the lights before leaving. This helped save a lot of electricity.",
+                answer: "We turned off all the lights before leaving, which helped save a lot of electricity.",
+                explanation: "Dùng ', which' thay thế cho toàn bộ hành động 'We turned off all the lights before leaving'."
+            },
+            {
+                id: "out_rel_3",
+                type: "relative",
+                prompt: "23. The local government decided to plant more trees. This is why the air quality has improved.",
+                answer: "The local government decided to plant more trees, which is why the air quality has improved.",
+                explanation: "Dùng ', which' bổ nghĩa cho sự việc 'Chính quyền quyết định trồng nhiều cây hơn'."
+            },
+            {
+                id: "out_rel_4",
+                type: "relative",
+                prompt: "24. He didn't clear up the mess after the party. The host really disliked this.",
+                answer: "He didn't clear up the mess after the party, which the host really disliked.",
+                explanation: "Dùng ', which' làm tân ngữ cho động词 'disliked', đại diện cho việc anh ta không dọn dẹp sau bữa tiệc."
+            }
+        ];
+
+        // Extra Practice Questions (20+ Expanded questions with complete detailed options & examples)
+        const EXTRA_QUESTIONS = [
+            {
+                id: "ext_1",
+                type: "mcq",
+                question: "1. David spent most of his youth ________ the bars of Dublin doing nothing useful.",
+                options: [
+                    { code: "A", text: "hanging out", meaning: "Đi chơi, dành thời gian ở đâu có mục đích", sentence: "We like hanging out at the mall." },
+                    { code: "B", text: "asking for", meaning: "Hỏi xin cái gì", sentence: "He is asking for help." },
+                    { code: "C", text: "hanging around", meaning: "Lảng vảng, la la quanh đâu đó vô bổ không mục đích", sentence: "Stop hanging around the street corner." },
+                    { code: "D", text: "referring to", meaning: "Ám chỉ, tham chiếu đến", sentence: "What are you referring to?" }
+                ],
+                correct: "C",
+                explanation: "Căn cứ ngữ cảnh 'dành tuổi trẻ vô bổ không làm gì có ích' -> dùng 'hanging around'."
+            },
+            {
+                id: "ext_2",
+                type: "mcq",
+                question: "2. Criminals often ________ in these empty apartments where the police have difficulties in finding them.",
+                options: [
+                    { code: "A", text: "talk out", meaning: "Thảo luận thẳng thắn", sentence: "Let's talk out our problems." },
+                    { code: "B", text: "hide out", meaning: "Ẩn náu, lẩn trốn sự truy bắt", sentence: "The robber hid out in a cave." },
+                    { code: "C", text: "hand back", meaning: "Trả lại đồ", sentence: "Hand back my phone." },
+                    { code: "D", text: "apply for", meaning: "Nộp đơn xin việc", sentence: "Apply for a scholarship." }
+                ],
+                correct: "B",
+                explanation: "Tội phạm thường 'ẩn náu' (hide out) trong các căn hộ bỏ hoảng."
+            },
+            {
+                id: "ext_3",
+                type: "mcq",
+                question: "3. ________ a minute while I am checking in my diary.",
+                options: [
+                    { code: "A", text: "Hold on", meaning: "Giữ máy chờ trong giây lát", sentence: "Hold on please, he will come." },
+                    { code: "B", text: "Rely on", meaning: "Thừa nhận, phụ thuộc vào", sentence: "You can rely on me." },
+                    { code: "C", text: "Come on", meaning: "Tiến lên, cổ vũ", sentence: "Come on, you can do it!" },
+                    { code: "D", text: "Depend on", meaning: "Căn cứ vào, tùy thuộc", sentence: "It depends on the weather." }
+                ],
+                correct: "A",
+                explanation: "Chờ chút trong khi tôi kiểm tra nhật ký -> 'Hold on a minute'."
+            },
+            {
+                id: "ext_4",
+                type: "mcq",
+                question: "4. I carry a notebook so that I can ________ any good ideas immediately.",
+                options: [
+                    { code: "A", text: "turn down", meaning: "Từ chối, vặn nhỏ", sentence: "Turn down the volume." },
+                    { code: "B", text: "come down", meaning: "Giảm sút, sụp đổ", sentence: "Prices came down." },
+                    { code: "C", text: "go down", meaning: "Đi xuống", sentence: "Go down the stairs." },
+                    { code: "D", text: "jot down", meaning: "Ghi chép nhanh ra giấy (= write quickly)", sentence: "Jot down his telephone number." }
+                ],
+                correct: "D",
+                explanation: "Ghi chú nhanh ý tưởng vào sổ tay dùng 'jot down'."
+            },
+            {
+                id: "ext_5",
+                type: "mcq",
+                question: "5. Sam tried calling his mobile phone several times, but she couldn't ________.",
+                options: [
+                    { code: "A", text: "get through", meaning: "Nối máy, liên lạc thành công qua điện thoại", sentence: "I tried calling but couldn't get through." },
+                    { code: "B", text: "get round", meaning: "Thuyết phục ai, xoay xở", sentence: "Get round my parents." },
+                    { code: "C", text: "get over", meaning: "Vượt qua căn bệnh", sentence: "Get over the flu." },
+                    { code: "D", text: "get back", meaning: "Quay về nhà", sentence: "Get back home late." }
+                ],
+                correct: "A",
+                explanation: "Gọi điện thoại không thể nối máy chọn 'get through'."
+            },
+            {
+                id: "ext_6",
+                type: "mcq",
+                question: "6. I'm not ________ any plot surprises; read the reviews in the paper if you want to know.",
+                options: [
+                    { code: "A", text: "giving off", meaning: "Tỏa ra mùi hương/khí", sentence: "Gas giving off an odor." },
+                    { code: "B", text: "giving out", meaning: "Phân phát, kiệt sức", sentence: "Engine gave out." },
+                    { code: "C", text: "giving up", meaning: "Từ bỏ thói quen", sentence: "Giving up candy." },
+                    { code: "D", text: "giving away", meaning: "Tiết lộ bí mật/cốt truyện phim", sentence: "Don't give away the ending!" }
+                ],
+                correct: "D",
+                explanation: "Không tiết lộ cốt truyện phim bất ngờ dùng 'give away'."
+            },
+            {
+                id: "ext_7",
+                type: "mcq",
+                question: "7. She ________ her job as an event manager to become a self-employed baker.",
+                options: [
+                    { code: "A", text: "gave up", meaning: "Từ bỏ công việc/sự nghiệp", sentence: "Gave up his career." },
+                    { code: "B", text: "gave away", meaning: "Cho miễn phí, tiết lộ", sentence: "Gave away old clothes." },
+                    { code: "C", text: "gave over", meaning: "Thôi làm phiền", sentence: "Give over crying!" },
+                    { code: "D", text: "gave off", meaning: "Phát ra mùi", sentence: "Gave off smoke." }
+                ],
+                correct: "A",
+                explanation: "Từ bỏ công việc quản lý sự kiện chọn 'gave up'."
+            },
+            {
+                id: "ext_8",
+                type: "mcq",
+                question: "8. At the end of the marathon race, his legs ________ and he collapsed on the ground.",
+                options: [
+                    { code: "A", text: "gave off", meaning: "Phát ra khí/nhiệt", sentence: "Gave off warmth." },
+                    { code: "B", text: "gave in", meaning: "Đầu hàng nhượng bộ", sentence: "Gave in to pressure." },
+                    { code: "C", text: "gave out", meaning: "Mệt mỏi kiệt sức, ngừng hoạt động", sentence: "His heart gave out." },
+                    { code: "D", text: "gave onto", meaning: "Nhìn ra hướng nào", sentence: "Window gave onto a garden." }
+                ],
+                correct: "C",
+                explanation: "Đôi chân mỏi rã rời kiệt sức không trụ nổi chọn 'gave out'."
+            },
+            {
+                id: "ext_9",
+                type: "mcq",
+                question: "9. People ________ their lives as usual despite the threat of conflict and terrorism.",
+                options: [
+                    { code: "A", text: "went out", meaning: "Ra ngoài chơi, tắt đèn", sentence: "Went out with friends." },
+                    { code: "B", text: "went about", meaning: "Tiến hành công việc cuộc sống như thường lệ", sentence: "Go about daily business." },
+                    { code: "C", text: "went away", meaning: "Đi xa nghỉ dưỡng", sentence: "Went away for weekend." },
+                    { code: "D", text: "went off", meaning: "Nổ bom, reo chuông", sentence: "Bomb went off." }
+                ],
+                correct: "B",
+                explanation: "Bắt đầu/tiếp tục cuộc sống thường nhật dùng 'went about'."
+            },
+            {
+                id: "ext_10",
+                type: "mcq",
+                question: "10. In the sixth grade, Alex ________ three sports teams but was rather poor in two of them.",
+                options: [
+                    { code: "A", text: "went out for", meaning: "Cố gắng nỗ lực thi tuyển vào đội thể thao", sentence: "Went out for football team." },
+                    { code: "B", text: "went out to", meaning: "Gửi tình cảm tới ai", sentence: "My heart went out to victims." },
+                    { code: "C", text: "went out with", meaning: "Hẹn hò với ai", sentence: "Going out with Jane." },
+                    { code: "D", text: "went over to", meaning: "Chuyển sang phe/nhóm khác", sentence: "Went over to the opponent." }
+                ],
+                correct: "A",
+                explanation: "Thử sức/thi tuyển vào đội tuyển thể thao chọn 'went out for'."
+            },
+            {
+                id: "ext_11",
+                type: "mcq",
+                question: "11. Kate found the course difficult, but she ________ it and completed it successfully.",
+                options: [
+                    { code: "A", text: "kept at", meaning: "Kiên trì theo đuổi công việc khó khăn", sentence: "Keep at your studies!" },
+                    { code: "B", text: "kept away", meaning: "Tránh xa ra", sentence: "Kept away from fire." },
+                    { code: "C", text: "kept from", meaning: "Giấu giếm không nói", sentence: "Kept the secret from her." },
+                    { code: "D", text: "kept on", meaning: "Tiếp tục (không dùng tân ngữ trực tiếp dạng này)", sentence: "Kept on running." }
+                ],
+                correct: "A",
+                explanation: "Kiên trì miệt mài làm việc khó khăn (có tân ngữ 'it') -> chọn 'kept at'."
+            },
+            {
+                id: "ext_12",
+                type: "mcq",
+                question: "12. Liz ________ till midnight with her loud music last night.",
+                options: [
+                    { code: "A", text: "picked me up", meaning: "Đón tôi", sentence: "Pick me up at 7." },
+                    { code: "B", text: "kept me up", meaning: "Làm tôi phải thức không ngủ được", sentence: "Noise kept me up all night." },
+                    { code: "C", text: "cheered me up", meaning: "Làm tôi vui lên", sentence: "Gifts cheered me up." },
+                    { code: "D", text: "put me down", meaning: "Hạ bệ sỉ nhổ tôi", sentence: "Stop putting me down." }
+                ],
+                correct: "B",
+                explanation: "Mở nhạc to làm tôi phải thức muộn chọn 'kept me up'."
+            },
+            {
+                id: "ext_13",
+                type: "mcq",
+                question: "13. When ________ on my past life, I admit I didn't always do the right thing.",
+                options: [
+                    { code: "A", text: "looking back", meaning: "Hồi tưởng, nhìn lại quá khứ (đi với 'on')", sentence: "Look back on childhood." },
+                    { code: "B", text: "bringing back", meaning: "Gợi nhớ kỷ niệm", sentence: "Song brings back memories." },
+                    { code: "C", text: "cutting back", meaning: "Cắt giảm chi tiêu", sentence: "Cut back expenses." },
+                    { code: "D", text: "dying back", meaning: "Cây bị héo ngọn", sentence: "Plants dying back." }
+                ],
+                correct: "A",
+                explanation: "Cụm 'looking back on my life' nghĩa là khi hồi tưởng lại cuộc đời đã qua."
+            },
+            {
+                id: "ext_14",
+                type: "mcq",
+                question: "14. Angela thinks they ________ her because she neither goes to college nor has a job.",
+                options: [
+                    { code: "A", text: "look forward to", meaning: "Mong chờ", sentence: "Look forward to holidays." },
+                    { code: "B", text: "look out for", meaning: "Cảnh giác, để mắt đến", sentence: "Look out for thieves." },
+                    { code: "C", text: "look in on", meaning: "Ghé thăm ai ngắn", sentence: "Look in on sick grandmother." },
+                    { code: "D", text: "look down on", meaning: "Coi thường, khinh miệt", sentence: "Look down on uneducated people." }
+                ],
+                correct: "D",
+                explanation: "Khinh thường ai vì không đi học đại học chọn 'look down on'."
+            },
+            {
+                id: "ext_15",
+                type: "mcq",
+                question: "15. Failure to keep the chemicals at the right temperature could ________ an explosion.",
+                options: [
+                    { code: "A", text: "lead to", meaning: "Dẫn đến, gây ra (= cause, result in)", sentence: "Smoking leads to health problems." },
+                    { code: "B", text: "lean on", meaning: "Dựa vào ai ép buộc", sentence: "Lean on him for money." },
+                    { code: "C", text: "listen up", meaning: "Chú ý lắng nghe", sentence: "Listen up everyone!" },
+                    { code: "D", text: "live out", meaning: "Sống hết phần đời còn lại", sentence: "Live out his days." }
+                ],
+                correct: "A",
+                explanation: "Dẫn đến vụ nổ chọn 'lead to an explosion'."
+            },
+            {
+                id: "ext_16",
+                type: "mcq",
+                question: "16. This precious necklace has been ________ in my family for generations.",
+                options: [
+                    { code: "A", text: "handed back", meaning: "Trả lại", sentence: "Handed back the lost wallet." },
+                    { code: "B", text: "handed down", meaning: "Truyền lại cho đời sau", sentence: "Handed down family heirloom." },
+                    { code: "C", text: "handed in", meaning: "Nộp bài", sentence: "Handed in test." },
+                    { code: "D", text: "handed over", meaning: "Trao quyền", sentence: "Handed over key." }
+                ],
+                correct: "B",
+                explanation: "Vòng cổ được gia đình truyền qua nhiều thế hệ chọn 'handed down'."
+            },
+            {
+                id: "ext_17",
+                type: "mcq",
+                question: "17. Solar panels absorb sunlight and ________ heat and green energy.",
+                options: [
+                    { code: "A", text: "give off", meaning: "Tỏa ra, phát ra (nhiệt, ánh sáng, năng lượng)", sentence: "Sun gives off light." },
+                    { code: "B", text: "give up", meaning: "Từ bỏ", sentence: "Give up hope." },
+                    { code: "C", text: "give back", meaning: "Trả lại", sentence: "Give back book." },
+                    { code: "D", text: "give away", meaning: "Cho đi miễn phí", sentence: "Give away prizes." }
+                ],
+                correct: "A",
+                explanation: "Tấm pin mặt trời hấp thụ ánh nắng và 'phát/tỏa ra' nhiệt năng -> 'give off'."
+            },
+            {
+                id: "ext_18",
+                type: "mcq",
+                question: "18. The factory was forced to ________ down after failing the environmental quality check.",
+                options: [
+                    { code: "A", text: "shut", meaning: "Shut down: Đóng cửa nhà máy, ngừng kinh doanh", sentence: "Factory shut down." },
+                    { code: "B", text: "sit", meaning: "Sit down: Ngồi xuống", sentence: "Sit down please." },
+                    { code: "C", text: "slow", meaning: "Slow down: Giảm tốc độ", sentence: "Slow down at corner." },
+                    { code: "D", text: "write", meaning: "Write down: Ghi lại", sentence: "Write down notes." }
+                ],
+                correct: "A",
+                explanation: "Phá sản hoặc đóng cửa nhà máy chọn 'shut down'."
+            },
+            {
+                id: "ext_19",
+                type: "mcq",
+                question: "19. The team managed to achieve high sales, ________ pleased the company manager.",
+                options: [
+                    { code: "A", text: "that", meaning: "Không dùng 'that' sau dấu phẩy trong mệnh đề quan hệ", sentence: "Incorrect grammar after comma." },
+                    { code: "B", text: "which", meaning: "Which thay thế cho cả mệnh đề đứng trước", sentence: "He passed, which made us happy." },
+                    { code: "C", text: "who", meaning: "Chỉ người", sentence: "The man who called." },
+                    { code: "D", text: "where", meaning: "Chỉ nơi chốn", sentence: "The city where I live." }
+                ],
+                correct: "B",
+                explanation: "Dùng ', which' thay cho toàn bộ việc nhóm đạt doanh số cao làm sếp hài lòng."
+            },
+            {
+                id: "ext_20",
+                type: "mcq",
+                question: "20. She forgot to lock the main entrance gate, ________ caused security concerns.",
+                options: [
+                    { code: "A", text: "which", meaning: "Thay thế cho việc cô ấy quên khóa cổng", sentence: "Forgot key, which was bad." },
+                    { code: "B", text: "this", meaning: "Không dùng 'this' nối 2 mệnh đề bằng dấu phẩy trực tiếp", sentence: "Grammar mistake." },
+                    { code: "C", text: "it", meaning: "Cần đại từ quan hệ", sentence: "Grammar mistake." },
+                    { code: "D", text: "what", meaning: "Không làm đại từ quan hệ thay mệnh đề trước", sentence: "Incorrect usage." }
+                ],
+                correct: "A",
+                explanation: "Dùng ', which' bổ nghĩa cho cả hành động quên khóa cổng trước đó."
+            }
+        ];
+
+        /* ==========================================================================
+           2. STATE MANAGEMENT
+           ========================================================================== */
+
+        let state = {
+            activeTab: 'outline',
+            outlineUserAnswers: {},
+            extraUserAnswers: {},
+            wrongQuestions: [], // Stores question objects user answered incorrectly
+            selectedGroupsForMatch: [],
+            activeMatchingPairs: [],
+            selectedPhraseCard: null,
+            selectedMeaningCard: null,
+            matchingMatchedCount: 0
+        };
+
+        /* ==========================================================================
+           3. APPLICATION INITIALIZATION & CORE FUNCTIONS
+           ========================================================================== */
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderOutlineQuiz();
+            renderExtraQuiz();
+            renderGroupChips();
+            renderPhrasalAccordions();
+            updateWrongBadge();
+        });
+
+        function switchTab(tabName) {
+            state.activeTab = tabName;
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active-tab', 'bg-slate-800', 'text-white');
+                btn.classList.add('text-slate-400');
             });
 
-            html += `</div>`;
+            const activeEl = document.getElementById(`tab-${tabName}`);
+            const activeBtn = document.getElementById(`tab-btn-${tabName}`);
+            if (activeEl) activeEl.classList.remove('hidden');
+            if (activeBtn) {
+                activeBtn.classList.add('active-tab', 'bg-slate-800', 'text-white');
+                activeBtn.classList.remove('text-slate-400');
+            }
 
-            if (answeredCurrent[currentQuestionIdx]) {
-                const isCorrect = userAnswers[currentQuestionIdx] === q.correct;
-                html += `
-                    <div class="mt-5 p-4 rounded-xl border ${isCorrect ? 'bg-emerald-950/40 border-emerald-500/40' : 'bg-rose-950/40 border-rose-500/40'} space-y-3">
-                        <div class="flex items-center space-x-2 font-bold text-sm ${isCorrect ? 'text-emerald-400' : 'text-rose-400'}">
-                            <i class="fa-solid ${isCorrect ? 'fa-circle-check' : 'fa-circle-exclamation'} text-base"></i>
-                            <span>${isCorrect ? 'CHÍNH XÁC!' : 'CHƯA CHÍNH XÁC!'}</span>
+            if (tabName === 'review') {
+                renderReviewTab();
+            }
+        }
+
+        /* ==========================================================================
+           4. TAB 1: OUTLINE QUIZ RENDERER & LOGIC
+           ========================================================================== */
+
+        function renderOutlineQuiz() {
+            const container = document.getElementById('outline-quiz-container');
+            container.innerHTML = '';
+
+            OUTLINE_QUESTIONS.forEach((q, idx) => {
+                const card = createQuestionCard(q, idx, 'outline');
+                container.appendChild(card);
+            });
+        }
+
+        function shuffleOutlineQuestions() {
+            OUTLINE_QUESTIONS.sort(() => Math.random() - 0.5);
+            renderOutlineQuiz();
+        }
+
+        function resetOutlineQuiz() {
+            state.outlineUserAnswers = {};
+            renderOutlineQuiz();
+        }
+
+        /* ==========================================================================
+           5. TAB 2: EXTRA QUIZ RENDERER & LOGIC
+           ========================================================================== */
+
+        function renderExtraQuiz() {
+            const container = document.getElementById('extra-quiz-container');
+            container.innerHTML = '';
+
+            EXTRA_QUESTIONS.forEach((q, idx) => {
+                const card = createQuestionCard(q, idx, 'extra');
+                container.appendChild(card);
+            });
+        }
+
+        function resetExtraQuiz() {
+            state.extraUserAnswers = {};
+            renderExtraQuiz();
+        }
+
+        /* ==========================================================================
+           6. UNIVERSAL QUESTION CARD CREATOR (WITH ALL OPTIONS EXPLAINED + EXAMPLES)
+           ========================================================================== */
+
+        function createQuestionCard(q, index, quizType) {
+            const card = document.createElement('div');
+            card.className = "glass-panel p-6 rounded-2xl border border-slate-800 space-y-4";
+            card.id = `qcard_${q.id}`;
+
+            if (q.type === 'mcq') {
+                card.innerHTML = `
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="text-xs font-bold text-blue-400 bg-blue-950/80 px-2.5 py-1 rounded-md border border-blue-800/50">
+                            Câu ${index + 1}
+                        </span>
+                    </div>
+                    <h3 class="text-base sm:text-lg font-semibold text-white leading-relaxed">${q.question}</h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                        ${q.options.map(opt => `
+                            <button onclick="handleAnswer('${q.id}', '${opt.code}', '${quizType}')" 
+                                id="btn_${q.id}_${opt.code}"
+                                class="opt-btn font-medium px-4 py-3 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800 text-left text-sm text-slate-300 transition flex items-center justify-between">
+                                <span><strong class="text-blue-400 mr-2">${opt.code}.</strong> ${opt.text}</span>
+                                <i class="fa-regular fa-circle icon-indicator text-slate-600"></i>
+                            </button>
+                        `).join('')}
+                    </div>
+
+                    <!-- Explanation Container -->
+                    <div id="exp_${q.id}" class="hidden pt-4 mt-2 border-t border-slate-800 space-y-3">
+                        <div class="p-4 rounded-xl bg-slate-900/90 border border-slate-700/60 space-y-3">
+                            <div class="flex items-center gap-2 font-bold text-sm" id="status_title_${q.id}"></div>
+                            <p class="text-xs text-slate-300 leading-relaxed font-medium">${q.explanation}</p>
+                            
+                            <!-- Detailed Breakdown of ALL 4 Options -->
+                            <div class="space-y-2 pt-2 border-t border-slate-800/80">
+                                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Phân Tích Chi Tiết Các Lựa Chọn:</span>
+                                ${q.options.map(opt => `
+                                    <div class="p-2.5 rounded-lg ${opt.code === q.correct ? 'bg-emerald-950/40 border border-emerald-800/50' : 'bg-slate-950/40 border border-slate-800/50'} text-xs space-y-1">
+                                        <div class="flex items-center justify-between font-bold">
+                                            <span class="${opt.code === q.correct ? 'text-emerald-400' : 'text-slate-300'}">
+                                                ${opt.code}. ${opt.text} ${opt.code === q.correct ? '✓ (Đáp án đúng)' : ''}
+                                            </span>
+                                        </div>
+                                        <div class="text-slate-400"><strong class="text-slate-300">Nghĩa:</strong> ${opt.meaning}</div>
+                                        <div class="text-slate-400 italic"><strong class="text-slate-300">Ví dụ:</strong> "${opt.sentence}"</div>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
-                        <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800/80 text-xs sm:text-sm text-slate-300">
-                            <strong class="text-amber-400 block mb-1">💬 Dịch nghĩa:</strong>
-                            <p class="italic text-slate-200">"${q.translation}"</p>
-                        </div>
-                        <div class="space-y-1 text-xs sm:text-sm text-slate-300">
-                            <strong class="text-cyan-400 block mb-1">🔍 Giải thích chi tiết các đáp án:</strong>
-                            <p class="${q.correct === 0 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[0]}</p>
-                            <p class="${q.correct === 1 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[1]}</p>
-                            <p class="${q.correct === 2 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[2]}</p>
-                            <p class="${q.correct === 3 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[3]}</p>
+                    </div>
+                `;
+            } else if (q.type === 'relative') {
+                card.innerHTML = `
+                    <div class="flex justify-between items-start gap-4">
+                        <span class="text-xs font-bold text-amber-400 bg-amber-950/80 px-2.5 py-1 rounded-md border border-amber-800/50">
+                            Câu ${index + 1} • Viết Lại Câu Với ", which"
+                        </span>
+                    </div>
+                    <p class="text-sm sm:text-base font-semibold text-white">${q.prompt}</p>
+                    
+                    <div class="pt-2">
+                        <button onclick="toggleRelativeAnswer('${q.id}')" class="px-4 py-2 bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/40 text-xs font-bold rounded-xl transition flex items-center gap-2">
+                            <i class="fa-solid fa-eye"></i> Xem Đáp Án & Giải Thích
+                        </button>
+                    </div>
+
+                    <div id="exp_${q.id}" class="hidden pt-3 border-t border-slate-800">
+                        <div class="p-4 rounded-xl bg-amber-950/20 border border-amber-800/40 text-xs space-y-2">
+                            <div class="text-amber-300 font-bold text-sm">
+                                <i class="fa-solid fa-circle-check mr-1"></i> Đáp án đúng:
+                            </div>
+                            <div class="text-white font-mono bg-slate-900/80 p-2.5 rounded-lg border border-slate-800 text-sm">
+                                ${q.answer}
+                            </div>
+                            <p class="text-slate-300 leading-relaxed">${q.explanation}</p>
                         </div>
                     </div>
                 `;
             }
 
-            html += `</div>`;
-            document.getElementById('question-container').innerHTML = html;
-
-            document.getElementById('prev-btn').disabled = currentQuestionIdx === 0;
-            const nextBtn = document.getElementById('next-btn');
-            if (currentQuestionIdx === filteredQuestions.length - 1) {
-                nextBtn.innerHTML = `Hoàn Thành <i class="fa-solid fa-flag-checkered ml-2"></i>`;
-            } else {
-                nextBtn.innerHTML = `Câu tiếp <i class="fa-solid fa-arrow-right ml-2"></i>`;
-            }
+            return card;
         }
 
-        function selectOption(idx) {
-            if (answeredCurrent[currentQuestionIdx]) return;
+        function handleAnswer(qId, selectedCode, quizType) {
+            let questionList = quizType === 'outline' ? OUTLINE_QUESTIONS : EXTRA_QUESTIONS;
+            let qObj = questionList.find(q => q.id === qId);
+            if (!qObj) return;
 
-            userAnswers[currentQuestionIdx] = idx;
-            answeredCurrent[currentQuestionIdx] = true;
+            // Mark answer
+            if (quizType === 'outline') state.outlineUserAnswers[qId] = selectedCode;
+            else state.extraUserAnswers[qId] = selectedCode;
 
-            const q = filteredQuestions[currentQuestionIdx];
-            if (idx === q.correct) {
-                score++;
-                document.getElementById('score-val').innerText = score;
+            const expDiv = document.getElementById(`exp_${qId}`);
+            const statusTitle = document.getElementById(`status_title_${qId}`);
+            expDiv.classList.remove('hidden');
+
+            const isCorrect = selectedCode === qObj.correct;
+
+            // Handle Option Styling
+            qObj.options.forEach(opt => {
+                const btn = document.getElementById(`btn_${qId}_${opt.code}`);
+                const icon = btn.querySelector('.icon-indicator');
+
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-slate-800', 'bg-slate-900/60');
+
+                if (opt.code === qObj.correct) {
+                    btn.classList.add('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-300');
+                    icon.className = "fa-solid fa-circle-check text-emerald-400";
+                } else if (opt.code === selectedCode) {
+                    btn.classList.add('bg-rose-950/80', 'border-rose-500', 'text-rose-300');
+                    icon.className = "fa-solid fa-circle-xmark text-rose-400";
+                } else {
+                    btn.classList.add('opacity-50');
+                }
+            });
+
+            if (isCorrect) {
+                statusTitle.className = "flex items-center gap-2 font-bold text-sm text-emerald-400";
+                statusTitle.innerHTML = `<i class="fa-solid fa-circle-check"></i> Chính Xác!`;
+                // Remove from wrong list if existed
+                state.wrongQuestions = state.wrongQuestions.filter(item => item.id !== qId);
             } else {
-                if (!wrongAnswersList.some(item => item.question === q.question)) {
-                    wrongAnswersList.push(q);
-                    updateWrongBadge();
+                statusTitle.className = "flex items-center gap-2 font-bold text-sm text-rose-400";
+                statusTitle.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> Chưa Đúng! (Đáp án chính xác là ${qObj.correct})`;
+                
+                // Add to wrong list if not already present
+                if (!state.wrongQuestions.some(item => item.id === qId)) {
+                    state.wrongQuestions.push(qObj);
                 }
             }
 
-            loadQuestion();
+            updateWrongBadge();
+        }
+
+        function toggleRelativeAnswer(qId) {
+            const expDiv = document.getElementById(`exp_${qId}`);
+            expDiv.classList.toggle('hidden');
         }
 
         function updateWrongBadge() {
-            const badge = document.getElementById('wrong-badge');
-            if (wrongAnswersList.length > 0) {
+            const badge = document.getElementById('wrong-count-badge');
+            if (state.wrongQuestions.length > 0) {
+                badge.innerText = state.wrongQuestions.length;
                 badge.classList.remove('hidden');
-                badge.innerText = wrongAnswersList.length;
             } else {
                 badge.classList.add('hidden');
             }
         }
 
-        function nextQuestion() {
-            if (currentQuestionIdx < filteredQuestions.length - 1) {
-                currentQuestionIdx++;
-                loadQuestion();
+        /* ==========================================================================
+           7. TAB 3: PHRASAL VERBS ACCORDION & CUSTOM GROUP MATCHING
+           ========================================================================== */
+
+        function renderGroupChips() {
+            const container = document.getElementById('group-chips-container');
+            container.innerHTML = PHRASAL_VERB_GROUPS.map(g => `
+                <button onclick="toggleGroupChip('${g.group}')" id="chip_${g.group}" 
+                    class="group-chip px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-900/80 text-slate-300 text-xs font-semibold hover:border-emerald-500/50 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-square-check text-slate-600 chip-icon"></i>
+                    <span>Nhóm ${g.group}</span>
+                </button>
+            `).join('');
+        }
+
+        function toggleGroupChip(groupName) {
+            const index = state.selectedGroupsForMatch.indexOf(groupName);
+            if (index > -1) {
+                state.selectedGroupsForMatch.splice(index, 1);
             } else {
-                showResults();
+                state.selectedGroupsForMatch.push(groupName);
+            }
+            updateChipUI();
+        }
+
+        function selectAllGroups(select) {
+            if (select) {
+                state.selectedGroupsForMatch = PHRASAL_VERB_GROUPS.map(g => g.group);
+            } else {
+                state.selectedGroupsForMatch = [];
+            }
+            updateChipUI();
+        }
+
+        function updateChipUI() {
+            PHRASAL_VERB_GROUPS.forEach(g => {
+                const chip = document.getElementById(`chip_${g.group}`);
+                const icon = chip.querySelector('.chip-icon');
+
+                if (state.selectedGroupsForMatch.includes(g.group)) {
+                    chip.classList.add('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-300');
+                    chip.classList.remove('bg-slate-900/80', 'border-slate-700', 'text-slate-300');
+                    icon.className = "fa-solid fa-square-check text-emerald-400 chip-icon";
+                } else {
+                    chip.classList.remove('bg-emerald-950/80', 'border-emerald-500', 'text-emerald-300');
+                    chip.classList.add('bg-slate-900/80', 'border-slate-700', 'text-slate-300');
+                    icon.className = "fa-solid fa-square-check text-slate-600 chip-icon";
+                }
+            });
+        }
+
+        function startGroupMatchingSingle(groupName) {
+            state.selectedGroupsForMatch = [groupName];
+            updateChipUI();
+            startCustomMatching();
+        }
+
+        function startCustomMatching() {
+            if (state.selectedGroupsForMatch.length === 0) {
+                alert("Vui lòng tích chọn ít nhất 1 nhóm cụm động từ để luyện tập Matching!");
+                return;
+            }
+
+            // Gather all verbs from selected groups
+            let pool = [];
+            PHRASAL_VERB_GROUPS.forEach(g => {
+                if (state.selectedGroupsForMatch.includes(g.group)) {
+                    pool.push(...g.verbs);
+                }
+            });
+
+            if (pool.length === 0) return;
+
+            // Pick up to 8 random verbs for matching
+            pool.sort(() => Math.random() - 0.5);
+            state.activeMatchingPairs = pool.slice(0, 8);
+            state.matchingMatchedCount = 0;
+            state.selectedPhraseCard = null;
+            state.selectedMeaningCard = null;
+
+            document.getElementById('matching-title').innerText = `Luyện Tập Matching: Nhóm [ ${state.selectedGroupsForMatch.join(', ')} ]`;
+            document.getElementById('match-score').innerText = '0';
+            document.getElementById('match-total').innerText = state.activeMatchingPairs.length;
+
+            renderMatchingGrid();
+            document.getElementById('matching-game-area').classList.remove('hidden');
+            document.getElementById('matching-game-area').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function closeMatchingGame() {
+            document.getElementById('matching-game-area').classList.add('hidden');
+        }
+
+        function renderMatchingGrid() {
+            const phrasesCol = document.getElementById('match-phrases-col');
+            const meaningsCol = document.getElementById('match-meanings-col');
+
+            phrasesCol.innerHTML = '';
+            meaningsCol.innerHTML = '';
+
+            // Shuffle phrases and meanings separately
+            const shuffledPhrases = [...state.activeMatchingPairs].sort(() => Math.random() - 0.5);
+            const shuffledMeanings = [...state.activeMatchingPairs].sort(() => Math.random() - 0.5);
+
+            shuffledPhrases.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-3.5 rounded-xl border border-slate-700 bg-slate-800/80 hover:border-emerald-500 text-sm font-bold text-white transition match-phrase-btn";
+                btn.dataset.phrase = item.phrase;
+                btn.innerText = item.phrase;
+                btn.onclick = () => selectMatchingCard('phrase', item.phrase, btn);
+                phrasesCol.appendChild(btn);
+            });
+
+            shuffledMeanings.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-3.5 rounded-xl border border-slate-700 bg-slate-800/80 hover:border-emerald-500 text-xs text-slate-300 leading-relaxed transition match-meaning-btn";
+                btn.dataset.phrase = item.phrase;
+                btn.innerText = item.meaning;
+                btn.onclick = () => selectMatchingCard('meaning', item.phrase, btn);
+                meaningsCol.appendChild(btn);
+            });
+        }
+
+        function selectMatchingCard(type, phraseKey, element) {
+            if (element.disabled) return;
+
+            if (type === 'phrase') {
+                document.querySelectorAll('.match-phrase-btn').forEach(b => b.classList.remove('border-emerald-400', 'bg-emerald-950/60'));
+                element.classList.add('border-emerald-400', 'bg-emerald-950/60');
+                state.selectedPhraseCard = { key: phraseKey, el: element };
+            } else {
+                document.querySelectorAll('.match-meaning-btn').forEach(b => b.classList.remove('border-emerald-400', 'bg-emerald-950/60'));
+                element.classList.add('border-emerald-400', 'bg-emerald-950/60');
+                state.selectedMeaningCard = { key: phraseKey, el: element };
+            }
+
+            // Check match if both selected
+            if (state.selectedPhraseCard && state.selectedMeaningCard) {
+                if (state.selectedPhraseCard.key === state.selectedMeaningCard.key) {
+                    // Correct Match
+                    state.selectedPhraseCard.el.disabled = true;
+                    state.selectedMeaningCard.el.disabled = true;
+
+                    state.selectedPhraseCard.el.className = "w-full text-left p-3.5 rounded-xl border border-emerald-500/60 bg-emerald-950/40 text-emerald-300 text-sm font-bold opacity-60";
+                    state.selectedMeaningCard.el.className = "w-full text-left p-3.5 rounded-xl border border-emerald-500/60 bg-emerald-950/40 text-emerald-300 text-xs opacity-60";
+
+                    state.matchingMatchedCount++;
+                    document.getElementById('match-score').innerText = state.matchingMatchedCount;
+
+                    if (state.matchingMatchedCount === state.activeMatchingPairs.length) {
+                        setTimeout(() => {
+                            alert("🎉 Xuất sắc! Bạn đã nối chính xác toàn bộ cụm từ nhóm này!");
+                        }, 300);
+                    }
+                } else {
+                    // Incorrect Match
+                    const pEl = state.selectedPhraseCard.el;
+                    const mEl = state.selectedMeaningCard.el;
+                    pEl.classList.add('border-rose-500', 'bg-rose-950/60');
+                    mEl.classList.add('border-rose-500', 'bg-rose-950/60');
+
+                    setTimeout(() => {
+                        pEl.classList.remove('border-rose-500', 'bg-rose-950/60', 'border-emerald-400', 'bg-emerald-950/60');
+                        mEl.classList.remove('border-rose-500', 'bg-rose-950/60', 'border-emerald-400', 'bg-emerald-950/60');
+                    }, 500);
+                }
+
+                state.selectedPhraseCard = null;
+                state.selectedMeaningCard = null;
             }
         }
 
-        function prevQuestion() {
-            if (currentQuestionIdx > 0) {
-                currentQuestionIdx--;
-                loadQuestion();
-            }
+        function renderPhrasalAccordions() {
+            const container = document.getElementById('phrasal-groups-accordion');
+            container.innerHTML = PHRASAL_VERB_GROUPS.map((g, idx) => `
+                <div class="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
+                    <div class="p-4 sm:p-5 flex flex-wrap justify-between items-center gap-3 bg-slate-900/60 cursor-pointer" onclick="toggleAccordion('acc_${g.group}')">
+                        <div class="flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-emerald-950 border border-emerald-800 text-emerald-400 font-bold text-xs flex items-center justify-center">
+                                ${idx + 1}
+                            </span>
+                            <h3 class="text-base font-bold text-white">Nhóm Động Từ: <strong class="text-emerald-400">${g.group}</strong> (${g.verbs.length} cụm)</h3>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button onclick="event.stopPropagation(); startGroupMatchingSingle('${g.group}')" 
+                                class="px-3 py-1.5 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-xs font-bold rounded-lg transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-gamepad"></i> Ôn Riêng Nhóm ${g.group}
+                            </button>
+                            <i class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-200" id="icon_acc_${g.group}"></i>
+                        </div>
+                    </div>
+
+                    <div id="acc_${g.group}" class="hidden p-4 sm:p-5 border-t border-slate-800 space-y-4 bg-slate-950/40">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            ${g.verbs.map(v => `
+                                <div class="glass-card p-4 rounded-xl border border-slate-800/80 space-y-2">
+                                    <div class="text-sm font-bold text-emerald-300 flex items-center justify-between">
+                                        <span>${v.phrase}</span>
+                                    </div>
+                                    <p class="text-xs text-slate-300 leading-relaxed font-medium"><strong class="text-slate-400">Nghĩa:</strong> ${v.meaning}</p>
+                                    <div class="text-[11px] text-slate-400 italic bg-slate-900/80 p-2 rounded-lg border border-slate-800">
+                                        ${v.examples.map(ex => `<div>• "${ex}"</div>`).join('')}
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
         }
 
-        function showResults() {
-            document.getElementById('section-quiz').classList.add('hidden');
-            document.getElementById('section-result').classList.remove('hidden');
-
-            document.getElementById('final-score').innerText = score;
-            document.getElementById('final-total').innerText = filteredQuestions.length;
-
-            const percent = score / filteredQuestions.length;
-            let remark = "Hãy ôn lại các câu sai ở Tab ❌ Câu Sai!";
-            if (percent === 1) remark = "🌟 BẠN ĐÃ ĐẠT ĐIỂM TUYỆT ĐỐI!";
-            else if (percent >= 0.8) remark = "🔥 XUẤT SẮC! Phong độ này rất cao!";
-            
-            document.getElementById('result-remark').innerText = remark;
+        function toggleAccordion(id) {
+            const el = document.getElementById(id);
+            const icon = document.getElementById(`icon_${id}`);
+            el.classList.toggle('hidden');
+            if (icon) icon.classList.toggle('rotate-180');
         }
 
-        function renderWrongAnswersDetailed() {
-            const container = document.getElementById('wrong-list-detailed');
-            const retryBtn = document.getElementById('retry-wrong-btn');
+        /* ==========================================================================
+           8. TAB 4: REVIEW & RETRY WRONG QUESTIONS
+           ========================================================================== */
 
-            if (wrongAnswersList.length === 0) {
-                retryBtn.classList.add('hidden');
+        function renderReviewTab() {
+            const container = document.getElementById('review-questions-container');
+            container.innerHTML = '';
+
+            if (state.wrongQuestions.length === 0) {
                 container.innerHTML = `
-                    <div class="p-6 text-center text-emerald-400 bg-emerald-950/30 border border-emerald-500/30 rounded-xl">
-                        <i class="fa-solid fa-circle-check text-3xl mb-2"></i>
-                        <p class="font-semibold text-sm">Tuyệt vời! Bạn không có câu sai nào trong lượt làm vừa qua.</p>
+                    <div class="glass-panel p-12 rounded-2xl text-center space-y-3">
+                        <div class="w-16 h-16 bg-emerald-950 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-2xl border border-emerald-800">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-white">Tuyệt Vời! Chưa Có Câu Nào Bị Làm Sai</h3>
+                        <p class="text-xs text-slate-400 max-w-md mx-auto">Hãy thử sức làm thêm các bài tập trong Đề Cương hoặc Mở Rộng để kiểm tra kiến thức của bạn nhé!</p>
                     </div>
                 `;
                 return;
             }
 
-            retryBtn.classList.remove('hidden');
-            let html = "";
-            wrongAnswersList.forEach((q, idx) => {
-                html += `
-                    <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2 text-xs sm:text-sm">
-                        <div class="flex justify-between font-semibold text-white">
-                            <span>#${idx + 1}. ${q.question}</span>
-                        </div>
-                        <div class="p-2.5 rounded bg-emerald-950/40 border border-emerald-500/30 text-emerald-300">
-                            ✅ Đáp án đúng: <strong>${q.options[q.correct]}</strong>
-                        </div>
-                        <p class="text-slate-400 text-xs italic">"${q.translation}"</p>
-                        <p class="text-slate-300 text-xs pt-1 border-t border-slate-800/80"><strong class="text-cyan-400">Giải thích:</strong> ${q.explanations[q.correct]}</p>
-                    </div>
-                `;
+            state.wrongQuestions.forEach((q, idx) => {
+                const quizType = q.id.startsWith('out_') ? 'outline' : 'extra';
+                const card = createQuestionCard(q, idx, quizType);
+                container.appendChild(card);
             });
-
-            container.innerHTML = html;
         }
 
-        function retryWrongAnswers() {
-            if (wrongAnswersList.length === 0) return;
-            filteredQuestions = [...wrongAnswersList];
-            wrongAnswersList = [];
+        function clearWrongList() {
+            state.wrongQuestions = [];
             updateWrongBadge();
-            switchTab('quiz');
-            initQuizState();
-            loadQuestion();
+            renderReviewTab();
         }
-
-        // RENDER 20+ ACCORDIONS
-        function renderAccordions() {
-            const container = document.getElementById('accordion-container');
-            let html = "";
-
-            phrasalVerbGroups.forEach((group, index) => {
-                html += `
-                    <div class="bg-slate-900/90 rounded-xl border border-slate-800 overflow-hidden">
-                        <button onclick="toggleAccordion(${index})" class="w-full px-4 py-3.5 flex justify-between items-center text-left hover:bg-slate-800/60 transition">
-                            <span class="font-bold text-sm text-${group.color}-400 flex items-center">
-                                <span class="w-6 h-6 rounded-md bg-${group.color}-500/20 text-${group.color}-300 text-xs flex items-center justify-center mr-2.5">${index + 1}</span>
-                                Nhóm ${group.name} (${group.items.length} cụm từ)
-                            </span>
-                            <i id="acc-icon-${index}" class="fa-solid fa-chevron-down text-slate-500 text-xs transition-transform duration-200"></i>
-                        </button>
-
-                        <div id="acc-content-${index}" class="hidden p-4 bg-slate-950/60 border-t border-slate-800/80 space-y-3">
-                            <div class="grid sm:grid-cols-2 gap-3">
-                `;
-
-                group.items.forEach(item => {
-                    html += `
-                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1">
-                            <div class="font-bold text-xs sm:text-sm text-cyan-300">${item.verb}</div>
-                            <div class="text-xs text-slate-200">${item.mean}</div>
-                            <div class="text-[11px] text-slate-400 italic">"Ex: ${item.ex}"</div>
-                        </div>
-                    `;
-                });
-
-                html += `
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = html;
-        }
-
-        function toggleAccordion(index) {
-            const content = document.getElementById(`acc-content-${index}`);
-            const icon = document.getElementById(`acc-icon-${index}`);
-
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.classList.add('hidden');
-                icon.style.transform = 'rotate(0deg)';
-            }
-        }
-
-        // MINIGAME MATCH THE WORD LOGIC
-        let gameScore = 0;
-        let selectedVerbCard = null;
-        let selectedMeanCard = null;
-
-        const matchPairPool = [
-            { verb: "Break into", mean: "Đột nhập vào nhà" },
-            { verb: "Break up", mean: "Chia tay mối quan hệ" },
-            { verb: "Bring about", mean: "Mang lại, gây ra" },
-            { verb: "Bring up", mean: "Nuôi dưỡng con cái" },
-            { verb: "Look after", mean: "Chăm sóc, trông nom" },
-            { verb: "Look up", mean: "Tra cứu trong từ điển" },
-            { verb: "Turn down", mean: "Từ chối lời đề nghị" },
-            { verb: "Turn up", mean: "Xuất hiện bất ngờ" },
-            { verb: "Give up", mean: "Từ bỏ thói quen" },
-            { verb: "Give off", mean: "Tỏa ra mùi hương/nhiệt" },
-            { verb: "Take after", mean: "Giống người thân" },
-            { verb: "Take up", mean: "Bắt đầu môn thể thao" },
-            { verb: "Call off", mean: "Hủy bỏ sự kiện" },
-            { verb: "Put off", mean: "Trì hoãn thời gian" },
-            { verb: "Go off", mean: "Reo chuông / Nổ bom" },
-            { verb: "Get over", mean: "Vượt qua cú sốc" }
-        ];
-
-        function initMatchGame() {
-            gameScore = 0;
-            document.getElementById('game-score').innerText = gameScore;
-            selectedVerbCard = null;
-            selectedMeanCard = null;
-
-            const shuffled = [...matchPairPool].sort(() => Math.random() - 0.5).slice(0, 5);
-            const verbs = shuffled.map((item, idx) => ({ id: idx, text: item.verb })).sort(() => Math.random() - 0.5);
-            const means = shuffled.map((item, idx) => ({ id: idx, text: item.mean })).sort(() => Math.random() - 0.5);
-
-            const board = document.getElementById('matching-game-board');
-            let html = `<div class="space-y-2">`;
-            verbs.forEach(v => {
-                html += `
-                    <button onclick="clickVerbCard(this, ${v.id})" class="verb-card w-full p-3 rounded-xl bg-slate-900 border border-slate-800 text-left text-xs sm:text-sm font-semibold text-purple-300 hover:border-purple-500 transition">
-                        ${v.text}
-                    </button>
-                `;
-            });
-            html += `</div><div class="space-y-2">`;
-            means.forEach(m => {
-                html += `
-                    <button onclick="clickMeanCard(this, ${m.id})" class="mean-card w-full p-3 rounded-xl bg-slate-900 border border-slate-800 text-left text-xs sm:text-sm font-semibold text-cyan-300 hover:border-cyan-500 transition">
-                        ${m.text}
-                    </button>
-                `;
-            });
-            html += `</div>`;
-            board.innerHTML = html;
-        }
-
-        function clickVerbCard(el, id) {
-            document.querySelectorAll('.verb-card').forEach(c => c.classList.remove('border-purple-500', 'bg-purple-950/50'));
-            el.classList.add('border-purple-500', 'bg-purple-950/50');
-            selectedVerbCard = { el, id };
-            checkMatch();
-        }
-
-        function clickMeanCard(el, id) {
-            document.querySelectorAll('.mean-card').forEach(c => c.classList.remove('border-cyan-500', 'bg-cyan-950/50'));
-            el.classList.add('border-cyan-500', 'bg-cyan-950/50');
-            selectedMeanCard = { el, id };
-            checkMatch();
-        }
-
-        function checkMatch() {
-            if (selectedVerbCard && selectedMeanCard) {
-                if (selectedVerbCard.id === selectedMeanCard.id) {
-                    selectedVerbCard.el.className = "w-full p-3 rounded-xl bg-emerald-950/60 border border-emerald-500 text-xs sm:text-sm font-semibold text-emerald-300 opacity-50 cursor-default";
-                    selectedMeanCard.el.className = "w-full p-3 rounded-xl bg-emerald-950/60 border border-emerald-500 text-xs sm:text-sm font-semibold text-emerald-300 opacity-50 cursor-default";
-                    selectedVerbCard.el.disabled = true;
-                    selectedMeanCard.el.disabled = true;
-                    gameScore += 2;
-                    document.getElementById('game-score').innerText = gameScore;
-                } else {
-                    const vEl = selectedVerbCard.el;
-                    const mEl = selectedMeanCard.el;
-                    vEl.classList.add('border-rose-500', 'bg-rose-950/50');
-                    mEl.classList.add('border-rose-500', 'bg-rose-950/50');
-                    setTimeout(() => {
-                        vEl.classList.remove('border-rose-500', 'bg-rose-950/50', 'border-purple-500', 'bg-purple-950/50');
-                        mEl.classList.remove('border-rose-500', 'bg-rose-950/50', 'border-cyan-500', 'bg-cyan-950/50');
-                    }, 500);
-                }
-                selectedVerbCard = null;
-                selectedMeanCard = null;
-            }
-        }
-
-        function resetQuiz() {
-            initQuizState();
-            document.getElementById('section-result').classList.add('hidden');
-            document.getElementById('section-quiz').classList.remove('hidden');
-            loadQuestion();
-        }
-
-        window.onload = function() {
-            initQuizState();
-            loadQuestion();
-        };
     </script>
 </body>
 </html>
