@@ -30,7 +30,7 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .glass-panel {
-            background: rgba(17, 24, 39, 0.8);
+            background: rgba(17, 24, 39, 0.85);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -54,6 +54,15 @@
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
             background: #8b5cf6;
         }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+        }
+        .accordion-content.active {
+            max-height: 1000px;
+            transition: max-height 0.5s ease-in, padding 0.3s ease-in;
+        }
     </style>
 </head>
 <body class="bg-darkBg text-slate-100 min-h-screen flex flex-col justify-between selection:bg-purple-500 selection:text-white">
@@ -66,14 +75,14 @@
     </div>
 
     <!-- Header Navigation -->
-    <header class="relative z-10 border-b border-slate-800/80 bg-slate-950/70 backdrop-blur-md sticky top-0">
-        <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
+    <header class="relative z-10 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col lg:flex-row justify-between items-center gap-3">
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-cyan-500 flex items-center justify-center text-white font-bold text-xl glow-effect">
                     <i class="fa-solid fa-graduation-cap"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">English 12 - Global Success</h1>
+                    <h1 class="font-bold text-base sm:text-lg bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">English 12 - Global Success</h1>
                     <p class="text-xs text-purple-400 font-medium">Ôn Thi Giữa Kỳ 2 • Phrasal Verbs & Relative Clauses</p>
                 </div>
             </div>
@@ -81,13 +90,13 @@
             <!-- Tab Navigation Buttons -->
             <div class="flex flex-wrap justify-center bg-slate-900/90 p-1.5 rounded-xl border border-slate-800 gap-1 text-xs sm:text-sm">
                 <button onclick="switchTab('quiz')" id="tab-btn-quiz" class="px-3.5 py-2 rounded-lg font-medium transition-all duration-300 bg-purple-600 text-white shadow-lg shadow-purple-600/30">
-                    <i class="fa-solid fa-pen-to-square mr-1.5"></i>Luyện Tập Quiz
+                    <i class="fa-solid fa-pen-to-square mr-1.5"></i>📋 Đề Cương Ôn
                 </button>
                 <button onclick="switchTab('distinguish')" id="tab-btn-distinguish" class="px-3.5 py-2 rounded-lg font-medium transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800/60">
-                    <i class="fa-solid fa-layer-group mr-1.5"></i>Phân Biệt Cụm Từ
+                    <i class="fa-solid fa-layer-group mr-1.5"></i>💡 Phân Biệt Cụm Từ
                 </button>
-                <button onclick="switchTab('share')" id="tab-btn-share" class="px-3.5 py-2 rounded-lg font-medium transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800/60">
-                    <i class="fa-solid fa-share-nodes mr-1.5"></i>Gửi Cho Bạn Bè
+                <button onclick="switchTab('wrong')" id="tab-btn-wrong" class="px-3.5 py-2 rounded-lg font-medium transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800/60 relative">
+                    <i class="fa-solid fa-triangle-exclamation mr-1.5"></i>❌ Câu Sai <span id="wrong-badge" class="ml-1 px-1.5 py-0.2 bg-rose-500 text-white text-[10px] rounded-full hidden">0</span>
                 </button>
             </div>
         </div>
@@ -99,15 +108,18 @@
         <!-- SECTION 1: QUIZ -->
         <div id="section-quiz" class="space-y-6">
             
-            <!-- Filter Bar for Quiz Categories -->
+            <!-- Filter & Shuffle Bar -->
             <div class="glass-panel p-3.5 rounded-2xl flex flex-wrap justify-between items-center gap-3">
-                <div class="flex items-center space-x-2">
-                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Chế độ ôn tập:</span>
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Chế độ:</span>
                     <select id="category-filter" onchange="changeCategoryFilter()" class="bg-slate-900 border border-slate-700 text-cyan-300 text-xs sm:text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:border-purple-500">
                         <option value="ALL">⭐ Tất cả câu hỏi (Đề cương + Bổ sung)</option>
-                        <option value="MUC1">🎯 MỤC 1: Đề Cương Trên Lớp (Ưu Tiên)</option>
-                        <option value="MUC2">📚 MỤC 2: Bài Tập Bổ Sung Chọn Lọc</option>
+                        <option value="MUC1">🎯 MỤC 1: Đề Cương Trên Lớp (24 Câu)</option>
+                        <option value="MUC2">📚 MỤC 2: Trắc Nghiệm Mở Rộng</option>
                     </select>
+                    <button onclick="shuffleCurrentQuiz()" class="text-xs text-purple-300 bg-purple-900/40 hover:bg-purple-800/60 border border-purple-500/40 px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-shuffle"></i> <span>Đảo Thứ Tự Câu</span>
+                    </button>
                 </div>
 
                 <div class="flex items-center space-x-4">
@@ -149,141 +161,68 @@
             </div>
         </div>
 
-        <!-- SECTION 2: EASILY CONFUSED PHRASAL VERBS -->
+        <!-- SECTION 2: ACCORDION PHRASAL VERBS & MATCHING GAME -->
         <div id="section-distinguish" class="hidden space-y-6">
-            <div class="glass-panel p-6 rounded-2xl glow-cyan">
-                <div class="border-b border-slate-800 pb-4 mb-6">
-                    <h2 class="text-2xl font-bold bg-gradient-to-r from-purple-400 via-cyan-400 to-pink-400 bg-clip-text text-transparent flex items-center">
-                        <i class="fa-solid fa-layer-group text-purple-400 mr-3"></i>Phân Biệt Cụm Động Từ Dễ Nhầm Lẫn
+            
+            <!-- MINIGAME MATCH THE WORD -->
+            <div class="glass-panel p-5 sm:p-6 rounded-2xl border border-cyan-500/30 glow-cyan">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800 pb-3 mb-4 gap-2">
+                    <div>
+                        <h2 class="text-lg font-bold text-cyan-300 flex items-center">
+                            <i class="fa-solid fa-gamepad mr-2 text-cyan-400"></i>Minigame: Match The Word (Ghép Cụm Động Từ Với Nghĩa)
+                        </h2>
+                        <p class="text-xs text-slate-400">Chọn 1 cụm động từ bên trái và nối với nghĩa tiếng Việt tương ứng bên phải.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs text-amber-400 font-bold bg-amber-400/10 px-3 py-1 rounded-full border border-amber-400/20">Điểm: <span id="game-score">0</span>/10</span>
+                        <button onclick="initMatchGame()" class="text-xs bg-cyan-600 hover:bg-cyan-500 text-white px-3 py-1.5 rounded-lg transition">
+                            <i class="fa-solid fa-arrows-rotate mr-1"></i>Trận mới
+                        </button>
+                    </div>
+                </div>
+
+                <div id="matching-game-board" class="grid grid-cols-2 gap-3 sm:gap-4">
+                    <!-- Dynamic Cards JS -->
+                </div>
+            </div>
+
+            <!-- 20+ ACCORDION GROUPS -->
+            <div class="glass-panel p-5 sm:p-6 rounded-2xl">
+                <div class="border-b border-slate-800 pb-3 mb-5">
+                    <h2 class="text-xl font-bold text-purple-300 flex items-center">
+                        <i class="fa-solid fa-list-check mr-2 text-purple-400"></i>Tra Cứu 20+ Nhóm Động Từ Dễ Nhầm Lẫn
                     </h2>
-                    <p class="text-slate-400 text-xs sm:text-sm mt-1">Các cụm động từ có cùng động từ gốc nhưng khác giới từ. Rất hay xuất hiện trong đề thi giữa kỳ và THPTQG!</p>
+                    <p class="text-xs text-slate-400 mt-0.5">Nhấp vào từng nhóm động từ để mở rộng danh sách cụm từ chi tiết, phiên âm và ví dụ minh họa.</p>
                 </div>
 
-                <div class="space-y-6">
-                    
-                    <!-- LOOK -->
-                    <div class="bg-slate-900/80 p-4 sm:p-5 rounded-xl border border-purple-500/30">
-                        <h3 class="text-lg font-bold text-purple-300 flex items-center mb-3">
-                            <span class="w-8 h-8 rounded-lg bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400 mr-2">1</span>
-                            Nhóm Động Từ "LOOK"
-                        </h3>
-                        <div class="grid sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-cyan-400">Look for:</strong> Tìm kiếm (vật/người bị mất hoặc cần tìm)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-cyan-400">Look after:</strong> Chăm sóc, trông nom (= take care of)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-cyan-400">Look up:</strong> Tra cứu (từ điển, số điện thoại, thông tin)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-cyan-400">Look into:</strong> Điều tra, nghiên cứu, xem xét kỹ</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-cyan-400">Look through:</strong> Đọc lướt qua, xem qua sách/tài liệu</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-cyan-400">Look up to / Look down on:</strong> Tôn trọng / Coi thường</div>
-                        </div>
-                    </div>
-
-                    <!-- TURN -->
-                    <div class="bg-slate-900/80 p-4 sm:p-5 rounded-xl border border-cyan-500/30">
-                        <h3 class="text-lg font-bold text-cyan-300 flex items-center mb-3">
-                            <span class="w-8 h-8 rounded-lg bg-cyan-600/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 mr-2">2</span>
-                            Nhóm Động Từ "TURN"
-                        </h3>
-                        <div class="grid sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Turn down:</strong> 1. Từ chối (lời đề nghị/công việc) | 2. Vặn nhỏ (âm lượng)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Turn up:</strong> 1. Xuất hiện, đến (bất ngờ) | 2. Vặn to (âm lượng)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Turn on / Turn off:</strong> Bật / Tắt (thiết bị điện)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Turn out:</strong> Hóa ra là, thành ra</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Turn into:</strong> Biến thành, chuyển thành</div>
-                        </div>
-                    </div>
-
-                    <!-- GIVE -->
-                    <div class="bg-slate-900/80 p-4 sm:p-5 rounded-xl border border-pink-500/30">
-                        <h3 class="text-lg font-bold text-pink-300 flex items-center mb-3">
-                            <span class="w-8 h-8 rounded-lg bg-pink-600/20 border border-pink-500/40 flex items-center justify-center text-pink-400 mr-2">3</span>
-                            Nhóm Động Từ "GIVE"
-                        </h3>
-                        <div class="grid sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-amber-400">Give up:</strong> Từ bỏ, bỏ cuộc (thói quen, công việc)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-amber-400">Give in:</strong> Nhượng bộ, đầu hàng (trước áp lực)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-amber-400">Give away:</strong> Tặng miễn phí / Tiết lộ bí mật vô ý</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-amber-400">Give out:</strong> Cạn kiệt, kiệt sức / Phát (tài liệu)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-amber-400">Give off:</strong> Tỏa ra, phát ra (mùi hương, nhiệt, khí)</div>
-                        </div>
-                    </div>
-
-                    <!-- BREAK -->
-                    <div class="bg-slate-900/80 p-4 sm:p-5 rounded-xl border border-emerald-500/30">
-                        <h3 class="text-lg font-bold text-emerald-300 flex items-center mb-3">
-                            <span class="w-8 h-8 rounded-lg bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mr-2">4</span>
-                            Nhóm Động Từ "BREAK"
-                        </h3>
-                        <div class="grid sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-cyan-400">Break down:</strong> Hỏng hóc (máy móc, xe cộ) / Suy sụp tinh thần</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-cyan-400">Break into:</strong> Đột nhập vào nhà/bảo tàng trái phép</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-cyan-400">Break up:</strong> Chia tay mối quan hệ / Giải tán</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-cyan-400">Break out:</strong> Bùng phát (dịch bệnh, chiến tranh, hỏa hoạn)</div>
-                        </div>
-                    </div>
-
-                    <!-- CÁC CỤM KHÁC -->
-                    <div class="bg-slate-900/80 p-4 sm:p-5 rounded-xl border border-slate-700">
-                        <h3 class="text-lg font-bold text-slate-200 flex items-center mb-3">
-                            <span class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 mr-2">5</span>
-                            Các Cụm Trọng Tâm Khác Trong Đề Thi
-                        </h3>
-                        <div class="grid sm:grid-cols-2 gap-3 text-xs sm:text-sm">
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Carry out:</strong> Tiến hành, thực hiện (thí nghiệm, dự án)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Take after:</strong> Giống ai đó (về ngoại hình/tính cách)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Take up:</strong> Bắt đầu một sở thích / môn thể thao mới</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Put off:</strong> Trì hoãn (= delay/postpone)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Pull down / Knock down:</strong> Phá hủy, san bằng (tòa nhà)</div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800"><strong class="text-purple-400">Call off:</strong> Hủy bỏ hoàn toàn (= cancel)</div>
-                        </div>
-                    </div>
-
+                <div id="accordion-container" class="space-y-3">
+                    <!-- Dynamic Accordions JS -->
                 </div>
             </div>
         </div>
 
-        <!-- SECTION 3: HOW TO SHARE WITH FRIENDS -->
-        <div id="section-share" class="hidden space-y-6">
+        <!-- SECTION 3: REVIEW WRONG ANSWERS -->
+        <div id="section-wrong" class="hidden space-y-6">
             <div class="glass-panel p-6 rounded-2xl glow-effect">
-                <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent flex items-center mb-3">
-                    <i class="fa-solid fa-share-nodes text-cyan-400 mr-3"></i>Hướng Dẫn Tạo Link Gửi Cho Bạn Bè Ôn Cùng
-                </h2>
-                <p class="text-slate-300 text-sm mb-6">Bạn chỉ cần làm theo 1 trong 2 cách siêu dễ dưới đây (hoàn toàn miễn phí 100%) để biến trang web này thành đường link online:</p>
-
-                <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Cách 1: Netlify Drop -->
-                    <div class="bg-slate-900/90 p-5 rounded-xl border border-cyan-500/40 space-y-3">
-                        <div class="inline-block px-3 py-1 bg-cyan-500/20 text-cyan-300 font-bold text-xs rounded-full">CÁCH 1: NHANH NHẤT (Chỉ mất 30 giây)</div>
-                        <h3 class="text-lg font-bold text-white">Dùng Netlify Drop (Không cần tạo tài khoản)</h3>
-                        <ol class="space-y-2 text-xs sm:text-sm text-slate-300 list-decimal list-inside">
-                            <li>Lưu file code này thành tên <code class="text-amber-300 bg-slate-950 px-1.5 py-0.5 rounded">index.html</code> trên máy tính.</li>
-                            <li>Tạo 1 thư mục (Folder) mới và bỏ file <code class="text-amber-300 bg-slate-950 px-1.5 py-0.5 rounded">index.html</code> vào đó.</li>
-                            <li>Truy cập trang web: <a href="https://app.netlify.com/drop" target="_blank" class="text-cyan-400 underline font-semibold">app.netlify.com/drop</a></li>
-                            <li>Kéo thả cả Thư mục chứa file vào ô tải lên. Netlify sẽ cho bạn một **đường link đường dẫn online ngay lập tức**!</li>
-                        </ol>
+                <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-rose-400 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i>Danh Sách Câu Làm Sai
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-1">Các câu hỏi bạn trả lời chưa chính xác trong lượt làm gần nhất sẽ tự động được ghi nhớ ở đây.</p>
                     </div>
-
-                    <!-- Cách 2: GitHub Pages -->
-                    <div class="bg-slate-900/90 p-5 rounded-xl border border-purple-500/40 space-y-3">
-                        <div class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 font-bold text-xs rounded-full">CÁCH 2: GITHUB PAGES (Dùng lâu dài)</div>
-                        <h3 class="text-lg font-bold text-white">Đăng lên GitHub Pages</h3>
-                        <ol class="space-y-2 text-xs sm:text-sm text-slate-300 list-decimal list-inside">
-                            <li>Đăng nhập <a href="https://github.com" target="_blank" class="text-purple-400 underline font-semibold">GitHub.com</a> và bấm <strong>New Repository</strong>.</li>
-                            <li>Đặt tên Repository (Ví dụ: <code class="text-amber-300 bg-slate-950 px-1.5 py-0.5 rounded">on-thi-tieng-anh-12</code>) và bấm Create.</li>
-                            <li>Bấm <strong>Upload an existing file</strong> ➔ Tải file <code class="text-amber-300 bg-slate-950 px-1.5 py-0.5 rounded">index.html</code> lên và bấm Commit.</li>
-                            <li>Vào mục <strong>Settings ➔ Pages</strong> ➔ Tại ô Branch chọn <code class="text-amber-300 bg-slate-950 px-1.5 py-0.5 rounded">main</code> rồi bấm <strong>Save</strong>. Link web sẽ xuất hiện sau 1 phút!</li>
-                        </ol>
-                    </div>
+                    <button id="retry-wrong-btn" onclick="retryWrongAnswers()" class="hidden px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs rounded-xl shadow-lg transition">
+                        <i class="fa-solid fa-rotate-right mr-1.5"></i>Làm Lại Riêng Các Câu Sai
+                    </button>
                 </div>
 
-                <!-- Explanation about Antigravity / AI tools -->
-                <div class="mt-6 bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs sm:text-sm text-slate-400 space-y-2">
-                    <p class="font-semibold text-slate-200 text-base">💡 Giải thích về các công cụ phát triển / Antigravity:</p>
-                    <p>Các công cụ AI mã nguồn hoặc môi trường phát triển ứng dụng nâng cao (như IDE/AI Agent Antigravity) giúp lập trình viên viết code phức tạp, tự động xử lý nhiều file dự án cùng lúc. Tuy nhiên, đối với ứng dụng web trắc nghiệm ôn thi này, file single-page HTML tự chứa đầy đủ mã giao diện, dữ liệu câu hỏi và logic đã được tối ưu hoàn hảo để bạn **chạy trực tiếp mượt mà trên điện thoại/máy tính** mà không cần cài thêm phần mềm gì cả!</p>
+                <div id="wrong-list-detailed" class="space-y-4">
+                    <!-- Filled by JS -->
                 </div>
             </div>
         </div>
 
-        <!-- RESULTS SCREEN & WRONG ANSWERS REVIEW -->
+        <!-- RESULTS SCREEN -->
         <div id="section-result" class="hidden glass-panel p-6 sm:p-8 rounded-2xl space-y-6 glow-cyan">
             <div class="text-center space-y-3">
                 <div class="w-16 h-16 bg-gradient-to-tr from-amber-500 to-yellow-400 rounded-2xl mx-auto flex items-center justify-center text-white text-3xl shadow-xl shadow-yellow-500/20">
@@ -297,17 +236,12 @@
                 </div>
             </div>
 
-            <!-- WRONG ANSWERS REVIEW SECTION -->
-            <div id="wrong-answers-container" class="space-y-4 pt-4 border-t border-slate-800">
-                <!-- Dynamically filled with wrong answers -->
-            </div>
-
             <div class="flex flex-wrap justify-center gap-4 pt-4">
                 <button onclick="resetQuiz()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-semibold hover:opacity-90 transition shadow-lg text-sm">
                     <i class="fa-solid fa-rotate-right mr-2"></i>Làm Lại Lần Nữa
                 </button>
-                <button onclick="switchTab('distinguish')" class="px-6 py-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-800 transition text-sm">
-                    <i class="fa-solid fa-layer-group mr-2"></i>Ôn Lại Cụm Từ Dễ Nhầm
+                <button onclick="switchTab('wrong')" class="px-6 py-3 rounded-xl bg-slate-900 border border-slate-800 text-rose-300 hover:text-white hover:bg-slate-800 transition text-sm">
+                    <i class="fa-solid fa-triangle-exclamation mr-2"></i>Xem Lại Câu Sai
                 </button>
             </div>
         </div>
@@ -316,26 +250,263 @@
 
     <!-- Footer -->
     <footer class="relative z-10 border-t border-slate-800/80 bg-slate-950/70 py-4 text-center text-xs text-slate-500">
-        <p>Ứng dụng ôn thi Tiếng Anh 12 (Global Success) • Chúc bạn đạt kết quả thật cao trong kỳ thi giữa kì 2! 🎯</p>
+        <p>Ứng dụng ôn thi Tiếng Anh 12 (Global Success) • Phrasal Verbs & Relative Clauses 🎯</p>
     </footer>
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Master Question Bank with detailed explanations for ALL options
-        const allQuestions = [
-            // ==================== MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (TRONG 3 HÌNH) ====================
+        // MASTER 20+ PHRASAL VERB ACCORDION DATA
+        const phrasalVerbGroups = [
+            {
+                name: "BREAK",
+                color: "emerald",
+                items: [
+                    { verb: "Break in", mean: "Đột nhập vào nhà / Cắt ngang cuộc trò chuyện", ex: "Someone tried to break in while we were sleeping." },
+                    { verb: "Break into", mean: "Đột nhập trái phép vào địa điểm cụ thể", ex: "Thieves broke into the bank last night." },
+                    { verb: "Break up", mean: "Chia tay mối quan hệ / Giải tán buổi học, lớp học", ex: "They broke up after three years of dating." },
+                    { verb: "Break off", mean: "Chấm dứt đột ngột một hợp đồng, đàm phán", ex: "The two countries broke off diplomatic relations." },
+                    { verb: "Break down", mean: "Hỏng hóc (xe cộ, máy móc) / Suy sụp tinh thần", ex: "My car broke down on the highway." },
+                    { verb: "Break away", mean: "Trốn thoát khỏi ai/cái gì, ly khai", ex: "The prisoner broke away from the guards." },
+                    { verb: "Break out", mean: "Bùng phát (dịch bệnh, chiến tranh, hỏa hoạn)", ex: "A violent fire broke out in the factory." }
+                ]
+            },
+            {
+                name: "BRING",
+                color: "cyan",
+                items: [
+                    { verb: "Bring about", mean: "Mang lại, gây ra (= result in, cause)", ex: "The new laws brought about major changes." },
+                    { verb: "Bring down", mean: "Hạ gục, hạ thấp giá cả / Hạ cánh", ex: "The scandal brought down the government." },
+                    { verb: "Bring out", mean: "Xuất bản, tung ra thị trường sản phẩm mới", ex: "The band is bringing out a new album." },
+                    { verb: "Bring up", mean: "Nuôi dưỡng (con cái) / Đề cập đến một chủ đề", ex: "She was brought up by her grandparents." },
+                    { verb: "Bring off", mean: "Thành công trong việc khó khăn, ẵm giải", ex: "He brought off a remarkable victory." },
+                    { verb: "Bring back", mean: "Gợi nhớ lại kỷ niệm / Mang trở lại", ex: "This song brings back happy memories." },
+                    { verb: "Bring in", mean: "Thu hút lợi nhuận / Ban hành luật mới", ex: "The company brought in record profits." }
+                ]
+            },
+            {
+                name: "LOOK",
+                color: "purple",
+                items: [
+                    { verb: "Look up", mean: "Tra cứu (từ điển, số điện thoại, thông tin)", ex: "Look up the new words in a dictionary." },
+                    { verb: "Look out", mean: "Coi chừng, cẩn thận (= watch out)", ex: "Look out! There is a car coming!" },
+                    { verb: "Look after", mean: "Chăm sóc, trông nom (= take care of)", ex: "Can you look after my cat while I am away?" },
+                    { verb: "Look for", mean: "Tìm kiếm (vật/người bị thất lạc)", ex: "I am looking for my misplaced keys." },
+                    { verb: "Look into", mean: "Điều tra, nghiên cứu kỹ lưỡng (= investigate)", ex: "The police are looking into the accident." },
+                    { verb: "Look through", mean: "Đọc lướt qua sách, tài liệu", ex: "She looked through the report before the meeting." },
+                    { verb: "Look down on", mean: "Coi thường, khinh miệt ai đó", ex: "You shouldn't look down on poor people." },
+                    { verb: "Look up to", mean: "Kính trọng, tôn trọng ai đó", ex: "He has always looked up to his eldest brother." },
+                    { verb: "Look back on", mean: "Hồi tưởng, nhớ lại quá khứ", ex: "When looking back on my youth, I smile." },
+                    { verb: "Look in on", mean: "Ghé thăm ngắn ai đó (đặc biệt là người ốm)", ex: "I'll look in on grandmother on my way home." }
+                ]
+            },
+            {
+                name: "TURN",
+                color: "pink",
+                items: [
+                    { verb: "Turn down", mean: "Từ chối lời mời, công việc / Vặn nhỏ âm lượng", ex: "He turned down the job offer due to low pay." },
+                    { verb: "Turn up", mean: "Xuất hiện, đến bất ngờ / Vặn to âm lượng", ex: "Guess who turned up at the party last night?" },
+                    { verb: "Turn on / Turn off", mean: "Bật / Tắt công tắc thiết bị điện", ex: "Please turn off the lights when you leave." },
+                    { verb: "Turn into", mean: "Biến thành, chuyển hóa thành cái gì", ex: "The caterpillar turned into a beautiful butterfly." },
+                    { verb: "Turn out", mean: "Hóa ra là, thành ra kết quả như thế nào", ex: "The event turned out to be a great success." },
+                    { verb: "Turn in", mean: "Đi ngủ / Giao nộp bài tập, tội phạm", ex: "I'm exhausted, I think I'll turn in early tonight." },
+                    { verb: "Turn away", mean: "Từ chối cho ai vào, đuổi ra", ex: "Hundreds of fans were turned away from the stadium." }
+                ]
+            },
+            {
+                name: "GIVE",
+                color: "amber",
+                items: [
+                    { verb: "Give up", mean: "Từ bỏ thói quen, bỏ cuộc (= abandon)", ex: "Never give up on your dreams." },
+                    { verb: "Give in", mean: "Nhượng bộ, đầu hàng trước áp lực", ex: "He finally gave in to his children's requests." },
+                    { verb: "Give out", mean: "Phân phát tài liệu / Kiệt sức, cạn kiệt", ex: "His patience was beginning to give out." },
+                    { verb: "Give away", mean: "Tặng miễn phí / Tiết lộ bí mật vô ý", ex: "Don't give away the ending of the movie." },
+                    { verb: "Give off", mean: "Tỏa ra, phát ra (mùi hương, nhiệt, khí)", ex: "The flowers give off a sweet fragrance." },
+                    { verb: "Give back", mean: "Trả lại đồ vật cho người sở hữu", ex: "Remember to give back the borrowed book." }
+                ]
+            },
+            {
+                name: "TAKE",
+                color: "indigo",
+                items: [
+                    { verb: "Take up", mean: "Bắt đầu môn thể thao, sở thích mới / Chiếm diện tích", ex: "She decided to take up yoga to reduce stress." },
+                    { verb: "Take off", mean: "Cất cánh (máy bay) / Cởi (quần áo) / Thành công nhanh", ex: "The plane took off smoothly at 8 AM." },
+                    { verb: "Take after", mean: "Giống ai đó về ngoại hình hoặc tính cách", ex: "He takes after his father in many ways." },
+                    { verb: "Take in", mean: "Hiểu thông tin / Lừa gạt ai đó / Cho ở nhờ", ex: "Don't be taken in by his sweet promises." },
+                    { verb: "Take on", mean: "Tuyển dụng nhân viên / Đảm nhận công việc", ex: "The firm is taking on new engineers." },
+                    { verb: "Take over", mean: "Tiếp quản, giành quyền kiểm soát", ex: "The giant company took over a small rival." },
+                    { verb: "Take to", mean: "Bắt đầu yêu thích cái gì/ai đó", ex: "I took to snowboarding almost immediately." }
+                ]
+            },
+            {
+                name: "CALL",
+                color: "rose",
+                items: [
+                    { verb: "Call off", mean: "Hủy bỏ hoàn toàn (= cancel)", ex: "They called off the match because of rain." },
+                    { verb: "Call for", mean: "Yêu cầu, đòi hỏi / Đón ai đó", ex: "This delicate situation calls for immediate action." },
+                    { verb: "Call up", mean: "Gọi điện thoại / Gọi đi lính / Gợi lại kỷ niệm", ex: "He was called up to serve in the army." },
+                    { verb: "Call on", mean: "Ghé thăm ai đó / Yêu cầu ai phát biểu", ex: "I will call on my grandparents this Sunday." },
+                    { verb: "Call at", mean: "Ghé thăm địa điểm nào đó trong thời gian ngắn", ex: "The train calls at several small stations." },
+                    { verb: "Call in", mean: "Mời chuyên gia đến tư vấn / Ghé thăm ngắn", ex: "We needed to call in a technician to fix it." }
+                ]
+            },
+            {
+                name: "PUT",
+                color: "orange",
+                items: [
+                    { verb: "Put off", mean: "Trì hoãn thời gian (= delay, postpone)", ex: "Never put off until tomorrow what you can do today." },
+                    { verb: "Put up", mean: "Dựng lên, xây dựng / Cho ở nhờ / Tăng giá", ex: "We put up a tent in the forest." },
+                    { verb: "Put up with", mean: "Chịu đựng ai/cái gì (= tolerate)", ex: "I cannot put up with his rude behavior anymore." },
+                    { verb: "Put out", mean: "Dập tắt (lửa, thuốc lá)", ex: "Firefighters put out the blaze in two hours." },
+                    { verb: "Put down", mean: "Đặt xuống / Hạ bệ ai / Ghi chép", ex: "Put down your pens when the time is up." },
+                    { verb: "Put on", mean: "Mặc quần áo / Tăng cân / Biểu diễn", ex: "Put on a warm coat; it's freezing outside." },
+                    { verb: "Put through", mean: "Nối máy điện thoại cho ai đó", ex: "Hold on, I'll put you through to the manager." }
+                ]
+            },
+            {
+                name: "GO",
+                color: "emerald",
+                items: [
+                    { verb: "Go off", mean: "Nổ (bom), reo (chuông) / Thiu thối (thức ăn)", ex: "The alarm went off at 6 AM sharp." },
+                    { verb: "Go through", mean: "Trải qua khó khăn / Kiểm tra kỹ lưỡng", ex: "She is going through a tough period." },
+                    { verb: "Go over", mean: "Xem xét, kiểm tra kỹ lưỡng lại bài", ex: "Go over your test paper before submitting." },
+                    { verb: "Go in for", mean: "Tham gia cuộc thi / Yêu thích môn gì", ex: "Are you going in for the photography contest?" },
+                    { verb: "Go out", mean: "Đi ra ngoài chơi / Tắt (đèn, lửa)", ex: "The lights suddenly went out during the storm." },
+                    { verb: "Go down with", mean: "Mắc bệnh, nhiễm bệnh nhẹ", ex: "Half the class went down with the flu." },
+                    { verb: "Go without", mean: "Chịu đựng thiếu thốn cái gì", ex: "We had to go without electricity for three days." }
+                ]
+            },
+            {
+                name: "GET",
+                color: "teal",
+                items: [
+                    { verb: "Get over", mean: "Vượt qua (cú sốc, bệnh tật, khó khăn)", ex: "It took him weeks to get over the severe cold." },
+                    { verb: "Get through", mean: "Liên lạc qua điện thoại / Hoàn thành công việc", ex: "I couldn't get through to her mobile phone." },
+                    { verb: "Get along with", mean: "Hòa hợp, có mối quan hệ tốt với ai", ex: "Do you get along with your new roommates?" },
+                    { verb: "Get away with", mean: "Thoát tội, không bị trừng phạt", ex: "He thought he could get away with cheating." },
+                    { verb: "Get down to", mean: "Bắt đầu làm việc gì một cách nghiêm túc", ex: "Let's get down to business right away." },
+                    { verb: "Get on one's nerves", mean: "Làm ai đó phát điên, chọc tức ai", ex: "His constant whistling really gets on my nerves." }
+                ]
+            },
+            {
+                name: "CUT",
+                color: "red",
+                items: [
+                    { verb: "Cut down on", mean: "Cắt giảm số lượng (chi tiêu, ăn uống)", ex: "You should cut down on sugar for better health." },
+                    { verb: "Cut off", mean: "Cách ly, cô lập / Ngắt kết nối điện nước thoại", ex: "Our phone line was cut off yesterday." },
+                    { verb: "Cut in", mean: "Nói chen ngang cuộc trò chuyện / Cúp đầu xe", ex: "It's rude to cut in when others are speaking." },
+                    { verb: "Cut up", mean: "Chia nhỏ, cắt vụn ra", ex: "Cut up the vegetables into tiny pieces." },
+                    { verb: "Cut out", mean: "Cắt rời ra / Loại bỏ hẳn thói quen", ex: "I have cut out fast food completely." }
+                ]
+            },
+            {
+                name: "COME",
+                color: "sky",
+                items: [
+                    { verb: "Come across", mean: "Tình cờ gặp ai / Tình cờ thấy cái gì", ex: "I came across an old photo in the drawer." },
+                    { verb: "Come up with", mean: "Nảy ra ý tưởng, giải pháp mới", ex: "She came up with a brilliant marketing strategy." },
+                    { verb: "Come round", mean: "Hồi tỉnh sau khi ngất / Ghé thăm nhà", ex: "He came round a few minutes after fainting." },
+                    { verb: "Come down to", mean: "Chung quy lại là do nguyên nhân gì", ex: "It all comes down to a lack of preparation." },
+                    { verb: "Come off", mean: "Thành công theo kế hoạch / Bong tróc ra", ex: "The grand plan didn't come off as expected." },
+                    { verb: "Come into", mean: "Thừa kế tài sản gia đình", ex: "She came into a fortune after her uncle died." }
+                ]
+            },
+            {
+                name: "CARRY",
+                color: "violet",
+                items: [
+                    { verb: "Carry out", mean: "Tiến hành, thực hiện (thí nghiệm, kế hoạch)", ex: "Scientists carry out tests in laboratories." },
+                    { verb: "Carry on", mean: "Tiếp tục công việc đang làm (= continue)", ex: "Carry on working while I am away." },
+                    { verb: "Carry away", mean: "Mang đi / Bị cuốn theo cảm xúc", ex: "Don't get carried away by early success." },
+                    { verb: "Carry off", mean: "Đạt giải thưởng, thành công vang dội", ex: "She carried off first prize in the competition." }
+                ]
+            },
+            {
+                name: "HOLD",
+                color: "amber",
+                items: [
+                    { verb: "Hold up", mean: "Cản trở giao thông / Cướp có vũ khí", ex: "Traffic was held up by a major accident." },
+                    { verb: "Hold back", mean: "Kiềm chế cảm xúc, ngăn cản sự tiến triển", ex: "He couldn't hold back his tears of joy." },
+                    { verb: "Hold on", mean: "Giữ máy điện thoại chờ một chút", ex: "Hold on a minute while I grab my pen." }
+                ]
+            },
+            {
+                name: "KEEP",
+                color: "lime",
+                items: [
+                    { verb: "Keep up with", mean: "Bắt kịp, theo kịp tiến độ/người khác", ex: "Walk faster! I can't keep up with you." },
+                    { verb: "Keep away from", mean: "Tránh xa khỏi khu vực nguy hiểm", ex: "Keep away from the edge of the cliff." },
+                    { verb: "Keep on", mean: "Cứ tiếp tục làm gì đó (= continue + V-ing)", ex: "He kept on talking despite the noise." },
+                    { verb: "Keep out of", mean: "Ngăn cản không cho vào đâu", ex: "Private property: Keep out of this area." }
+                ]
+            },
+            {
+                name: "RUN",
+                color: "blue",
+                items: [
+                    { verb: "Run out of", mean: "Cạn kiệt, hết sạch (tiền, củi, thời gian)", ex: "We have run out of printer paper." },
+                    { verb: "Run into", mean: "Tình cờ gặp ai / Tông vào cái gì", ex: "I ran into my old teacher at the supermarket." },
+                    { verb: "Run over", mean: "Cán qua, đè lên bằng xe cộ", ex: "The driver accidentally ran over a dog." },
+                    { verb: "Run away from", mean: "Chạy trốn khỏi nguy hiểm", ex: "Never run away from your problems." }
+                ]
+            },
+            {
+                name: "DIE",
+                color: "slate",
+                items: [
+                    { verb: "Die out", mean: "Tuyệt chủng (động vật) / Biến mất hoàn toàn", ex: "Many rare species are dying out rapidly." },
+                    { verb: "Die down", mean: "Dịu đi, giảm dần độ mạnh (mưa, tiếng ồn)", ex: "The storm finally began to die down." },
+                    { verb: "Die away", mean: "Tắt dần, mờ nhạt dần (âm thanh)", ex: "The applause slowly died away." },
+                    { verb: "Die for", mean: "Cực kỳ thèm thuồng, khao khát cái gì", ex: "I am dying for a cold glass of lemonade." },
+                    { verb: "Die of", mean: "Chết vì nguyên nhân bệnh tật cụ thể", ex: "Millions used to die of malaria." }
+                ]
+            },
+            {
+                name: "FALL",
+                color: "orange",
+                items: [
+                    { verb: "Fall behind", mean: "Tụt lại phía sau, chậm tiến độ", ex: "He fell behind in his studies due to illness." },
+                    { verb: "Fall back on", mean: "Trông cậy, dựa vào kế hoạch dự phòng", ex: "Always have savings to fall back on." },
+                    { verb: "Fall through", mean: "Thất bại, hỏng kế hoạch không thành", ex: "Our holiday plans fell through at the last minute." },
+                    { verb: "Fall out", mean: "Cãi nhau rạn nứt tình cảm với ai", ex: "They fell out over money matters." }
+                ]
+            },
+            {
+                name: "PASS",
+                color: "purple",
+                items: [
+                    { verb: "Pass away", mean: "Qua đời, qua đời êm ái (= die)", ex: "His grandfather passed away peacefully." },
+                    { verb: "Pass out", mean: "Bị ngất xỉu tạm thời (= faint)", ex: "She passed out from extreme heat." },
+                    { verb: "Pass down", mean: "Truyền lại cho thế hệ sau (= hand down)", ex: "This craft has been passed down for ages." },
+                    { verb: "Pass by", mean: "Đi ngang qua địa điểm nào đó", ex: "I passed by your house yesterday." }
+                ]
+            },
+            {
+                name: "STAND",
+                color: "teal",
+                items: [
+                    { verb: "Stand for", mean: "Viết tắt của chữ gì / Đại diện cho", ex: "What does the acronym WHO stand for?" },
+                    { verb: "Stand out", mean: "Nổi bật, xuất sắc vượt trội", ex: "Her bright red hair made her stand out." },
+                    { verb: "Stand by", mean: "Ủng hộ, ở bên cạnh ai trong khó khăn", ex: "I will stand by you no matter what." },
+                    { verb: "Stand in for", mean: "Làm thay, thế chỗ cho đồng nghiệp", ex: "Could you stand in for me at the meeting?" }
+                ]
+            }
+        ];
+
+        // MASTER QUIZ QUESTIONS
+        const masterQuizQuestions = [
+            // MỤC 1: ĐỀ CƯƠNG TRÊN LỚP
             {
                 section: "MỤC 1: ĐỀ CƯƠNG TRÊN LỚP (Trang 25 - Hình 2)",
                 question: "1. The government has decided to ________ the old factory to build a new shopping mall.",
                 type: "mcq",
                 options: ["A. put up", "B. turn down", "C. pull down", "D. break into"],
-                correct: 2, // C
+                correct: 2,
                 translation: "Chính phủ đã quyết định phá hủy tòa nhà máy cũ để xây dựng một trung tâm thương mại mới.",
                 explanations: {
-                    0: "A. put up: dựng lên, tăng giá (không phù hợp nghĩa)",
-                    1: "B. turn down: từ chối lời đề nghị, vặn nhỏ âm lượng (không dùng cho tòa nhà)",
-                    2: "C. pull down: kéo đổ, phá sập công trình/tòa nhà (= knock down) ➔ ĐÁP ÁN ĐÚNG",
-                    3: "D. break into: đột nhập trái phép vào đâu đó (không hợp nghĩa)"
+                    0: "A. put up: dựng lên, tăng giá",
+                    1: "B. turn down: từ chối lời đề nghị, vặn nhỏ âm lượng",
+                    2: "C. pull down: kéo đổ, phá sập công trình tòa nhà (= knock down) ➔ ĐÁP ÁN ĐÚNG",
+                    3: "D. break into: đột nhập trái phép vào đâu đó"
                 }
             },
             {
@@ -343,11 +514,11 @@
                 question: "2. We had to ________ the outdoor concert because of the heavy rain.",
                 type: "mcq",
                 options: ["A. call off", "B. put off", "C. set off", "D. turn off"],
-                correct: 0, // A
+                correct: 0,
                 translation: "Chúng tôi phải hủy bỏ buổi hòa nhạc ngoài trời vì mưa lớn.",
                 explanations: {
                     0: "A. call off: hủy bỏ hoàn toàn (= cancel) ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. put off: hoãn lại thời gian khác (= delay/postpone) (Hình khoanh nhầm, đáp án đúng theo ngữ cảnh hủy do mưa là call off)",
+                    1: "B. put off: hoãn lại thời gian khác (= delay/postpone)",
                     2: "C. set off: khởi hành, lên đường",
                     3: "D. turn off: tắt thiết bị"
                 }
@@ -357,7 +528,7 @@
                 question: "3. The teacher told the students to ________ their homework before leaving.",
                 type: "mcq",
                 options: ["A. hand out", "B. hand in", "C. hand over", "D. hand down"],
-                correct: 1, // B
+                correct: 1,
                 translation: "Giáo viên bảo học sinh nộp bài tập về nhà trước khi ra về.",
                 explanations: {
                     0: "A. hand out: phát tài liệu, phân phát",
@@ -371,11 +542,11 @@
                 question: "4. They had a big argument last week, but they have finally ________ and are friends again.",
                 type: "mcq",
                 options: ["A. made up", "B. broken up", "C. put up", "D. turned up"],
-                correct: 0, // A
-                translation: "Tần trước họ đã cãi nhau một trận lớn, nhưng cuối cùng họ đã làm hòa và trở lại làm bạn.",
+                correct: 0,
+                translation: "Tuần trước họ đã cãi nhau một trận lớn, nhưng cuối cùng họ đã làm hòa và trở lại làm bạn.",
                 explanations: {
-                    0: "A. make up: làm hòa (sau khi cãi nhau) / trang điểm / bịa chuyện ➔ ĐÁP ÁN ĐÚNG",
-                    1: "B. break up: chia tay, giải tán (trái ngược nghĩa làm bạn lại)",
+                    0: "A. make up: làm hòa / trang điểm / bịa chuyện ➔ ĐÁP ÁN ĐÚNG",
+                    1: "B. break up: chia tay, giải tán",
                     2: "C. put up: dựng lên, chịu đựng",
                     3: "D. turn up: xuất hiện, vặn to"
                 }
@@ -385,7 +556,7 @@
                 question: "5. The fire alarm went ________ in the middle of the night, forcing everyone to evacuate the building.",
                 type: "mcq",
                 options: ["A. off", "B. out", "C. on", "D. down"],
-                correct: 0, // A
+                correct: 0,
                 translation: "Chuông báo cháy reo/nổ chuông vào giữa đêm, buộc mọi người phải sơ tán khỏi tòa nhà.",
                 explanations: {
                     0: "A. go off: reo (chuông), nổ (bom), thiu thối (thức ăn) ➔ ĐÁP ÁN ĐÚNG",
@@ -399,7 +570,7 @@
                 question: "6. Can you please ________ the volume? This song is my favorite!",
                 type: "mcq",
                 options: ["A. turn down", "B. turn up", "C. turn on", "D. turn off"],
-                correct: 1, // B
+                correct: 1,
                 translation: "Bạn có thể vặn to âm lượng lên được không? Đây là bài hát yêu thích của tôi!",
                 explanations: {
                     0: "A. turn down: vặn nhỏ lại / từ chối",
@@ -413,7 +584,7 @@
                 question: "7. She has decided to ________ yoga to improve her physical health and reduce stress.",
                 type: "mcq",
                 options: ["A. take up", "B. take on", "C. take over", "D. take in"],
-                correct: 0, // A
+                correct: 0,
                 translation: "Cô ấy đã quyết định tập luyện môn yoga để cải thiện sức khỏe thể chất và giảm căng thẳng.",
                 explanations: {
                     0: "A. take up: bắt đầu một thói quen/sở thích/môn thể thao mới ➔ ĐÁP ÁN ĐÚNG",
@@ -427,7 +598,7 @@
                 question: "8. You need to ________ the application form completely before submitting it to the HR department.",
                 type: "mcq",
                 options: ["A. fill in", "B. fill up", "C. write down", "D. sign up"],
-                correct: 0, // A
+                correct: 0,
                 translation: "Bạn cần điền đầy đủ vào mẫu đơn xin việc trước khi nộp cho bộ phận nhân sự.",
                 explanations: {
                     0: "A. fill in: điền vào đơn/mẫu thông tin (= fill out) ➔ ĐÁP ÁN ĐÚNG",
@@ -441,7 +612,7 @@
                 question: "9. I'm sorry I'm late; my car ________ on the way to the office.",
                 type: "mcq",
                 options: ["A. broke up", "B. broke out", "C. broke down", "D. broke in"],
-                correct: 2, // C
+                correct: 2,
                 translation: "Tôi xin lỗi vì đến muộn; xe ô tô của tôi bị hỏng trên đường đến văn phòng.",
                 explanations: {
                     0: "A. break up: chia tay, giải tán",
@@ -455,7 +626,7 @@
                 question: "10. Thieves managed to ________ the museum and steal several valuable paintings.",
                 type: "mcq",
                 options: ["A. break up", "B. break out", "C. break down", "D. break into"],
-                correct: 3, // D
+                correct: 3,
                 translation: "Bọn trộm đã đột nhập được vào bảo tàng và đánh cắp nhiều bức tranh quý giá.",
                 explanations: {
                     0: "A. break up: chia tay",
@@ -469,7 +640,7 @@
                 question: "11. He ________ an excuse for being late, but nobody believed him.",
                 type: "mcq",
                 options: ["A. took up", "B. kept up", "C. caught up", "D. made up"],
-                correct: 3, // D
+                correct: 3,
                 translation: "Anh ấy đã bịa ra lý do đi muộn, nhưng không ai tin anh ấy cả.",
                 explanations: {
                     0: "A. take up: bắt đầu môn thể thao/sở thích",
@@ -483,7 +654,7 @@
                 question: "12. They are going to ________ an experiment to test the effectiveness of the new drug.",
                 type: "mcq",
                 options: ["A. carry out", "B. carry on", "C. carry away", "D. carry through"],
-                correct: 0, // A
+                correct: 0,
                 translation: "Họ dự định sẽ tiến hành một thí nghiệm để kiểm tra hiệu quả của loại thuốc mới.",
                 explanations: {
                     0: "A. carry out: tiến hành, thực hiện (thí nghiệm) ➔ ĐÁP ÁN ĐÚNG",
@@ -497,7 +668,7 @@
                 question: "13. She ________ her mother; they both have the same beautiful smile and eyes.",
                 type: "mcq",
                 options: ["A. takes off", "B. takes after", "C. takes up", "D. takes on"],
-                correct: 1, // B
+                correct: 1,
                 translation: "Cô ấy giống hệt mẹ cô ấy; cả hai đều có nụ cười và đôi mắt đẹp giống nhau.",
                 explanations: {
                     0: "A. take off: cất cánh (máy bay), cởi (quần áo)",
@@ -511,7 +682,7 @@
                 question: "14. The police are ________ the cause of the accident that happened last night.",
                 type: "mcq",
                 options: ["A. looking into", "B. looking for", "C. looking after", "D. looking through"],
-                correct: 0, // A
+                correct: 0,
                 translation: "Cảnh sát đang điều tra nguyên nhân của vụ tai nạn xảy ra tối qua.",
                 explanations: {
                     0: "A. look into: điều tra, nghiên cứu, xem xét ➔ ĐÁP ÁN ĐÚNG",
@@ -525,7 +696,7 @@
                 question: "15. He refused to ________ to their demands, even though they threatened him.",
                 type: "mcq",
                 options: ["A. give up", "B. give in", "C. give out", "D. give away"],
-                correct: 1, // B
+                correct: 1,
                 translation: "Anh ấy từ chối nhượng bộ trước các yêu cầu của họ, mặc dù họ đã đe dọa anh ấy.",
                 explanations: {
                     0: "A. give up: từ bỏ hoàn toàn thói quen/việc làm",
@@ -539,7 +710,7 @@
                 question: "16. The festival was ________ until next month due to financial problems.",
                 type: "mcq",
                 options: ["A. put out", "B. put on", "C. put off", "D. put down"],
-                correct: 2, // C
+                correct: 2,
                 translation: "Lễ hội đã bị trì hoãn cho đến tháng sau do các vấn đề về tài chính.",
                 explanations: {
                     0: "A. put out: dập tắt (lửa/thuốc lá)",
@@ -553,7 +724,7 @@
                 question: "17. He ________ the job offer because the salary was too low.",
                 type: "mcq",
                 options: ["A. turned down", "B. turned up", "C. turned on", "D. turned off"],
-                correct: 0, // A
+                correct: 0,
                 translation: "Anh ấy đã từ chối lời đề nghị công việc vì mức lương quá thấp.",
                 explanations: {
                     0: "A. turn down: từ chối (lời mời/công việc) (= refuse) ➔ ĐÁP ÁN ĐÚNG",
@@ -567,7 +738,7 @@
                 question: "18. Guess who ________ at the party last night? Your ex-boyfriend!",
                 type: "mcq",
                 options: ["A. turned into", "B. turned up", "C. turned out", "D. turned back"],
-                correct: 1, // B
+                correct: 1,
                 translation: "Đoán xem ai đã xuất hiện ở bữa tiệc tối qua nào? Bạn trai cũ của bạn đấy!",
                 explanations: {
                     0: "A. turn into: biến thành",
@@ -581,7 +752,7 @@
                 question: "19. She ________ the book to find the information she needed for her essay.",
                 type: "mcq",
                 options: ["A. looked through", "B. looked up", "C. looked for", "D. looked after"],
-                correct: 0, // A
+                correct: 0,
                 translation: "Cô ấy xem qua cuốn sách để tìm thông tin cần thiết cho bài luận.",
                 explanations: {
                     0: "A. look through: đọc lướt qua, xem qua tài liệu/sách ➔ ĐÁP ÁN ĐÚNG",
@@ -595,7 +766,7 @@
                 question: "20. It took her a long time to ________ the shock of losing her job.",
                 type: "mcq",
                 options: ["A. get through", "B. get by", "C. get over", "D. get on"],
-                correct: 2, // C
+                correct: 2,
                 translation: "Cô ấy mất một thời gian dài để vượt qua cú sốc mất việc.",
                 explanations: {
                     0: "A. get through: liên lạc qua điện thoại / hoàn thành",
@@ -604,8 +775,6 @@
                     3: "D. get on: lên xe, tiến bộ"
                 }
             },
-
-            // TỰ LUẬN NỐI CÂU DÙNG WHICH (HÌNH 1 - CẢM NGHĨ VÀ MỆNH ĐỀ CẢ CÂU)
             {
                 section: "MỤC 1: ĐỀ CƯƠNG TỰ LUẬN (Trang 26 - Hình 1)",
                 question: "21. Combine: 'Many people still throw trash on the street. This makes the city look dirty.'",
@@ -616,12 +785,12 @@
                     "C. Many people still throw trash on the street, that makes the city look dirty.",
                     "D. Many people still throw trash on the street, what makes the city look dirty."
                 ],
-                correct: 0, // A
+                correct: 0,
                 translation: "Nhiều người vẫn vứt rác ra đường, điều này làm cho thành phố trông bẩn thỉu.",
                 explanations: {
-                    0: "A. Dùng ', which' thay thế cho toàn bộ sự việc ở mệnh đề trước. BẮT BUỘC có dấu phẩy (,) trước which. ➔ ĐÁP ÁN ĐÚNG",
+                    0: "A. Dùng ', which' thay thế cho toàn bộ sự việc ở mệnh đề trước. BẮT BUỘC có dấu phẩy (,) ➔ ĐÁP ÁN ĐÚNG",
                     1: "B. Sai vì thiếu dấu phẩy (,)",
-                    2: "C. Sai vì 'that' không đứng sau dấu phẩy và không dùng thay thế cho cả mệnh đề",
+                    2: "C. Sai vì 'that' không đứng sau dấu phẩy",
                     3: "D. Sai vì không dùng 'what' làm đại từ quan hệ nối câu"
                 }
             },
@@ -635,23 +804,22 @@
                     "C. We turned off all the lights before leaving, that helped save a lot of electricity.",
                     "D. We turned off all the lights before leaving, what helped save a lot of electricity."
                 ],
-                correct: 0, // A
+                correct: 0,
                 translation: "Chúng tôi đã tắt tất cả đèn trước khi rời đi, điều này đã giúp tiết kiệm rất nhiều điện.",
                 explanations: {
-                    0: "A. ', which' thay thế cho hành động tắt hết đèn trước khi đi. Bắt buộc có dấu phẩy. ➔ ĐÁP ÁN ĐÚNG",
+                    0: "A. ', which' thay thế cho hành động tắt hết đèn trước khi đi. Bắt buộc có dấu phẩy ➔ ĐÁP ÁN ĐÚNG",
                     1: "B. Sai vì thiếu dấu phẩy trước which",
                     2: "C. Sai vì đại từ 'that' không đứng sau dấu phẩy",
                     3: "D. Sai vì 'what' không dùng làm mệnh đề quan hệ nối 2 câu"
                 }
             },
-
-            // ==================== MỤC 2: BÀI TẬP BỔ SUNG TỔNG HỢP (TỪ VỰNG ONLINE) ====================
+            // MỤC 2: BÀI TẬP BỔ SUNG
             {
                 section: "MỤC 2: BÀI TẬP BỔ SUNG CHỌN LỌC",
                 question: "23. Sam tried calling his mobile phone but she couldn't ________.",
                 type: "mcq",
                 options: ["A. get through", "B. get round", "C. get over", "D. get back"],
-                correct: 0, // A
+                correct: 0,
                 translation: "Sam đã thử gọi vào điện thoại di động của anh ấy nhưng cô ấy không thể kết nối được.",
                 explanations: {
                     0: "A. get through: liên lạc, nối máy điện thoại thành công ➔ ĐÁP ÁN ĐÚNG",
@@ -665,22 +833,23 @@
                 question: "24. Every day, my father usually reads the papers to ________ what's happening in the outside world.",
                 type: "mcq",
                 options: ["A. keep in with", "B. keep up at", "C. keep up with", "D. keep away from"],
-                correct: 2, // C
+                correct: 2,
                 translation: "Mỗi ngày, bố tôi thường đọc báo để theo kịp những gì đang xảy ra ở thế giới bên ngoài.",
                 explanations: {
                     0: "A. keep in with: duy trì mối quan hệ tốt với ai",
                     1: "B. keep up at: không có cụm từ này",
-                    2: "C. keep up with: bắt kịp, theo kịp tin tức/xu hướng (= catch up with) ➔ ĐÁP ÁN ĐÚNG",
+                    2: "C. keep up with: bắt kịp, theo kịp tin tức/xu hướng ➔ ĐÁP ÁN ĐÚNG",
                     3: "D. keep away from: tránh xa khỏi cái gì"
                 }
             }
         ];
 
-        let filteredQuestions = [...allQuestions];
+        let filteredQuestions = [...masterQuizQuestions];
         let currentQuestionIdx = 0;
         let score = 0;
         let userAnswers = [];
         let answeredCurrent = [];
+        let wrongAnswersList = [];
 
         function initQuizState() {
             userAnswers = new Array(filteredQuestions.length).fill(null);
@@ -690,14 +859,20 @@
             document.getElementById('score-val').innerText = 0;
         }
 
+        function shuffleCurrentQuiz() {
+            filteredQuestions.sort(() => Math.random() - 0.5);
+            initQuizState();
+            loadQuestion();
+        }
+
         function changeCategoryFilter() {
             const filterVal = document.getElementById('category-filter').value;
             if (filterVal === 'ALL') {
-                filteredQuestions = [...allQuestions];
+                filteredQuestions = [...masterQuizQuestions];
             } else if (filterVal === 'MUC1') {
-                filteredQuestions = allQuestions.filter(q => q.section.includes("MỤC 1"));
+                filteredQuestions = masterQuizQuestions.filter(q => q.section.includes("MỤC 1"));
             } else if (filterVal === 'MUC2') {
-                filteredQuestions = allQuestions.filter(q => q.section.includes("MỤC 2"));
+                filteredQuestions = masterQuizQuestions.filter(q => q.section.includes("MỤC 2"));
             }
             initQuizState();
             loadQuestion();
@@ -706,19 +881,19 @@
         function switchTab(tab) {
             document.getElementById('section-quiz').classList.add('hidden');
             document.getElementById('section-distinguish').classList.add('hidden');
-            document.getElementById('section-share').classList.add('hidden');
+            document.getElementById('section-wrong').classList.add('hidden');
             document.getElementById('section-result').classList.add('hidden');
 
             const btnQuiz = document.getElementById('tab-btn-quiz');
             const btnDist = document.getElementById('tab-btn-distinguish');
-            const btnShare = document.getElementById('tab-btn-share');
+            const btnWrong = document.getElementById('tab-btn-wrong');
 
             const inactiveStyle = "px-3.5 py-2 rounded-lg font-medium transition-all duration-300 text-slate-400 hover:text-white hover:bg-slate-800/60";
             const activeStyle = "px-3.5 py-2 rounded-lg font-medium transition-all duration-300 bg-purple-600 text-white shadow-lg shadow-purple-600/30";
 
             btnQuiz.className = inactiveStyle;
             btnDist.className = inactiveStyle;
-            btnShare.className = inactiveStyle;
+            btnWrong.className = inactiveStyle;
 
             if (tab === 'quiz') {
                 document.getElementById('section-quiz').classList.remove('hidden');
@@ -726,9 +901,12 @@
             } else if (tab === 'distinguish') {
                 document.getElementById('section-distinguish').classList.remove('hidden');
                 btnDist.className = activeStyle;
-            } else if (tab === 'share') {
-                document.getElementById('section-share').classList.remove('hidden');
-                btnShare.className = activeStyle;
+                renderAccordions();
+                initMatchGame();
+            } else if (tab === 'wrong') {
+                document.getElementById('section-wrong').classList.remove('hidden');
+                btnWrong.className = activeStyle;
+                renderWrongAnswersDetailed();
             }
         }
 
@@ -740,7 +918,6 @@
             document.getElementById('total-q-num').innerText = filteredQuestions.length;
             document.getElementById('current-category-badge').innerText = q.section;
 
-            // Progress bar
             const progress = ((currentQuestionIdx + 1) / filteredQuestions.length) * 100;
             document.getElementById('progress-bar').style.width = `${progress}%`;
 
@@ -776,7 +953,6 @@
 
             html += `</div>`;
 
-            // DETAILED EXPLANATION BOX (FOR ALL OPTIONS A, B, C, D)
             if (answeredCurrent[currentQuestionIdx]) {
                 const isCorrect = userAnswers[currentQuestionIdx] === q.correct;
                 html += `
@@ -785,20 +961,16 @@
                             <i class="fa-solid ${isCorrect ? 'fa-circle-check' : 'fa-circle-exclamation'} text-base"></i>
                             <span>${isCorrect ? 'CHÍNH XÁC!' : 'CHƯA CHÍNH XÁC!'}</span>
                         </div>
-                        
                         <div class="bg-slate-950/70 p-3 rounded-lg border border-slate-800/80 text-xs sm:text-sm text-slate-300">
-                            <strong class="text-amber-400 block mb-1">💬 Dịch nghĩa câu đề bài:</strong>
+                            <strong class="text-amber-400 block mb-1">💬 Dịch nghĩa:</strong>
                             <p class="italic text-slate-200">"${q.translation}"</p>
                         </div>
-
-                        <div class="space-y-1.5 text-xs sm:text-sm">
-                            <strong class="text-cyan-400 block mb-1">🔍 Giải thích chi tiết tất cả các đáp án:</strong>
-                            <div class="space-y-1 text-slate-300 pl-1">
-                                <p class="${q.correct === 0 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[0]}</p>
-                                <p class="${q.correct === 1 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[1]}</p>
-                                <p class="${q.correct === 2 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[2]}</p>
-                                <p class="${q.correct === 3 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[3]}</p>
-                            </div>
+                        <div class="space-y-1 text-xs sm:text-sm text-slate-300">
+                            <strong class="text-cyan-400 block mb-1">🔍 Giải thích chi tiết các đáp án:</strong>
+                            <p class="${q.correct === 0 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[0]}</p>
+                            <p class="${q.correct === 1 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[1]}</p>
+                            <p class="${q.correct === 2 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[2]}</p>
+                            <p class="${q.correct === 3 ? 'text-emerald-300 font-semibold' : ''}">${q.explanations[3]}</p>
                         </div>
                     </div>
                 `;
@@ -810,9 +982,9 @@
             document.getElementById('prev-btn').disabled = currentQuestionIdx === 0;
             const nextBtn = document.getElementById('next-btn');
             if (currentQuestionIdx === filteredQuestions.length - 1) {
-                nextBtn.innerHTML = `Hoàn Thành & Xem Tổng Kết <i class="fa-solid fa-flag-checkered ml-2"></i>`;
+                nextBtn.innerHTML = `Hoàn Thành <i class="fa-solid fa-flag-checkered ml-2"></i>`;
             } else {
-                nextBtn.innerHTML = `Câu tiếp theo <i class="fa-solid fa-arrow-right ml-2"></i>`;
+                nextBtn.innerHTML = `Câu tiếp <i class="fa-solid fa-arrow-right ml-2"></i>`;
             }
         }
 
@@ -822,12 +994,28 @@
             userAnswers[currentQuestionIdx] = idx;
             answeredCurrent[currentQuestionIdx] = true;
 
-            if (idx === filteredQuestions[currentQuestionIdx].correct) {
+            const q = filteredQuestions[currentQuestionIdx];
+            if (idx === q.correct) {
                 score++;
                 document.getElementById('score-val').innerText = score;
+            } else {
+                if (!wrongAnswersList.some(item => item.question === q.question)) {
+                    wrongAnswersList.push(q);
+                    updateWrongBadge();
+                }
             }
 
             loadQuestion();
+        }
+
+        function updateWrongBadge() {
+            const badge = document.getElementById('wrong-badge');
+            if (wrongAnswersList.length > 0) {
+                badge.classList.remove('hidden');
+                badge.innerText = wrongAnswersList.length;
+            } else {
+                badge.classList.add('hidden');
+            }
         }
 
         function nextQuestion() {
@@ -854,64 +1042,201 @@
             document.getElementById('final-total').innerText = filteredQuestions.length;
 
             const percent = score / filteredQuestions.length;
-            let remark = "Hãy dành chút thời gian ôn lại cụm từ ở Tab Phân Biệt nhé!";
-            if (percent === 1) {
-                remark = "🌟 HOÀN HẢO! Bạn đã làm đúng 100% tất cả các câu hỏi!";
-            } else if (percent >= 0.8) {
-                remark = "🔥 XUẤT SẮC! Phong độ này chắc chắn sẽ đạt điểm rất cao!";
-            } else if (percent >= 0.5) {
-                remark = "👍 KHÁ TỐT! Xem lại danh sách các câu làm sai ở bên dưới nhé.";
-            }
+            let remark = "Hãy ôn lại các câu sai ở Tab ❌ Câu Sai!";
+            if (percent === 1) remark = "🌟 BẠN ĐÃ ĐẠT ĐIỂM TUYỆT ĐỐI!";
+            else if (percent >= 0.8) remark = "🔥 XUẤT SẮC! Phong độ này rất cao!";
+            
             document.getElementById('result-remark').innerText = remark;
+        }
 
-            // GENERATE WRONG ANSWERS SUMMARY
-            const wrongContainer = document.getElementById('wrong-answers-container');
-            const wrongList = [];
+        function renderWrongAnswersDetailed() {
+            const container = document.getElementById('wrong-list-detailed');
+            const retryBtn = document.getElementById('retry-wrong-btn');
 
-            filteredQuestions.forEach((q, i) => {
-                if (userAnswers[i] !== q.correct) {
-                    wrongList.push({ question: q, index: i, userAns: userAnswers[i] });
-                }
-            });
-
-            if (wrongList.length === 0) {
-                wrongContainer.innerHTML = `
-                    <div class="p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-xl text-center text-emerald-300 text-sm">
-                        <i class="fa-solid fa-circle-check text-2xl text-emerald-400 mb-2 block"></i>
-                        Tuyệt vời! Bạn không làm sai bất kỳ câu hỏi nào.
+            if (wrongAnswersList.length === 0) {
+                retryBtn.classList.add('hidden');
+                container.innerHTML = `
+                    <div class="p-6 text-center text-emerald-400 bg-emerald-950/30 border border-emerald-500/30 rounded-xl">
+                        <i class="fa-solid fa-circle-check text-3xl mb-2"></i>
+                        <p class="font-semibold text-sm">Tuyệt vời! Bạn không có câu sai nào trong lượt làm vừa qua.</p>
                     </div>
                 `;
-            } else {
-                let wrongHtml = `
-                    <h3 class="text-base font-bold text-rose-400 flex items-center mb-3">
-                        <i class="fa-solid fa-triangle-exclamation mr-2"></i>Tổng Hợp Những Câu Bạn Làm Chưa Đúng (${wrongList.length} câu)
-                    </h3>
-                    <div class="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
+                return;
+            }
+
+            retryBtn.classList.remove('hidden');
+            let html = "";
+            wrongAnswersList.forEach((q, idx) => {
+                html += `
+                    <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2 text-xs sm:text-sm">
+                        <div class="flex justify-between font-semibold text-white">
+                            <span>#${idx + 1}. ${q.question}</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-emerald-950/40 border border-emerald-500/30 text-emerald-300">
+                            ✅ Đáp án đúng: <strong>${q.options[q.correct]}</strong>
+                        </div>
+                        <p class="text-slate-400 text-xs italic">"${q.translation}"</p>
+                        <p class="text-slate-300 text-xs pt-1 border-t border-slate-800/80"><strong class="text-cyan-400">Giải thích:</strong> ${q.explanations[q.correct]}</p>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function retryWrongAnswers() {
+            if (wrongAnswersList.length === 0) return;
+            filteredQuestions = [...wrongAnswersList];
+            wrongAnswersList = [];
+            updateWrongBadge();
+            switchTab('quiz');
+            initQuizState();
+            loadQuestion();
+        }
+
+        // RENDER 20+ ACCORDIONS
+        function renderAccordions() {
+            const container = document.getElementById('accordion-container');
+            let html = "";
+
+            phrasalVerbGroups.forEach((group, index) => {
+                html += `
+                    <div class="bg-slate-900/90 rounded-xl border border-slate-800 overflow-hidden">
+                        <button onclick="toggleAccordion(${index})" class="w-full px-4 py-3.5 flex justify-between items-center text-left hover:bg-slate-800/60 transition">
+                            <span class="font-bold text-sm text-${group.color}-400 flex items-center">
+                                <span class="w-6 h-6 rounded-md bg-${group.color}-500/20 text-${group.color}-300 text-xs flex items-center justify-center mr-2.5">${index + 1}</span>
+                                Nhóm ${group.name} (${group.items.length} cụm từ)
+                            </span>
+                            <i id="acc-icon-${index}" class="fa-solid fa-chevron-down text-slate-500 text-xs transition-transform duration-200"></i>
+                        </button>
+
+                        <div id="acc-content-${index}" class="hidden p-4 bg-slate-950/60 border-t border-slate-800/80 space-y-3">
+                            <div class="grid sm:grid-cols-2 gap-3">
                 `;
 
-                wrongList.forEach(item => {
-                    const q = item.question;
-                    const chosenText = item.userAns !== null ? q.options[item.userAns] : "Chưa chọn đáp án";
-                    const correctText = q.options[q.correct];
-
-                    wrongHtml += `
-                        <div class="bg-slate-900/90 p-4 rounded-xl border border-slate-800 text-xs sm:text-sm space-y-2">
-                            <p class="font-semibold text-white">${q.question}</p>
-                            <div class="grid sm:grid-cols-2 gap-2 text-xs">
-                                <div class="bg-rose-950/50 p-2 rounded border border-rose-500/30 text-rose-300">
-                                    ❌ Bạn chọn: <strong>${chosenText}</strong>
-                                </div>
-                                <div class="bg-emerald-950/50 p-2 rounded border border-emerald-500/30 text-emerald-300">
-                                    ✅ Đáp án đúng: <strong>${correctText}</strong>
-                                </div>
-                            </div>
-                            <p class="text-slate-400 text-xs pt-1 border-t border-slate-800"><strong class="text-cyan-400">Lý do:</strong> ${q.explanations[q.correct]}</p>
+                group.items.forEach(item => {
+                    html += `
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-1">
+                            <div class="font-bold text-xs sm:text-sm text-cyan-300">${item.verb}</div>
+                            <div class="text-xs text-slate-200">${item.mean}</div>
+                            <div class="text-[11px] text-slate-400 italic">"Ex: ${item.ex}"</div>
                         </div>
                     `;
                 });
 
-                wrongHtml += `</div>`;
-                wrongContainer.innerHTML = wrongHtml;
+                html += `
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function toggleAccordion(index) {
+            const content = document.getElementById(`acc-content-${index}`);
+            const icon = document.getElementById(`acc-icon-${index}`);
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // MINIGAME MATCH THE WORD LOGIC
+        let gameScore = 0;
+        let selectedVerbCard = null;
+        let selectedMeanCard = null;
+
+        const matchPairPool = [
+            { verb: "Break into", mean: "Đột nhập vào nhà" },
+            { verb: "Break up", mean: "Chia tay mối quan hệ" },
+            { verb: "Bring about", mean: "Mang lại, gây ra" },
+            { verb: "Bring up", mean: "Nuôi dưỡng con cái" },
+            { verb: "Look after", mean: "Chăm sóc, trông nom" },
+            { verb: "Look up", mean: "Tra cứu trong từ điển" },
+            { verb: "Turn down", mean: "Từ chối lời đề nghị" },
+            { verb: "Turn up", mean: "Xuất hiện bất ngờ" },
+            { verb: "Give up", mean: "Từ bỏ thói quen" },
+            { verb: "Give off", mean: "Tỏa ra mùi hương/nhiệt" },
+            { verb: "Take after", mean: "Giống người thân" },
+            { verb: "Take up", mean: "Bắt đầu môn thể thao" },
+            { verb: "Call off", mean: "Hủy bỏ sự kiện" },
+            { verb: "Put off", mean: "Trì hoãn thời gian" },
+            { verb: "Go off", mean: "Reo chuông / Nổ bom" },
+            { verb: "Get over", mean: "Vượt qua cú sốc" }
+        ];
+
+        function initMatchGame() {
+            gameScore = 0;
+            document.getElementById('game-score').innerText = gameScore;
+            selectedVerbCard = null;
+            selectedMeanCard = null;
+
+            const shuffled = [...matchPairPool].sort(() => Math.random() - 0.5).slice(0, 5);
+            const verbs = shuffled.map((item, idx) => ({ id: idx, text: item.verb })).sort(() => Math.random() - 0.5);
+            const means = shuffled.map((item, idx) => ({ id: idx, text: item.mean })).sort(() => Math.random() - 0.5);
+
+            const board = document.getElementById('matching-game-board');
+            let html = `<div class="space-y-2">`;
+            verbs.forEach(v => {
+                html += `
+                    <button onclick="clickVerbCard(this, ${v.id})" class="verb-card w-full p-3 rounded-xl bg-slate-900 border border-slate-800 text-left text-xs sm:text-sm font-semibold text-purple-300 hover:border-purple-500 transition">
+                        ${v.text}
+                    </button>
+                `;
+            });
+            html += `</div><div class="space-y-2">`;
+            means.forEach(m => {
+                html += `
+                    <button onclick="clickMeanCard(this, ${m.id})" class="mean-card w-full p-3 rounded-xl bg-slate-900 border border-slate-800 text-left text-xs sm:text-sm font-semibold text-cyan-300 hover:border-cyan-500 transition">
+                        ${m.text}
+                    </button>
+                `;
+            });
+            html += `</div>`;
+            board.innerHTML = html;
+        }
+
+        function clickVerbCard(el, id) {
+            document.querySelectorAll('.verb-card').forEach(c => c.classList.remove('border-purple-500', 'bg-purple-950/50'));
+            el.classList.add('border-purple-500', 'bg-purple-950/50');
+            selectedVerbCard = { el, id };
+            checkMatch();
+        }
+
+        function clickMeanCard(el, id) {
+            document.querySelectorAll('.mean-card').forEach(c => c.classList.remove('border-cyan-500', 'bg-cyan-950/50'));
+            el.classList.add('border-cyan-500', 'bg-cyan-950/50');
+            selectedMeanCard = { el, id };
+            checkMatch();
+        }
+
+        function checkMatch() {
+            if (selectedVerbCard && selectedMeanCard) {
+                if (selectedVerbCard.id === selectedMeanCard.id) {
+                    selectedVerbCard.el.className = "w-full p-3 rounded-xl bg-emerald-950/60 border border-emerald-500 text-xs sm:text-sm font-semibold text-emerald-300 opacity-50 cursor-default";
+                    selectedMeanCard.el.className = "w-full p-3 rounded-xl bg-emerald-950/60 border border-emerald-500 text-xs sm:text-sm font-semibold text-emerald-300 opacity-50 cursor-default";
+                    selectedVerbCard.el.disabled = true;
+                    selectedMeanCard.el.disabled = true;
+                    gameScore += 2;
+                    document.getElementById('game-score').innerText = gameScore;
+                } else {
+                    const vEl = selectedVerbCard.el;
+                    const mEl = selectedMeanCard.el;
+                    vEl.classList.add('border-rose-500', 'bg-rose-950/50');
+                    mEl.classList.add('border-rose-500', 'bg-rose-950/50');
+                    setTimeout(() => {
+                        vEl.classList.remove('border-rose-500', 'bg-rose-950/50', 'border-purple-500', 'bg-purple-950/50');
+                        mEl.classList.remove('border-rose-500', 'bg-rose-950/50', 'border-cyan-500', 'bg-cyan-950/50');
+                    }, 500);
+                }
+                selectedVerbCard = null;
+                selectedMeanCard = null;
             }
         }
 
